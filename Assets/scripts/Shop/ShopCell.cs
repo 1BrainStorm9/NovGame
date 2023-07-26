@@ -18,9 +18,8 @@ public class ShopCell : Cell
             if(inventory.Coins >= ItemPrice)
             { 
                 inventory.Add(_item);
-                shop.Delete(_item);
+                //shop.Delete(_item);
                 inventory.Coins -= ItemPrice;
-                inventory.QuickRender();
             }
         }
     }

@@ -1,7 +1,11 @@
+using System;
 using UnityEngine.EventSystems;
+using static CameraController;
 
 public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler
 {
+    public delegate void InventoryCellDelegate(InventoryCell cell);
+    public static event InventoryCellDelegate OnClick;
     public void OnPointerEnter(PointerEventData eventData)
     {
         ShowItemStats();
@@ -28,6 +32,7 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+            OnClick(this);
             var plrInv = FindObjectOfType<PlayerInventory>();
             plrInv.item = _item;
             plrInv.EquipItem();
