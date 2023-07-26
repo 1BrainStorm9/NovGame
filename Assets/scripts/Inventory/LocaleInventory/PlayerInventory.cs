@@ -153,9 +153,6 @@ public class PlayerInventory : MonoBehaviour
 
             _activeSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.UIIcon;
             RefreshHeroInfoPanel();
-
-            var exitFromMenuHandler = FindObjectOfType<ExitMenuHandler>();
-            exitFromMenuHandler.DestroyMenu();
         }
     }
 

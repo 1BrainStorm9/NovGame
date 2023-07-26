@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneralInventory : Inventory
+public class Shop : Inventory
 {
-    public int Coins;
-
 
 }
