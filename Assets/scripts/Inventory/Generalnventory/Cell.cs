@@ -8,8 +8,11 @@ public abstract class Cell : MonoBehaviour, IPointerClickHandler
     [SerializeField] protected TextMeshProUGUI _nameField;
     [SerializeField] protected Image _iconField;
     protected AssetItem _item;
-    public int ItemPrice=> _item.Price;
+    public int Id;
 
+
+    public int ItemPrice=> _item.Price;
+    public AssetItem Item => _item;
 
     public virtual void OnPointerClick(PointerEventData eventData)
     {

@@ -186,7 +186,6 @@ public class PlayerInventory : MonoBehaviour
         heroes[index].Items.Add(newItem);
 
         _activeSlot.GetComponent<ItemSlotInfo>().item = newItem;
-        generalInventory.QuickRender();
         DecHeroStats(oldItem);
         IncHeroStats(newItem);
     }
@@ -205,7 +204,6 @@ public class PlayerInventory : MonoBehaviour
             heroes[index].Items.Remove(item);
         }
 
-        generalInventory.QuickRender();
         SetActiveSloaAsItemType(item);
         _activeSlot.transform.GetChild(0).GetComponent<Image>().sprite = _activeSlot.GetComponent<ItemSlotInfo>().defaultImage;
         _activeSlot.GetComponent<ItemSlotInfo>().isEmptySlot = true;
