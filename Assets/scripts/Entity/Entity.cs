@@ -20,6 +20,19 @@ public abstract class Entity : MonoBehaviour
     public Weapon weapon;
 
     public List<Spell> uniqueBasicSpells;
+    protected Animator Animator;
+    private static readonly int Hit = Animator.StringToHash("hit");
+    private static readonly int AttackKey = Animator.StringToHash("attack");
+
+    protected void Awake()
+    {
+        Animator = GetComponent<Animator>();
+    }
+
+    private void FixedUpdate()
+    {
+
+    }
 
     public void AddWeaponSpellsToHeroSpells()
     {
@@ -46,7 +59,7 @@ public abstract class Entity : MonoBehaviour
             }
       
     }
-    public double Attack(Entity enemy, float multiplyDamageCoefficient)
+    public virtual double Attack(Entity enemy, float multiplyDamageCoefficient)
     {
 
         if (!IsDodging(enemy.evasionChance))
@@ -96,7 +109,7 @@ public abstract class Entity : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         health = health - damage;
     }

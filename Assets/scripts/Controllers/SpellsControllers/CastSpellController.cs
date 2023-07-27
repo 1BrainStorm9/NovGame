@@ -9,9 +9,11 @@ public class CastSpellController : MonoBehaviour
     public int SpellID = -1;
     public List<Spell> Spells;
     public List<Spell> BasicSpells;
-    private void Awake()
+    private void Start()
     {
-        BasicSpells.AddRange(Spells);
+        BasicSpells.AddRange(GetComponent<Entity>().uniqueBasicSpells);
+        Spells.Clear();
+        Spells.AddRange(BasicSpells);
     }
 
     public void SetActiveSpells(List<Spell> spells)

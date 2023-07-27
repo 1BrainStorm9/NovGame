@@ -45,6 +45,10 @@ public class GameController : MonoBehaviour
     private void setBasicHeroSpeed()
     {
         heroSpeed = 0;
+        foreach (var item in playerList)
+        {
+            item.isRun = false;
+        }
     }
 
     private void Start()
@@ -78,6 +82,7 @@ public class GameController : MonoBehaviour
         foreach (var item in playerList)
         {
             var moveAmount = heroSpeed * Time.deltaTime;
+
             item.transform.position += Vector3.right * moveAmount;
         }
     }
@@ -268,11 +273,19 @@ public class GameController : MonoBehaviour
                 DestroyAllCreaturesAndLoadNewScene();
             }
 
-            OnKillAllEnemies?.Invoke();
-
-            heroSpeed = 5;
-            manager.HideSelectCircle();
+            Invoke("HeroMoveAnimation", 1f);
         }
+    }
+
+    private void HeroMoveAnimation()
+    {
+        foreach (var item in playerList)
+        {
+            item.isRun = true;
+        }
+        heroSpeed = 5;
+        OnKillAllEnemies?.Invoke();
+        manager.HideSelectCircle();
     }
 
     private void DestroyAllCreaturesAndLoadNewScene()
