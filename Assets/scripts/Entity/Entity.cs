@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using PixelCrew.Components.GoBased;
 
 public abstract class Entity : MonoBehaviour
 {
@@ -21,18 +22,15 @@ public abstract class Entity : MonoBehaviour
 
     public List<Spell> uniqueBasicSpells;
     protected Animator Animator;
-    private static readonly int Hit = Animator.StringToHash("hit");
     private static readonly int AttackKey = Animator.StringToHash("attack");
+    private static readonly int Hit = Animator.StringToHash("hit");
+    [SerializeField] protected SpawnListComponent _particles;
 
     protected void Awake()
     {
         Animator = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
-    {
-
-    }
 
     public void AddWeaponSpellsToHeroSpells()
     {
@@ -56,12 +54,12 @@ public abstract class Entity : MonoBehaviour
             foreach (var states in CharStates.ToList())
             {
                 states.StateProcced(this);
-            }
-      
+        }
+
     }
     public virtual double Attack(Entity enemy, float multiplyDamageCoefficient)
     {
-
+        Animator.SetTrigger(AttackKey);
         if (!IsDodging(enemy.evasionChance))
         {
             float tempDamage;
@@ -80,6 +78,11 @@ public abstract class Entity : MonoBehaviour
             return tempDamage;
         }
         return 0;
+    }
+
+    public void OnAttack()
+    {
+        _particles.Spawn("Slash");
     }
 
     public void Destroy()
@@ -112,6 +115,7 @@ public abstract class Entity : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         health = health - damage;
+        Animator.SetTrigger(Hit);
     }
 
     public AssetItem ReturnItemWhithThisType(ItemType needItemType)

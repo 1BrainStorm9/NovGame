@@ -155,6 +155,7 @@ public class GameController : MonoBehaviour
     {
         if (targerObject.health <= 0)
         {
+            
             manager.HideTargetCircle();
             targerObject.Destroy();
             fightList.RemoveAt(targerObject.fightIndex);
