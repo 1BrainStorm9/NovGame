@@ -493,6 +493,10 @@ PrefabInstance:
       propertyPath: damage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
+      propertyPath: evasionChance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 76591019021324355, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -4152,6 +4156,10 @@ PrefabInstance:
       propertyPath: damage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
+      propertyPath: evasionChance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 76591019021324355, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -6086,7 +6094,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.019180298, y: 136.82497}
+  m_AnchoredPosition: {x: 0.019165039, y: 136.82497}
   m_SizeDelta: {x: 1.5517883, y: -245.3223}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1797466924

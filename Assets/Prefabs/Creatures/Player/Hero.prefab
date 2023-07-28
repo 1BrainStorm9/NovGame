@@ -117,15 +117,15 @@ MonoBehaviour:
   health: 10
   protect: 0
   evasionChance: 10
-  SpellsInHUD: 0
-  fightIndex: 0
-  listIndex: 0
   CharStates: []
   Items: []
   weapon: {fileID: 0}
   uniqueBasicSpells:
   - {fileID: 4851252110718167138}
   - {fileID: 7742452860400687148}
+  SpellsInHUD: 0
+  fightIndex: 0
+  listIndex: 0
   _particles: {fileID: 4718445787287281661}
   isRun: 0
 --- !u!114 &7742452860400687148
@@ -182,7 +182,7 @@ Animator:
   m_GameObject: {fileID: 76591019021324364}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a9a5b4df3a8474fa88396e3b4da9f657, type: 2}
+  m_Controller: {fileID: 9100000, guid: 52cfa0a5002116343a5c8dc4fe3a9c06, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

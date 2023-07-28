@@ -134,7 +134,6 @@ public class GameController : MonoBehaviour
         if (targerObject.health <= 0)
         {
             manager.HideTargetCircle();
-            targerObject.Destroy();
             fightList.RemoveAt(targerObject.fightIndex);
             playerList.RemoveAt(targerObject.listIndex);
         }
@@ -157,7 +156,6 @@ public class GameController : MonoBehaviour
         {
             
             manager.HideTargetCircle();
-            targerObject.Destroy();
             fightList.RemoveAt(targerObject.fightIndex);
             enemyList.RemoveAt(targerObject.listIndex);
         }

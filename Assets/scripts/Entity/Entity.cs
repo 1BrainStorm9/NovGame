@@ -2,10 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using PixelCrew.Components.GoBased;
+using System;
 
 public abstract class Entity : MonoBehaviour
 {
-    [Header("Characteristics")]
+    [Header("------Characteristics------")]
+    [Space]
     public float damage;
     public float criticalDamage;
     public float criticalChance;
@@ -13,18 +15,31 @@ public abstract class Entity : MonoBehaviour
     public float protect;
     public float evasionChance;
 
-    [Header("System info")]
-    public bool SpellsInHUD = false;
-    public int fightIndex, listIndex;
+    [Header("------States------")]
+    [Space]
     public List<StateInfo> CharStates;
+
+    [Header("------Items------")]
+    [Space]
     public List<AssetItem> Items;
     public Weapon weapon;
 
+    [Header("------Spells------")]
+    [Space]
     public List<Spell> uniqueBasicSpells;
+
+    [Header("------System info------")]
+    [Space]
+    public bool SpellsInHUD = false;
+    public int fightIndex, listIndex;
+    [SerializeField] protected SpawnListComponent _particles;
     protected Animator Animator;
     private static readonly int AttackKey = Animator.StringToHash("attack");
     private static readonly int Hit = Animator.StringToHash("hit");
-    [SerializeField] protected SpawnListComponent _particles;
+    private static readonly int Die = Animator.StringToHash("is-dead");
+    private static readonly int Evasion = Animator.StringToHash("evasion");
+
+
 
     protected void Awake()
     {
@@ -60,7 +75,7 @@ public abstract class Entity : MonoBehaviour
     public virtual double Attack(Entity enemy, float multiplyDamageCoefficient)
     {
         Animator.SetTrigger(AttackKey);
-        if (!IsDodging(enemy.evasionChance))
+        if (!enemy.IsDodging())
         {
             float tempDamage;
             if (IsCriticalStrike())
@@ -85,10 +100,6 @@ public abstract class Entity : MonoBehaviour
         _particles.Spawn("Slash");
     }
 
-    public void Destroy()
-    {
-        Destroy(gameObject);
-    }
 
     protected bool IsCriticalStrike()
     {
@@ -101,22 +112,42 @@ public abstract class Entity : MonoBehaviour
         return false;
     }
 
-    protected bool IsDodging(float chance)
+    protected bool IsDodging()
     {
         float random = UnityEngine.Random.Range(1, 100);
-        if (chance >= random)
+        if (evasionChance >= random)
         {
+            Animator.SetTrigger(Evasion);
             return true;
         }
         return false;
 
     }
 
-    public virtual void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
+
         health = health - damage;
+
+        if(health <= 0)
+        {
+            OnDie();
+            return;
+        }
         Animator.SetTrigger(Hit);
     }
+
+    public void OnDie()
+    {
+        Animator.SetBool(Die, true);
+        Invoke("Destroy", 1f);
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
 
     public AssetItem ReturnItemWhithThisType(ItemType needItemType)
     {
