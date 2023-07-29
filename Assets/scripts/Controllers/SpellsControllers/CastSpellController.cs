@@ -11,7 +11,7 @@ public class CastSpellController : MonoBehaviour
     public List<Spell> BasicSpells;
     private void Start()
     {
-        BasicSpells.AddRange(GetComponent<Entity>().uniqueBasicSpells);
+        BasicSpells.AddRange(GetComponent<Creature>().uniqueBasicSpells);
         Spells.Clear();
         Spells.AddRange(BasicSpells);
     }
@@ -27,7 +27,7 @@ public class CastSpellController : MonoBehaviour
         return Spells[SpellID].A_Attribute.CastForEnemy;
     }
 
-    public void UseSpell(Entity targetObject)
+    public void UseSpell(Creature targetObject)
     {
         if (SpellSelected)
         {

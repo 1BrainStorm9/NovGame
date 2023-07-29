@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SpellButtonsController : MonoBehaviour
 {
-    public Entity selectObject;
+    public Creature selectObject;
     private GameController gameController;
 
     private void Awake()

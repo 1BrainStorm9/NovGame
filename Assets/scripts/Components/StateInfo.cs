@@ -6,7 +6,7 @@ public abstract class StateInfo : MonoBehaviour
 {
     public int TurnsCount;
 
-    public virtual void StateProcced(Entity entity)
+    public virtual void StateProcced(Creature entity)
     {
 
     }
@@ -33,7 +33,7 @@ public class AttackBuffState : DebuffState
     public int damageBuff;
     private bool isBuffed = false;
 
-    public override void StateProcced(Entity entity)
+    public override void StateProcced(Creature entity)
     {
         if (TurnsCount > 0)
         {
@@ -58,7 +58,7 @@ public class TemporalDamageState : DebuffState
 {
     public float temporalDamage;
 
-    public override void StateProcced(Entity entity)
+    public override void StateProcced(Creature entity)
     {
         if (TurnsCount > 0)
         {

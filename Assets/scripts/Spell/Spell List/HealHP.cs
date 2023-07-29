@@ -11,7 +11,7 @@ public class HealHP : Spell
     public override AttributeSpell A_Attribute { get { return _attribute; } set { _attribute = value; } }
 
 
-    public override void A_ActivateSpell(Entity target)
+    public override void A_ActivateSpell(Creature target)
     {
         target.health += HealCurrent;
     }

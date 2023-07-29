@@ -10,12 +10,12 @@ public class GameController : MonoBehaviour
 
 
     [Header("Game Objects")]
-    public Entity selectObject;
-    public Entity targerObject;
+    public Creature selectObject;
+    public Creature targerObject;
 
     [Header("Lists")]
-    public List<Entity> fightList;
-    public List<Player> playerList;
+    public List<Creature> fightList;
+    public List<Hero> playerList;
     public List<Enemy> enemyList;
 
     private bool isTurnEnd = false;
@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     public delegate void NoActiveEnemiesEnterEvent();
     public static event NoActiveEnemiesEnterEvent OnKillAllEnemies;
 
-    public Entity GetActiveCreature { get { return fightList[0]; } }
+    public Creature GetActiveCreature { get { return fightList[0]; } }
 
     private void OnEnable()
     {
@@ -59,8 +59,8 @@ public class GameController : MonoBehaviour
 
         foreach (var player in GameObject.FindGameObjectsWithTag("Player").ToList())
         {
-            playerList.Add(player.GetComponent<Player>());
-            fightList.Add(player.GetComponent<Player>());
+            playerList.Add(player.GetComponent<Hero>());
+            fightList.Add(player.GetComponent<Hero>());
         }
     }
 
@@ -210,7 +210,7 @@ public class GameController : MonoBehaviour
 
     private void SelectTargetProccesing(RaycastHit2D hit, bool castForEnemy)
     {
-        targerObject = hit.collider.GetComponent<Entity>();
+        targerObject = hit.collider.GetComponent<Creature>();
         if (targerObject != null)
         {
             if (castForEnemy)
@@ -231,7 +231,7 @@ public class GameController : MonoBehaviour
 
     private bool IsPlayerTurn()
     {
-        return GetActiveCreature.GetComponent<Player>() != null;
+        return GetActiveCreature.GetComponent<Hero>() != null;
     }
 
     private void EndTurn()
@@ -287,13 +287,14 @@ public class GameController : MonoBehaviour
         manager.HideSelectCircle();
     }
 
+    [ContextMenu("EndLvl")]
     private void DestroyAllCreaturesAndLoadNewScene()
     {
         foreach (var creatures in fightList)
         {
             creatures.Destroy();
         }
-        UnityEngine.SceneManagement.SceneManager.LoadScene("NewScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("World");
     }
 
 

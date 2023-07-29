@@ -4,7 +4,8 @@ using System.Linq;
 using PixelCrew.Components.GoBased;
 using System;
 
-public abstract class Entity : MonoBehaviour
+[Serializable]
+public abstract class Creature : MonoBehaviour
 {
     [Header("------Characteristics------")]
     [Space]
@@ -39,13 +40,14 @@ public abstract class Entity : MonoBehaviour
     private static readonly int Die = Animator.StringToHash("is-dead");
     private static readonly int Evasion = Animator.StringToHash("evasion");
 
+    private GameSession gameSession;
+
 
 
     protected void Awake()
     {
         Animator = GetComponent<Animator>();
     }
-
 
     public void AddWeaponSpellsToHeroSpells()
     {
@@ -72,7 +74,7 @@ public abstract class Entity : MonoBehaviour
         }
 
     }
-    public virtual double Attack(Entity enemy, float multiplyDamageCoefficient)
+    public virtual double Attack(Creature enemy, float multiplyDamageCoefficient)
     {
         Animator.SetTrigger(AttackKey);
         if (!enemy.IsDodging())

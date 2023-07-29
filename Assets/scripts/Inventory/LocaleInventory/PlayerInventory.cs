@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private List<AssetItem> _activeItems;
 
     [Header("Heroes info")]
-    public List<Entity> heroes;
+    public List<Creature> heroes;
     public int index = 0;
 
     [Header("Other info")]

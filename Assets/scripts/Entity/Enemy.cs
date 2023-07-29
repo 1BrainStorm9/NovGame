@@ -2,9 +2,9 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 
-public class Enemy : Entity
+public class Enemy : Creature
 {
-    private Entity enemyTarget;
+    private Creature enemyTarget;
 
     public void EnemyTurn()
     { 
@@ -15,7 +15,7 @@ public class Enemy : Entity
     }
 
 
-    public Entity AIChooseTarget(System.Collections.Generic.List<Player> targets)
+    public Creature AIChooseTarget(System.Collections.Generic.List<Hero> targets)
     {
         int randomIndex = Random.Range(0, targets.Count);
         enemyTarget = targets[randomIndex];

@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 76591019021324355}
   - component: {fileID: 4718445787287281661}
   m_Layer: 0
-  m_Name: Hero
+  m_Name: Bobik
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   fightIndex: 0
   listIndex: 0
   _particles: {fileID: 4718445787287281661}
+  prefab: {fileID: 76591019021324353}
   isRun: 0
 --- !u!114 &7742452860400687148
 MonoBehaviour:

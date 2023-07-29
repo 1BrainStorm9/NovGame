@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SpellHUDController : MonoBehaviour
 {
     public List<Image> spellImages;
-    public Entity activeEntity;
+    public Creature activeEntity;
     public Sprite lockSprite;
 
     private CastSpellController _castSpellSystem;

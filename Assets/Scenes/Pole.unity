@@ -491,7 +491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: damage
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: evasionChance
@@ -2848,6 +2848,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899624337}
   m_CullTransparentMesh: 1
+--- !u!1 &901211650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 901211652}
+  - component: {fileID: 901211651}
+  m_Layer: 0
+  m_Name: GameSession
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &901211651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901211650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92f397fdd0fc6164dba181c99c4759de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    Hp: 5
+  _inventory:
+    items:
+    - {fileID: 11400000, guid: e4f682f0461dbe544a667ac7bbb41582, type: 2}
+    - {fileID: 11400000, guid: 7cf673b4a89da1e4d8ffce9904fd74c2, type: 2}
+    - {fileID: 11400000, guid: 2638e843d6a49b04da52fbf62a73795b, type: 2}
+    - {fileID: 11400000, guid: c540e4a493ae902489df7e1a397e7d5a, type: 2}
+    - {fileID: 11400000, guid: eee52b44918237d48a3225d5014856e4, type: 2}
+    - {fileID: 11400000, guid: 15d056a7e5328ba44863faaf7262ae29, type: 2}
+    - {fileID: 11400000, guid: 67488247fa2c01e4395f00a8ae1fd046, type: 2}
+    - {fileID: 11400000, guid: ce888ebcfec07f741bbe36fcbe529a6e, type: 2}
+  _heroes:
+  - {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
+  - {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
+--- !u!4 &901211652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901211650}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.26753, y: -2.4441466, z: -9.88561}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &906378173
 GameObject:
   m_ObjectHideFlags: 0
@@ -4154,7 +4213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: damage
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: evasionChance
@@ -7315,15 +7374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe9ff096cacd0b4ca99f634917b9875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items:
-  - {fileID: 11400000, guid: eee52b44918237d48a3225d5014856e4, type: 2}
-  - {fileID: 11400000, guid: 15d056a7e5328ba44863faaf7262ae29, type: 2}
-  - {fileID: 11400000, guid: e4f682f0461dbe544a667ac7bbb41582, type: 2}
-  - {fileID: 11400000, guid: 7cf673b4a89da1e4d8ffce9904fd74c2, type: 2}
-  - {fileID: 11400000, guid: ce888ebcfec07f741bbe36fcbe529a6e, type: 2}
-  - {fileID: 11400000, guid: 67488247fa2c01e4395f00a8ae1fd046, type: 2}
-  - {fileID: 11400000, guid: 2638e843d6a49b04da52fbf62a73795b, type: 2}
-  - {fileID: 11400000, guid: c540e4a493ae902489df7e1a397e7d5a, type: 2}
+  Items: []
   _CellTemplate: {fileID: 8606808509840312639, guid: 7dadbd22ef9eddc40b19fd328024d529, type: 3}
   _container: {fileID: 912518473}
   _cells: []

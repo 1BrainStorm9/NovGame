@@ -12,7 +12,6 @@ public abstract class Inventory : MonoBehaviour
 
     public void OnEnable()
     {
-        FullRender(Items);
         InventoryCell.OnClick += SetActiveCell;
     }
 
@@ -34,7 +33,7 @@ public abstract class Inventory : MonoBehaviour
         Items.Remove(item);
     }
 
-    private void FullRender(List<AssetItem> items)
+    protected void FullRender(List<AssetItem> items)
     {
         foreach (Transform child in _container)
         {
