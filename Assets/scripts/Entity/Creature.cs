@@ -13,6 +13,7 @@ public abstract class Creature : MonoBehaviour
     public float criticalDamage;
     public float criticalChance;
     public float health;
+    public float maxHealth;
     public float protect;
     public float evasionChance;
 
@@ -68,9 +69,9 @@ public abstract class Creature : MonoBehaviour
 
     public void ActivateStates()
     {
-            foreach (var states in CharStates.ToList())
-            {
-                states.StateProcced(this);
+        foreach (var states in CharStates.ToList())
+        {
+            states.StateProcced(this);
         }
 
     }

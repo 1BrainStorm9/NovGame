@@ -23,7 +23,7 @@ public class SpellButtonsController : MonoBehaviour
         if(castSpellController.Spells.Count > index)
         {
             castSpellController.SpellID = index;
-            castSpellController.SpellSelected = true;
+            castSpellController.isSpellSelected = true;
             gameController.manager.HideTargetCircle();
             gameController.manager.HideTeamTargetCircle();
         }

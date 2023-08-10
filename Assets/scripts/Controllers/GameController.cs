@@ -1,3 +1,4 @@
+using PixelCrew.UI.Widgets;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -113,10 +114,18 @@ public class GameController : MonoBehaviour
 
     private void EnemyTurnProccesing()
     {
-        targerObject = selectObject.GetComponent<Enemy>().AIChooseTarget(playerList);
+        targerObject = selectObject.GetComponent<Enemy>().ChooseSpellAndGetTarget();
 
-        manager.ShowTargetCircle();
-        manager.SetTargetCirclePosition(targerObject.transform.position);
+        if (targerObject.TryGetComponent<Hero>(out _))
+        {
+            manager.ShowTargetCircle();
+            manager.SetTargetCirclePosition(targerObject.transform.position);
+        }
+        else
+        {
+            manager.ShowTeamTargetCircle();
+            manager.SetTeamTargetCirclePosition(targerObject.transform.position);
+        }
 
         Invoke("EnemyTurnEnd", 1.5f);
     }
@@ -196,11 +205,11 @@ public class GameController : MonoBehaviour
         var csc = selectObject.GetComponent<CastSpellController>();
        
 
-        if (csc.SpellSelected && csc.CanCastForEnemy() && hit.collider?.tag == "Enemy")
+        if (csc.isSpellSelected && csc.CanCastForEnemy() && hit.collider?.tag == "Enemy")
         {
             SelectTargetProccesing(hit, csc.CanCastForEnemy());
         }
-        else if(csc.SpellSelected && !csc.CanCastForEnemy() && hit.collider?.tag == "Player")
+        else if(csc.isSpellSelected && !csc.CanCastForEnemy() && hit.collider?.tag == "Player")
         {
             SelectTargetProccesing(hit, csc.CanCastForEnemy());
         }
@@ -228,7 +237,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-
     private bool IsPlayerTurn()
     {
         return GetActiveCreature.GetComponent<Hero>() != null;
@@ -240,7 +248,6 @@ public class GameController : MonoBehaviour
         ReloadListsIndex();
         EndGameProcessing();
     }
-
 
     private void EndMoveSettings()
     {
@@ -296,7 +303,6 @@ public class GameController : MonoBehaviour
         }
         UnityEngine.SceneManagement.SceneManager.LoadScene("World");
     }
-
 
     private void ReloadFightListIndexes()
     {
