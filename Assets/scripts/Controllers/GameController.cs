@@ -1,4 +1,3 @@
-using PixelCrew.UI.Widgets;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,24 +5,28 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [Header("HUD")]
+    [Header("------HUD------")]
+    [Space]
     public UIManager manager;
 
 
-    [Header("Game Objects")]
+    [Header("------Game Objects------")]
+    [Space]
     public Creature selectObject;
     public Creature targerObject;
 
-    [Header("Lists")]
+    [Header("------Lists------")]
+    [Space]
     public List<Creature> fightList;
     public List<Hero> playerList;
     public List<Enemy> enemyList;
 
-    private bool isTurnEnd = false;
+    [Header("------System info------")]
+    [Space]
     public bool isBossFight = false;
-
     public int heroSpeed = 0;
 
+    private bool isTurnEnd = false;
     private ColliderCreationController enemyColiderController;
 
     public delegate void NoActiveEnemiesEnterEvent();
@@ -163,7 +166,8 @@ public class GameController : MonoBehaviour
     {
         if (targerObject.health <= 0)
         {
-            
+            selectObject.GetComponent<Hero>().AddExp(200);
+            selectObject.GetComponent<Hero>().LevelUp();
             manager.HideTargetCircle();
             fightList.RemoveAt(targerObject.fightIndex);
             enemyList.RemoveAt(targerObject.listIndex);

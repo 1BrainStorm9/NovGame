@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : Creature
 {
+
+
     private Creature target;
 
     public void EnemyTurn() 

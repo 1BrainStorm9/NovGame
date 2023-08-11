@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using PixelCrew.Components.GoBased;
 using System;
+using TMPro;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 [Serializable]
 public abstract class Creature : MonoBehaviour
 {
     [Header("------Characteristics------")]
     [Space]
+    public float health;
+    public float maxHealth;
     public float damage;
     public float criticalDamage;
     public float criticalChance;
-    public float health;
-    public float maxHealth;
     public float protect;
     public float evasionChance;
+    public int lvl = 1;
 
     [Header("------States------")]
     [Space]
@@ -32,17 +36,21 @@ public abstract class Creature : MonoBehaviour
 
     [Header("------System info------")]
     [Space]
-    public bool SpellsInHUD = false;
+    [SerializeField]
+    protected SpawnListComponent _particles;
     public int fightIndex, listIndex;
-    [SerializeField] protected SpawnListComponent _particles;
+
+    public TextMeshProUGUI damageText;
+    //public bool SpellsInHUD = false;
+
+
     protected Animator Animator;
     private static readonly int AttackKey = Animator.StringToHash("attack");
     private static readonly int Hit = Animator.StringToHash("hit");
     private static readonly int Die = Animator.StringToHash("is-dead");
     private static readonly int Evasion = Animator.StringToHash("evasion");
 
-    private GameSession gameSession;
-
+    private GameSession gameSession; 
 
 
     protected void Awake()
@@ -129,10 +137,12 @@ public abstract class Creature : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-
         health = health - damage;
 
-        if(health <= 0)
+        damageText.text = damage.ToString();
+        Invoke("SetDamageText", 0.5f);
+
+        if (health <= 0)
         {
             OnDie();
             return;
@@ -140,10 +150,17 @@ public abstract class Creature : MonoBehaviour
         Animator.SetTrigger(Hit);
     }
 
+    public void SetDamageText()
+    {
+        damageText.text = "";
+    }
+
+
+
     public void OnDie()
     {
         Animator.SetBool(Die, true);
-        Invoke("Destroy", 1f);
+        Destroy(gameObject,1f);
     }
 
     public void Destroy()
