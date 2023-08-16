@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+
 
 
 public class GameController : MonoBehaviour
@@ -8,8 +9,8 @@ public class GameController : MonoBehaviour
     [Header("------HUD------")]
     [Space]
     public UIManager manager;
-
-
+    private HeroManager heroManager;
+    private EnemyManager enemyManager;
     [Header("------Game Objects------")]
     [Space]
     public Creature selectObject;
@@ -24,68 +25,51 @@ public class GameController : MonoBehaviour
     [Header("------System info------")]
     [Space]
     public bool isBossFight = false;
-    public int heroSpeed = 0;
-
     private bool isTurnEnd = false;
-    private ColliderCreationController enemyColiderController;
 
-    public delegate void NoActiveEnemiesEnterEvent();
-    public static event NoActiveEnemiesEnterEvent OnKillAllEnemies;
+    [Header("------Actions------")]
+    [Space]
+    public static Action OnKilledAllEnemies;
+    public static Action<Hero> OnKilledHero;
+    public static Action<Enemy> OnKilledEnemy;
+
 
     public Creature GetActiveCreature { get { return fightList[0]; } }
 
     private void OnEnable()
     {
-        GetEnemiesInCollider.OnEnemyTriggerEnter += AddEnemyToList;
-        CameraController.OnTriggerEnter += setBasicHeroSpeed;
+        EnemyManager.OnEnemyAdded += AddEnemyToList;
     }
 
     private void OnDisable()
     {
-        GetEnemiesInCollider.OnEnemyTriggerEnter -= AddEnemyToList;
-        CameraController.OnTriggerEnter -= setBasicHeroSpeed;
+        EnemyManager.OnEnemyAdded -= AddEnemyToList;
     }
 
-    private void setBasicHeroSpeed()
-    {
-        heroSpeed = 0;
-        foreach (var item in playerList)
-        {
-            item.isRun = false;
-        }
-    }
 
     private void Start()
     {
-        enemyColiderController = FindObjectOfType<ColliderCreationController>();
-        enemyColiderController.AddCollider(Component.FindAnyObjectByType<Camera>().transform);
         manager = GetComponent<UIManager>();
+        heroManager = GetComponent<HeroManager>();
+        enemyManager = GetComponent<EnemyManager>();
 
-        foreach (var player in GameObject.FindGameObjectsWithTag("Player").ToList())
-        {
-            playerList.Add(player.GetComponent<Hero>());
-            fightList.Add(player.GetComponent<Hero>());
-        }
+
+        playerList.AddRange(heroManager.heroes);
+        fightList.AddRange(heroManager.heroes);
     }
 
     private void AddEnemyToList(Enemy enemy)
     {
         enemyList.Add(enemy);
         fightList.Add(enemy);
-        ReloadListsIndex();
     }
 
-    private void ReloadListsIndex()
-    {
-        ReloadFightListIndexes();
-        ReloadEntityListIndexes();
-    }
 
     private void FixedUpdate()
     {
         foreach (var item in playerList)
         {
-            var moveAmount = heroSpeed * Time.deltaTime;
+            var moveAmount = heroManager.heroSpeed * Time.deltaTime;
 
             item.transform.position += Vector3.right * moveAmount;
         }
@@ -134,20 +118,21 @@ public class GameController : MonoBehaviour
     }
 
     private void EnemyTurnEnd()
-    {
+    {    
         selectObject.GetComponent<Enemy>().EnemyTurn();
 
-        DestroyPlayerWhenNoHp();
+        RemovePlayerWhenNoHp();
         EndTurn();
     }
 
-    private void DestroyPlayerWhenNoHp()
+    private void RemovePlayerWhenNoHp()
     {
         if (targerObject.health <= 0)
         {
             manager.HideTargetCircle();
-            fightList.RemoveAt(targerObject.fightIndex);
-            playerList.RemoveAt(targerObject.listIndex);
+            OnKilledHero?.Invoke(targerObject.GetComponent<Hero>());
+            playerList.Remove(targerObject.GetComponent<Hero>());
+            fightList.Remove(targerObject.GetComponent<Hero>());
         }
     }
 
@@ -156,28 +141,29 @@ public class GameController : MonoBehaviour
         if (selectObject != null && targerObject != null && !isTurnEnd)
         {
             selectObject.GetComponent<CastSpellController>().UseSpell(targerObject);
-            DestroyEnemyWhenNoHp();
+            RemoveEnemyWhenNoHp();
             isTurnEnd = true;
             EndTurn();
         }
     }
 
-    private void DestroyEnemyWhenNoHp()
+    private void RemoveEnemyWhenNoHp()
     {
         if (targerObject.health <= 0)
         {
             selectObject.GetComponent<Hero>().AddExp(200);
             selectObject.GetComponent<Hero>().LevelUp();
             manager.HideTargetCircle();
-            fightList.RemoveAt(targerObject.fightIndex);
-            enemyList.RemoveAt(targerObject.listIndex);
+            OnKilledEnemy?.Invoke(targerObject?.GetComponent<Enemy>());
+            enemyList.Remove(targerObject.GetComponent<Enemy>());
+            fightList.Remove(targerObject.GetComponent<Enemy>());
         }
     }
 
     private void SelectActiveObject()
     {
+
         selectObject = GetActiveCreature;
-        enemyColiderController.DeleteCollider();
         if (selectObject != null)
         {
             manager.ShowSelectCircle();
@@ -204,7 +190,7 @@ public class GameController : MonoBehaviour
 
     private void SelectTarget()
     {
-        enemyColiderController.DeleteCollider();
+        FindObjectOfType<ColliderCreationController>().DeleteCollider();
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         var csc = selectObject.GetComponent<CastSpellController>();
        
@@ -249,7 +235,6 @@ public class GameController : MonoBehaviour
     private void EndTurn()
     {
         EndMoveSettings();
-        ReloadListsIndex();
         EndGameProcessing();
     }
 
@@ -289,12 +274,7 @@ public class GameController : MonoBehaviour
 
     private void HeroMoveAnimation()
     {
-        foreach (var item in playerList)
-        {
-            item.isRun = true;
-        }
-        heroSpeed = 5;
-        OnKillAllEnemies?.Invoke();
+        OnKilledAllEnemies?.Invoke();
         manager.HideSelectCircle();
     }
 
@@ -306,27 +286,6 @@ public class GameController : MonoBehaviour
             creatures.Destroy();
         }
         UnityEngine.SceneManagement.SceneManager.LoadScene("World");
-    }
-
-    private void ReloadFightListIndexes()
-    {
-        for (var i = 0; i < fightList.Count; i++)
-        {
-            fightList[i].fightIndex = i;
-        }
-    }
-
-    private void ReloadEntityListIndexes()
-    {
-        for (var i = 0; i < playerList.Count; i++)
-        {
-            playerList[i].listIndex = i;
-        }
-
-        for (var i = 0; i < enemyList.Count; i++)
-        {
-            enemyList[i].listIndex = i;
-        }
     }
 
 }

@@ -496,7 +496,7 @@ PrefabInstance:
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: damagePrefab
       value: 
-      objectReference: {fileID: 1418813881}
+      objectReference: {fileID: 0}
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: evasionChance
       value: 10
@@ -504,7 +504,7 @@ PrefabInstance:
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: damagePosition
       value: 
-      objectReference: {fileID: 1418813880}
+      objectReference: {fileID: 0}
     - target: {fileID: 76591019021324355, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -2934,6 +2934,8 @@ GameObject:
   m_Component:
   - component: {fileID: 906378175}
   - component: {fileID: 906378176}
+  - component: {fileID: 906378179}
+  - component: {fileID: 906378178}
   - component: {fileID: 906378177}
   m_Layer: 0
   m_Name: GameController
@@ -2976,7 +2978,6 @@ MonoBehaviour:
   playerList: []
   enemyList: []
   isBossFight: 0
-  heroSpeed: 0
 --- !u!114 &906378177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2994,6 +2995,33 @@ MonoBehaviour:
   teamTargetCircle: {fileID: 1517215350}
   spellBar: {fileID: 497203593}
   hudCanvas: {fileID: 1028587510}
+--- !u!114 &906378178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906378173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63468d0c87cb59b449f0863d0a0983eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroes: []
+  heroSpeed: 0
+--- !u!114 &906378179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906378173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a1890a39a9c59944954c50bc67b1493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1 &912518472
 GameObject:
   m_ObjectHideFlags: 0
@@ -4791,22 +4819,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96954cc3492fa5645a71679f64172891, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &1418813880 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6910715560259670267, guid: c208661d77d688641a39498f9078f5d2, type: 3}
-  m_PrefabInstance: {fileID: 82708223}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1418813881 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2113326129625957941, guid: c208661d77d688641a39498f9078f5d2, type: 3}
-  m_PrefabInstance: {fileID: 82708223}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1464843141
