@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class HeroManager : MonoBehaviour
 {
     public List<Hero> heroes;
     public int heroSpeed = 0;
+
+    public static Action<Hero> OnHeroAdded;
 
     private void OnEnable()
     {
@@ -27,6 +31,7 @@ public class HeroManager : MonoBehaviour
         foreach (var player in GameObject.FindGameObjectsWithTag("Player").ToList())
         {
             heroes.Add(player.GetComponent<Hero>());
+            OnHeroAdded?.Invoke(player.GetComponent<Hero>());
         }
     }
 

@@ -39,11 +39,13 @@ public class GameController : MonoBehaviour
     private void OnEnable()
     {
         EnemyManager.OnEnemyAdded += AddEnemyToList;
+        HeroManager.OnHeroAdded += AddHeroToList;
     }
 
     private void OnDisable()
     {
         EnemyManager.OnEnemyAdded -= AddEnemyToList;
+        HeroManager.OnHeroAdded -= AddHeroToList;
     }
 
 
@@ -53,9 +55,12 @@ public class GameController : MonoBehaviour
         heroManager = GetComponent<HeroManager>();
         enemyManager = GetComponent<EnemyManager>();
 
+    }
 
-        playerList.AddRange(heroManager.heroes);
-        fightList.AddRange(heroManager.heroes);
+    private void AddHeroToList(Hero hero)
+    {
+        playerList.Add(hero);
+        fightList.Add(hero);
     }
 
     private void AddEnemyToList(Enemy enemy)
