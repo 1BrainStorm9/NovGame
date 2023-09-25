@@ -192,7 +192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7976020830761123022, guid: e063a96ffdb14ba48ac655f5bdc31aeb, type: 3}
       propertyPath: damage
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e063a96ffdb14ba48ac655f5bdc31aeb, type: 3}
@@ -337,7 +337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7976020830761123022, guid: 2c443867f078fc94e87cde9dbe606db8, type: 3}
       propertyPath: damage
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c443867f078fc94e87cde9dbe606db8, type: 3}
@@ -640,7 +640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: damage
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
       propertyPath: damagePrefab
@@ -1120,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 76591019021324353, guid: 30954a17b0c41a14c9bb3822e1cff260, type: 3}
       propertyPath: damage
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 76591019021324355, guid: 30954a17b0c41a14c9bb3822e1cff260, type: 3}
       propertyPath: m_SortingOrder
@@ -3065,7 +3065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7976020830761123022, guid: 69bd40e13764dc94fa614cec535e2ca1, type: 3}
       propertyPath: damage
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69bd40e13764dc94fa614cec535e2ca1, type: 3}
@@ -4727,7 +4727,7 @@ PrefabInstance:
       objectReference: {fileID: 1165451272}
     - target: {fileID: 7976020830761123022, guid: e063a96ffdb14ba48ac655f5bdc31aeb, type: 3}
       propertyPath: damage
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7976020830761123022, guid: e063a96ffdb14ba48ac655f5bdc31aeb, type: 3}
       propertyPath: uniqueBasicSpells.Array.size
@@ -6840,7 +6840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7976020830761123022, guid: e063a96ffdb14ba48ac655f5bdc31aeb, type: 3}
       propertyPath: damage
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e063a96ffdb14ba48ac655f5bdc31aeb, type: 3}
@@ -8086,7 +8086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7976020830761123022, guid: 69bd40e13764dc94fa614cec535e2ca1, type: 3}
       propertyPath: damage
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69bd40e13764dc94fa614cec535e2ca1, type: 3}
