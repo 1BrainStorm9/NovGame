@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     [Space]
     public bool isBossFight = false;
     private bool isTurnEnd = false;
+    private bool isGameEnd = false;
 
     [Header("------Actions------")]
     [Space]
@@ -82,6 +83,12 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+
+        if (isGameEnd)
+        {
+            return;
+        }
+
         if (IsPlayerTurn())
         {
             if(selectObject == null)
@@ -262,7 +269,8 @@ public class GameController : MonoBehaviour
     {
         if (playerList.Count == 0)
         {
-            DestroyAllCreaturesAndLoadNewScene();
+            isGameEnd = true;
+            manager.ShowLoseEndGamePanel();
         }
         else if (enemyList.Count == 0)
         {
@@ -270,7 +278,9 @@ public class GameController : MonoBehaviour
 
             if (cameraController.getIsBossFight)
             {
-                DestroyAllCreaturesAndLoadNewScene();
+                isGameEnd = true;
+                manager.ShowWinEndGamePanel();
+                return;
             }
 
             Invoke("HeroMoveAnimation", 1f);
@@ -284,7 +294,7 @@ public class GameController : MonoBehaviour
     }
 
     [ContextMenu("EndLvl")]
-    private void DestroyAllCreaturesAndLoadNewScene()
+    public void DestroyAllCreaturesAndLoadNewScene()
     {
         foreach (var creatures in fightList)
         {
