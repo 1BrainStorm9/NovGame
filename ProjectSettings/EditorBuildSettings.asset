@@ -6,10 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/WorldMap.unity
+    guid: a66aff9651ce2734fac9b104c09c2ef7
+  - enabled: 1
+    path: Assets/Scenes/YaroslavHouse.unity
+    guid: 2b56fda11466bea4ab7e959a8199fe21
+  - enabled: 1
     path: Assets/Scenes/Pole.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/World.unity
-    guid: cbd070b639d68e847ad888365df4aee4
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 319ea08ac9209e24a9f90ded3c58e07d, type: 2}
