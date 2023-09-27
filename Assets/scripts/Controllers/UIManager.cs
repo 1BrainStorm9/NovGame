@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -7,6 +8,26 @@ public class UIManager : MonoBehaviour
     public GameObject teamTargetCircle;
     public GameObject spellBar;
     public GameObject hudCanvas;
+    public GameObject endGamePanel;
+    public GameObject gameResult;
+
+    public void ShowWinEndGamePanel()
+    {
+        endGamePanel.SetActive(true);
+        gameResult.GetComponent<TextMeshProUGUI>().text = "Вы победили!";
+    }
+
+    public void ShowLoseEndGamePanel()
+    {
+        endGamePanel.SetActive(true);
+        gameResult.GetComponent<TextMeshProUGUI>().text = "Вы проиграли ;c";
+    }
+
+
+    public void HideEndGamePanel()
+    {
+        endGamePanel.SetActive(false);
+    }
 
     public void ShowSelectCircle()
     {

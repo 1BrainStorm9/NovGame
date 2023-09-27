@@ -3,14 +3,6 @@ using UnityEngine.EventSystems;
 
 public class ButtonUseHandler : MonoBehaviour
 {
-    //public void OnPointerClick(PointerEventData eventData)
-    //{
-    //    if (eventData.button == PointerEventData.InputButton.Left)
-    //    {
-    //        var inv = FindObjectOfType<PlayerInventory>();
-    //        inv.EquipItem();
-    //    }
-    //}
 
     public void OnEquipItem()
     {

@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameField: {fileID: 2907524207566492990}
   _iconField: {fileID: 7565316852938083278}
-  _panelPrefab: {fileID: 7609209938882573204, guid: eac1fa16058b58649828f523e920ac09, type: 3}
+  Id: 0
 --- !u!61 &3533945539233802361
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

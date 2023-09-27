@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SpellButtonsController : MonoBehaviour
 {
-    public Entity selectObject;
+    public Creature selectObject;
     private GameController gameController;
 
     private void Awake()
@@ -23,7 +23,7 @@ public class SpellButtonsController : MonoBehaviour
         if(castSpellController.Spells.Count > index)
         {
             castSpellController.SpellID = index;
-            castSpellController.SpellSelected = true;
+            castSpellController.isSpellSelected = true;
             gameController.manager.HideTargetCircle();
             gameController.manager.HideTeamTargetCircle();
         }

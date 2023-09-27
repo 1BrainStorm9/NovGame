@@ -1,89 +1,94 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+
 
 
 public class GameController : MonoBehaviour
 {
-    [Header("HUD")]
+    [Header("------HUD------")]
+    [Space]
     public UIManager manager;
+    private HeroManager heroManager;
+    private EnemyManager enemyManager;
+    [Header("------Game Objects------")]
+    [Space]
+    public Creature selectObject;
+    public Creature targerObject;
 
-
-    [Header("Game Objects")]
-    public Entity selectObject;
-    public Entity targerObject;
-
-    [Header("Lists")]
-    public List<Entity> fightList;
-    public List<Player> playerList;
+    [Header("------Lists------")]
+    [Space]
+    public List<Creature> fightList;
+    public List<Hero> playerList;
     public List<Enemy> enemyList;
 
-    private bool isTurnEnd = false;
+    [Header("------System info------")]
+    [Space]
     public bool isBossFight = false;
+    private bool isTurnEnd = false;
+    private bool isGameEnd = false;
 
-    public int heroSpeed = 0;
+    [Header("------Actions------")]
+    [Space]
+    public static Action OnKilledAllEnemies;
+    public static Action<Hero> OnKilledHero;
+    public static Action<Enemy> OnKilledEnemy;
 
-    private ColliderCreationController enemyColiderController;
 
-    public delegate void NoActiveEnemiesEnterEvent();
-    public static event NoActiveEnemiesEnterEvent OnKillAllEnemies;
-
-    public Entity GetActiveCreature { get { return fightList[0]; } }
+    public Creature GetActiveCreature { get { return fightList[0]; } }
 
     private void OnEnable()
     {
-        GetEnemiesInCollider.OnEnemyTriggerEnter += AddEnemyToList;
-        CameraController.OnTriggerEnter += setBasicHeroSpeed;
+        EnemyManager.OnEnemyAdded += AddEnemyToList;
+        HeroManager.OnHeroAdded += AddHeroToList;
     }
 
     private void OnDisable()
     {
-        GetEnemiesInCollider.OnEnemyTriggerEnter -= AddEnemyToList;
-        CameraController.OnTriggerEnter -= setBasicHeroSpeed;
+        EnemyManager.OnEnemyAdded -= AddEnemyToList;
+        HeroManager.OnHeroAdded -= AddHeroToList;
     }
 
-    private void setBasicHeroSpeed()
-    {
-        heroSpeed = 0;
-    }
 
     private void Start()
     {
-        enemyColiderController = FindObjectOfType<ColliderCreationController>();
-        enemyColiderController.AddCollider(Component.FindAnyObjectByType<Camera>().transform);
         manager = GetComponent<UIManager>();
+        heroManager = GetComponent<HeroManager>();
+        enemyManager = GetComponent<EnemyManager>();
 
-        foreach (var player in GameObject.FindGameObjectsWithTag("Player").ToList())
-        {
-            playerList.Add(player.GetComponent<Player>());
-            fightList.Add(player.GetComponent<Player>());
-        }
+    }
+
+    private void AddHeroToList(Hero hero)
+    {
+        playerList.Add(hero);
+        fightList.Add(hero);
     }
 
     private void AddEnemyToList(Enemy enemy)
     {
         enemyList.Add(enemy);
         fightList.Add(enemy);
-        ReloadListsIndex();
     }
 
-    private void ReloadListsIndex()
-    {
-        ReloadFightListIndexes();
-        ReloadEntityListIndexes();
-    }
 
     private void FixedUpdate()
     {
         foreach (var item in playerList)
         {
-            var moveAmount = heroSpeed * Time.deltaTime;
+            var moveAmount = heroManager.heroSpeed * Time.deltaTime;
+
             item.transform.position += Vector3.right * moveAmount;
         }
     }
 
     private void Update()
     {
+
+        if (isGameEnd)
+        {
+            return;
+        }
+
         if (IsPlayerTurn())
         {
             if(selectObject == null)
@@ -108,30 +113,38 @@ public class GameController : MonoBehaviour
 
     private void EnemyTurnProccesing()
     {
-        targerObject = selectObject.GetComponent<Enemy>().AIChooseTarget(playerList);
+        targerObject = selectObject.GetComponent<Enemy>().ChooseSpellAndGetTarget();
 
-        manager.ShowTargetCircle();
-        manager.SetTargetCirclePosition(targerObject.transform.position);
+        if (targerObject.TryGetComponent<Hero>(out _))
+        {
+            manager.ShowTargetCircle();
+            manager.SetTargetCirclePosition(targerObject.transform.position);
+        }
+        else
+        {
+            manager.ShowTeamTargetCircle();
+            manager.SetTeamTargetCirclePosition(targerObject.transform.position);
+        }
 
         Invoke("EnemyTurnEnd", 1.5f);
     }
 
     private void EnemyTurnEnd()
-    {
+    {    
         selectObject.GetComponent<Enemy>().EnemyTurn();
 
-        DestroyPlayerWhenNoHp();
+        RemovePlayerWhenNoHp();
         EndTurn();
     }
 
-    private void DestroyPlayerWhenNoHp()
+    private void RemovePlayerWhenNoHp()
     {
         if (targerObject.health <= 0)
         {
             manager.HideTargetCircle();
-            targerObject.Destroy();
-            fightList.RemoveAt(targerObject.fightIndex);
-            playerList.RemoveAt(targerObject.listIndex);
+            OnKilledHero?.Invoke(targerObject.GetComponent<Hero>());
+            playerList.Remove(targerObject.GetComponent<Hero>());
+            fightList.Remove(targerObject.GetComponent<Hero>());
         }
     }
 
@@ -140,27 +153,29 @@ public class GameController : MonoBehaviour
         if (selectObject != null && targerObject != null && !isTurnEnd)
         {
             selectObject.GetComponent<CastSpellController>().UseSpell(targerObject);
-            DestroyEnemyWhenNoHp();
+            RemoveEnemyWhenNoHp();
             isTurnEnd = true;
             EndTurn();
         }
     }
 
-    private void DestroyEnemyWhenNoHp()
+    private void RemoveEnemyWhenNoHp()
     {
         if (targerObject.health <= 0)
         {
+            selectObject.GetComponent<Hero>().AddExp(200);
+            selectObject.GetComponent<Hero>().LevelUp();
             manager.HideTargetCircle();
-            targerObject.Destroy();
-            fightList.RemoveAt(targerObject.fightIndex);
-            enemyList.RemoveAt(targerObject.listIndex);
+            OnKilledEnemy?.Invoke(targerObject?.GetComponent<Enemy>());
+            enemyList.Remove(targerObject.GetComponent<Enemy>());
+            fightList.Remove(targerObject.GetComponent<Enemy>());
         }
     }
 
     private void SelectActiveObject()
     {
+
         selectObject = GetActiveCreature;
-        enemyColiderController.DeleteCollider();
         if (selectObject != null)
         {
             manager.ShowSelectCircle();
@@ -187,16 +202,16 @@ public class GameController : MonoBehaviour
 
     private void SelectTarget()
     {
-        enemyColiderController.DeleteCollider();
+        FindObjectOfType<ColliderCreationController>().DeleteCollider();
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         var csc = selectObject.GetComponent<CastSpellController>();
        
 
-        if (csc.SpellSelected && csc.CanCastForEnemy() && hit.collider?.tag == "Enemy")
+        if (csc.isSpellSelected && csc.CanCastForEnemy() && hit.collider?.tag == "Enemy")
         {
             SelectTargetProccesing(hit, csc.CanCastForEnemy());
         }
-        else if(csc.SpellSelected && !csc.CanCastForEnemy() && hit.collider?.tag == "Player")
+        else if(csc.isSpellSelected && !csc.CanCastForEnemy() && hit.collider?.tag == "Player")
         {
             SelectTargetProccesing(hit, csc.CanCastForEnemy());
         }
@@ -206,7 +221,7 @@ public class GameController : MonoBehaviour
 
     private void SelectTargetProccesing(RaycastHit2D hit, bool castForEnemy)
     {
-        targerObject = hit.collider.GetComponent<Entity>();
+        targerObject = hit.collider.GetComponent<Creature>();
         if (targerObject != null)
         {
             if (castForEnemy)
@@ -224,19 +239,16 @@ public class GameController : MonoBehaviour
         }
     }
 
-
     private bool IsPlayerTurn()
     {
-        return GetActiveCreature.GetComponent<Player>() != null;
+        return GetActiveCreature.GetComponent<Hero>() != null;
     }
 
     private void EndTurn()
     {
         EndMoveSettings();
-        ReloadListsIndex();
         EndGameProcessing();
     }
-
 
     private void EndMoveSettings()
     {
@@ -257,7 +269,8 @@ public class GameController : MonoBehaviour
     {
         if (playerList.Count == 0)
         {
-            DestroyAllCreaturesAndLoadNewScene();
+            isGameEnd = true;
+            manager.ShowLoseEndGamePanel();
         }
         else if (enemyList.Count == 0)
         {
@@ -265,45 +278,29 @@ public class GameController : MonoBehaviour
 
             if (cameraController.getIsBossFight)
             {
-                DestroyAllCreaturesAndLoadNewScene();
+                isGameEnd = true;
+                manager.ShowWinEndGamePanel();
+                return;
             }
 
-            OnKillAllEnemies?.Invoke();
-
-            heroSpeed = 5;
-            manager.HideSelectCircle();
+            Invoke("HeroMoveAnimation", 1f);
         }
     }
 
-    private void DestroyAllCreaturesAndLoadNewScene()
+    private void HeroMoveAnimation()
+    {
+        OnKilledAllEnemies?.Invoke();
+        manager.HideSelectCircle();
+    }
+
+    [ContextMenu("EndLvl")]
+    public void DestroyAllCreaturesAndLoadNewScene()
     {
         foreach (var creatures in fightList)
         {
             creatures.Destroy();
         }
-        UnityEngine.SceneManagement.SceneManager.LoadScene("NewScene");
-    }
-
-
-    private void ReloadFightListIndexes()
-    {
-        for (var i = 0; i < fightList.Count; i++)
-        {
-            fightList[i].fightIndex = i;
-        }
-    }
-
-    private void ReloadEntityListIndexes()
-    {
-        for (var i = 0; i < playerList.Count; i++)
-        {
-            playerList[i].listIndex = i;
-        }
-
-        for (var i = 0; i < enemyList.Count; i++)
-        {
-            enemyList[i].listIndex = i;
-        }
+        UnityEngine.SceneManagement.SceneManager.LoadScene("World");
     }
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Spell : MonoBehaviour
 {
     public virtual AttributeSpell A_Attribute {get; set;}
-    public virtual void A_ActivateSpell(Entity target)
+    public virtual void A_ActivateSpell(Creature target)
     {
         Debug.Log("Activate");
     }

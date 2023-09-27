@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private List<AssetItem> _activeItems;
 
     [Header("Heroes info")]
-    public List<Entity> heroes;
+    public List<Creature> heroes;
     public int index = 0;
 
     [Header("Other info")]
@@ -153,9 +153,6 @@ public class PlayerInventory : MonoBehaviour
 
             _activeSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.UIIcon;
             RefreshHeroInfoPanel();
-
-            var exitFromMenuHandler = FindObjectOfType<ExitMenuHandler>();
-            exitFromMenuHandler.DestroyMenu();
         }
     }
 
@@ -189,7 +186,6 @@ public class PlayerInventory : MonoBehaviour
         heroes[index].Items.Add(newItem);
 
         _activeSlot.GetComponent<ItemSlotInfo>().item = newItem;
-        generalInventory.QuickRender();
         DecHeroStats(oldItem);
         IncHeroStats(newItem);
     }
@@ -208,7 +204,6 @@ public class PlayerInventory : MonoBehaviour
             heroes[index].Items.Remove(item);
         }
 
-        generalInventory.QuickRender();
         SetActiveSloaAsItemType(item);
         _activeSlot.transform.GetChild(0).GetComponent<Image>().sprite = _activeSlot.GetComponent<ItemSlotInfo>().defaultImage;
         _activeSlot.GetComponent<ItemSlotInfo>().isEmptySlot = true;

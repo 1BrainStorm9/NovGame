@@ -6,10 +6,10 @@ public class PoisonTouch : Spell
     public AttributeSpell _attribute;
     public override AttributeSpell A_Attribute { get { return _attribute; } set { _attribute = value; } }
 
-    public override void A_ActivateSpell(Entity target)
+    public override void A_ActivateSpell(Creature target)
     {
         var select = FindObjectOfType<GameController>().GetActiveCreature;
-        select.GetComponent<Entity>().Attack(target,1.3f);
+        select.GetComponent<Creature>().Attack(target,1.3f);
         var tempPoisonState = target.GetComponent<TemporalDamageState>();
 
         if (tempPoisonState == null)

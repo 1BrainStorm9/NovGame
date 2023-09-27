@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -6,18 +8,19 @@ public class CameraController : MonoBehaviour
     private float cameraSpeed = 0f;
     private float _moveAmount;
     [SerializeField] private ColliderCreationController enemyColiderController;
-    public delegate void IsOnTriggerEnterEvent();
-    public static event IsOnTriggerEnterEvent OnTriggerEnter;
+
+    public static Action OnTriggerEnter;
+
     public bool getIsBossFight => _isBossFight;
 
     private void OnEnable()
     {
-        GameController.OnKillAllEnemies += SetCameraSpeed;
+        GameController.OnKilledAllEnemies += SetCameraSpeed;
     }
 
     private void OnDisable()
     {
-        GameController.OnKillAllEnemies -= SetCameraSpeed;
+        GameController.OnKilledAllEnemies -= SetCameraSpeed;
     }
 
     private void SetCameraSpeed()
@@ -44,9 +47,6 @@ public class CameraController : MonoBehaviour
             _isBossFight = other.GetComponent<TriggerInfo>().bossFight;
             cameraSpeed = 0;
             OnTriggerEnter();
-
-            var gameController = FindObjectOfType<GameController>();
-            gameController.manager.ShowSelectCircle();
         }
     }
 }
