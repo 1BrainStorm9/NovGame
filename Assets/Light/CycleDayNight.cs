@@ -1,23 +1,14 @@
-/*using UnityEngine;
+using UnityEngine;
 
-public class DayNightCycle : MonoBehaviour
+public class CycleDayNight : MonoBehaviour
 {
-    public float dayLengthInSeconds = 60.0f;
-    public Light sunLight;
-
-    private float timeOfDay = 0.0f;
+    [SerializeField] private float dayLengthInSeconds = 60.0f;
+    [SerializeField] private Light sunLight;
 
     private void Update()
     {
-        timeOfDay += Time.deltaTime / dayLengthInSeconds;
-
-        if (timeOfDay > 1.0f)
-        {
-            timeOfDay -= 1.0f;
-        }
-
-        float angle = timeOfDay * 360.0f;
-        sunLight.transform.rotation = Quaternion.Euler(angle, 0, 0);
+        float timeF = Mathf.PingPong(Time.time / dayLengthInSeconds, 1.0f);
+        float intensity = Mathf.Lerp(1.0f, 0.1f, timeF);
+        sunLight.intensity = intensity;
     }
 }
-*/
