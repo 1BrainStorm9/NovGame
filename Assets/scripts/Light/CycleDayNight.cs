@@ -16,6 +16,9 @@ public class CycleDayNight : MonoBehaviour
     private bool isSunRiseOrSunSet;
     public static Action NewDayCome;
 
+    public int getTime() { return time; }
+
+
     private void Start()
     {
         time = dayStartTime;
@@ -72,6 +75,8 @@ public class CycleDayNight : MonoBehaviour
                 break;
         }
     }
+
+
 
     public EnumTime returnType(int time)
     {

@@ -4,6 +4,7 @@ public class SpawnFireStation : MonoBehaviour
 {
     [SerializeField] private GameObject prefabFireStation;
     [SerializeField] private GameObject circleForSpawn;
+    private GameObject fireStation;
 
     private bool isPlace = false;
     private bool enableCircle = false;
@@ -17,28 +18,44 @@ public class SpawnFireStation : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyUp(targetKey))
-        {
-            enableCircle = !enableCircle;
-            circleForSpawn.SetActive(enableCircle);
-            isPlace = !isPlace;
-            Debug.Log("1");
-        }
 
-        if (isPlace && Input.GetMouseButtonDown(0) && firstFireStation)
+        var dayController = FindObjectOfType<CycleDayNight>();
+        var enumTime = dayController.returnType(dayController.getTime());
+        if (enumTime == EnumTime.isEvening || enumTime == EnumTime.isSunset)
         {
-            Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            clickPosition.z = -6;
-            Debug.Log("2");
-            if (Vector3.Distance(clickPosition, circleForSpawn.transform.position) <= circleForSpawn.transform.localScale.x * 13)
+            if (Input.GetKeyUp(targetKey))
             {
-
-                Instantiate(prefabFireStation, clickPosition, Quaternion.identity);
-                Debug.Log("3");
-                firstFireStation = false;
+                enableCircle = !enableCircle;
+                circleForSpawn.SetActive(enableCircle);
+                isPlace = !isPlace;
             }
-
-            
+            if (isPlace && Input.GetMouseButtonDown(0) && firstFireStation)
+            {
+                Vector3 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                clickPosition.z = -6;
+                if (Vector3.Distance(clickPosition, circleForSpawn.transform.position) <= circleForSpawn.transform.localScale.x * 13)
+                {
+                    fireStation = Instantiate(prefabFireStation, clickPosition, Quaternion.identity);
+                    firstFireStation = false;
+                }
+            }
         }
+        else
+        {
+            EnableCircle();
+            if (fireStation != null)
+            {
+                Destroy(fireStation);
+
+            }
+        }
+    }
+
+    private void EnableCircle()
+    {
+        enableCircle = false;
+        circleForSpawn.SetActive(enableCircle);
+        isPlace = false;
+        firstFireStation = true;
     }
 }
