@@ -1,6 +1,5 @@
+using System;
 using TMPro;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CycleDayNight : MonoBehaviour
@@ -15,6 +14,7 @@ public class CycleDayNight : MonoBehaviour
     private float timerToLerp;
     private float timeToLerp;
     private bool isSunRiseOrSunSet;
+    public static Action NewDayCome;
 
     private void Start()
     {
@@ -35,7 +35,13 @@ public class CycleDayNight : MonoBehaviour
             timer = 0;
             time++;
         }
-        if (time == 24) time = 0;
+        if (time == 24)
+        {
+            NewDayCome?.Invoke();
+            time = 0;
+
+        }
+
 
         textMeshPro.text = "Time: " + time.ToString() + ".00";
 

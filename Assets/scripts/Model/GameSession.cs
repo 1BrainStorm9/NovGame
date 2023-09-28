@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class GameSession : MonoBehaviour
 
     private void Awake()
     {
+        LoadHud();
+
         if (isSessionExit())
         {
             DestroyImmediate(gameObject);
@@ -23,6 +26,11 @@ public class GameSession : MonoBehaviour
         {
             DontDestroyOnLoad(this);
         }
+    }
+
+    private void LoadHud()
+    {
+        SceneManager.LoadScene("Hud", LoadSceneMode.Additive);
     }
 
     private bool isSessionExit()

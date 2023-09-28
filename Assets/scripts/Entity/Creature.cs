@@ -4,8 +4,6 @@ using System.Linq;
 using PixelCrew.Components.GoBased;
 using System;
 using TMPro;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 [Serializable]
 public abstract class Creature : MonoBehaviour
@@ -58,6 +56,18 @@ public abstract class Creature : MonoBehaviour
         Animator = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        CycleDayNight.NewDayCome += ActivateStates;
+    }
+
+    private void OnDisable()
+    {
+        CycleDayNight.NewDayCome -= ActivateStates;
+    }
+
+
+
     public void AddWeaponSpellsToHeroSpells()
     {
         if (weapon != null)
@@ -80,6 +90,7 @@ public abstract class Creature : MonoBehaviour
         foreach (var states in CharStates.ToList())
         {
             states.StateProcced(this);
+
         }
 
     }
