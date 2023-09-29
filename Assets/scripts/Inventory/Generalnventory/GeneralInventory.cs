@@ -15,4 +15,5 @@ public class GeneralInventory : Inventory
         Items.AddRange(session.InvData.items);
     }
 
+    
 }
