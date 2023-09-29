@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RandomEventsSpawner : MonoBehaviour
 {
-    [SerializeField] private int chanceAttackedInDay = 3;
-    [SerializeField] private int chanceAttackedInNight = 10;
+    [SerializeField] private int chanceAttackedInDay;
+    [SerializeField] private int chanceAttackedInNight;
 
     private bool isNight = false;
     private bool canBeAttacked = true;
@@ -25,12 +25,13 @@ public class RandomEventsSpawner : MonoBehaviour
     private void AttackedAPlayer()
     {
         CycleDayNight cycleDayNight = FindObjectOfType<CycleDayNight>();
-        if(cycleDayNight != null)
+        if (cycleDayNight != null)
         {
             timeInScene = cycleDayNight.getTime();
         }
 
-        isNight = (timeInScene >= 20 && timeInScene <= 23) || (timeInScene >= 0 && timeInScene < 2);
+        var timeType = cycleDayNight.returnType(timeInScene);
+        isNight = timeType == EnumTime.isSunset || timeType == EnumTime.isEvening;
 
         if(timeInScene == 0 )
         {
@@ -41,7 +42,7 @@ public class RandomEventsSpawner : MonoBehaviour
         {
             if((Random.Range(0, 101) <= chanceAttackedInDay) && canBeAttacked)
             {
-                Debug.Log("Вы атакованы днём!");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Pole");
                 canBeAttacked = !canBeAttacked;
             }
         }
@@ -49,7 +50,7 @@ public class RandomEventsSpawner : MonoBehaviour
         {
             if ((Random.Range(0, 101) <= chanceAttackedInNight) && canBeAttacked)
             {
-                Debug.Log("Вы атакованы ночью!");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Pole");
                 canBeAttacked = !canBeAttacked;
             }
         }
