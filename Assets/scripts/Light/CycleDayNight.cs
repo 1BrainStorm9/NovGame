@@ -9,12 +9,13 @@ public class CycleDayNight : MonoBehaviour
     [SerializeField] private Light sunLight;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     private float timer;
-    private int time;
+    public int time;
 
     private float timerToLerp;
     private float timeToLerp;
     private bool isSunRiseOrSunSet;
     public static Action NewDayCome;
+    public static Action onAttacked;
 
     public int getTime() { return time; }
 
@@ -35,6 +36,7 @@ public class CycleDayNight : MonoBehaviour
         timer += Time.fixedDeltaTime;
         if (timer > dayLengthInSeconds / 24)
         {
+            onAttacked.Invoke();
             timer = 0;
             time++;
         }
