@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy : Creature
 {
     private Creature target;
+    public int RewardExp;
 
     public void EnemyTurn() 
     { 
