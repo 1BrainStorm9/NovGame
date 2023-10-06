@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Knight Helm
   _description: da
-  _price: 50
   _protection: 5
   _health: 5
   _evsion: 0
+  _price: 50
+  _weight: 5
   _uiIcon: {fileID: 21300000, guid: 5eae2f872e2c57c4b80c83bb800d44c7, type: 3}
   _itemType: 0
+  _prefab: {fileID: 0}

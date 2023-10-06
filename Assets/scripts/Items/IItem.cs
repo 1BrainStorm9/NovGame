@@ -9,5 +9,5 @@ public interface IItem
     int Protection { get; }
     int Health { get; }
     int Evasion { get; }
-
+    int Weight { get; } // тык
 }

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Ring
   _description: da
-  _price: 10
   _protection: 10
   _health: 10
   _evsion: 10
+  _price: 10
+  _weight: 5
   _uiIcon: {fileID: 21300000, guid: ded73fff17ea8344180d4f6131d93c8a, type: 3}
   _itemType: 3
+  _prefab: {fileID: 0}
