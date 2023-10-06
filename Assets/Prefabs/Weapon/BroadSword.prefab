@@ -48,6 +48,7 @@ MonoBehaviour:
   asset: {fileID: 11400000, guid: 2638e843d6a49b04da52fbf62a73795b, type: 2}
   spells:
   - {fileID: 6190183613213739289}
+  damage: 3
 --- !u!114 &6190183613213739289
 MonoBehaviour:
   m_ObjectHideFlags: 0

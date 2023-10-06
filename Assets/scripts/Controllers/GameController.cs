@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
-
 
 public class GameController : MonoBehaviour
 {
@@ -34,18 +33,26 @@ public class GameController : MonoBehaviour
     public static Action<Enemy> OnKilledEnemy;
 
 
+
     public Creature GetActiveCreature { get { return fightList[0]; } }
 
     private void OnEnable()
     {
         EnemyManager.OnEnemyAdded += AddEnemyToList;
         HeroManager.OnHeroAdded += AddHeroToList;
+        ChoiseTarget.OnSelectTarget += SetTarget;
     }
 
     private void OnDisable()
     {
         EnemyManager.OnEnemyAdded -= AddEnemyToList;
         HeroManager.OnHeroAdded -= AddHeroToList;
+        ChoiseTarget.OnSelectTarget -= SetTarget;
+    }
+
+    private void SetTarget(Creature target)
+    {
+        targerObject = target;
     }
 
 
@@ -55,18 +62,6 @@ public class GameController : MonoBehaviour
         heroManager = GetComponent<HeroManager>();
         enemyManager = GetComponent<EnemyManager>();
 
-    }
-
-    private void AddHeroToList(Hero hero)
-    {
-        playerList.Add(hero);
-        fightList.Add(hero);
-    }
-
-    private void AddEnemyToList(Enemy enemy)
-    {
-        enemyList.Add(enemy);
-        fightList.Add(enemy);
     }
 
 
@@ -89,10 +84,6 @@ public class GameController : MonoBehaviour
             {
                 SelectActiveObject();
             }
-            if (!isTurnEnd && Input.GetMouseButtonDown(0))
-            {
-              SelectTarget();
-            }
         }
         else
         {
@@ -108,21 +99,20 @@ public class GameController : MonoBehaviour
     private void EnemyTurnProccesing()
     {
         targerObject = selectObject.GetComponent<Enemy>().ChooseSpellAndGetTarget();
-
-        if (targerObject.TryGetComponent<Hero>(out _))
-        {
-            manager.ShowTargetCircle();
-            manager.SetTargetCirclePosition(targerObject.transform.position);
-        }
-        else
-        {
-            manager.ShowTeamTargetCircle();
-            manager.SetTeamTargetCirclePosition(targerObject.transform.position);
-        }
-
         Invoke("EnemyTurnEnd", 1.5f);
     }
 
+    private void AddHeroToList(Hero hero)
+    {
+        playerList.Add(hero);
+        fightList.Add(hero);
+    }
+
+    private void AddEnemyToList(Enemy enemy)
+    {
+        enemyList.Add(enemy);
+        fightList.Add(enemy);
+    }
     private void EnemyTurnEnd()
     {    
         selectObject.GetComponent<Enemy>().EnemyTurn();
@@ -135,7 +125,6 @@ public class GameController : MonoBehaviour
     {
         if (targerObject.health <= 0)
         {
-            manager.HideTargetCircle();
             OnKilledHero?.Invoke(targerObject.GetComponent<Hero>());
             playerList.Remove(targerObject.GetComponent<Hero>());
             fightList.Remove(targerObject.GetComponent<Hero>());
@@ -157,9 +146,7 @@ public class GameController : MonoBehaviour
     {
         if (targerObject.health <= 0)
         {
-            selectObject.GetComponent<Hero>().AddExp(200);
-            selectObject.GetComponent<Hero>().LevelUp();
-            manager.HideTargetCircle();
+            selectObject.GetComponent<Hero>().AddExp(targerObject.GetComponent<Enemy>().RewardExp * targerObject.GetComponent<Enemy>().lvl);
             OnKilledEnemy?.Invoke(targerObject?.GetComponent<Enemy>());
             enemyList.Remove(targerObject.GetComponent<Enemy>());
             fightList.Remove(targerObject.GetComponent<Enemy>());
@@ -172,8 +159,6 @@ public class GameController : MonoBehaviour
         selectObject = GetActiveCreature;
         if (selectObject != null)
         {
-            manager.ShowSelectCircle();
-            manager.SetSelectCirclePosition(selectObject.transform.position);
             NewTurnProccesing();
         }
 

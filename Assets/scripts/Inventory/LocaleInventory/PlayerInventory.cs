@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -128,6 +129,7 @@ public class PlayerInventory : MonoBehaviour
             weapon.transform.SetParent(heroes[index].transform);
             heroes[index].weapon = weapon.GetComponent<Weapon>();
             heroes[index].AddWeaponSpellsToHeroSpells();
+            heroes[index].AddWeaponDamage();
             FindObjectOfType<UIManager>().ReloadSpellHUD();
         }
     }
@@ -178,6 +180,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (newItem.itemType == ItemType.Weapon)
         {
+            heroes[index].DeleteWeaponDamage();
             heroes[index].weapon = null;
             DestroyWeapon();
             WeaponInstantinate(newItem);
@@ -215,6 +218,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void DropWeapon(AssetItem item)
     {
+        heroes[index].DeleteWeaponDamage();
         heroes[index].Items.Remove(item);
         DestroyWeapon();
         heroes[index].RefreshSpellsToBasic();
