@@ -9,7 +9,7 @@ using static UnityEditor.Progress;
 public abstract class Inventory : MonoBehaviour
 {
     [SerializeField] protected List<AssetItem> Items;
-    [SerializeField] protected Cell _CellTemplate;
+    //[SerializeField] protected Cell _CellTemplate;
     [SerializeField] protected InventoryCell _inventoryCellTemplate;
     [SerializeField] protected Transform _container;
     [SerializeField] protected Transform _draggingParent;
@@ -111,6 +111,7 @@ public abstract class Inventory : MonoBehaviour
 
     private void AddItemInUi(AssetItem item)
     {
+        if (item == null) return;
         var cell = Instantiate(_inventoryCellTemplate, _container);
         _cells.Add(cell);
         cell.Init(_draggingParent);
