@@ -19,6 +19,7 @@ public class CameraZoomZoneInHouse : MonoBehaviour
         {
             inTriggerZone = true;
         }
+        Debug.Log("enter");
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -32,13 +33,14 @@ public class CameraZoomZoneInHouse : MonoBehaviour
                 isFaded = false;
             }
         }
+        Debug.Log("exit");
     }
 
     private void Update()
     {
         if (inTriggerZone)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 isFaded = !isFaded;
                 isFading = true;
@@ -48,7 +50,7 @@ public class CameraZoomZoneInHouse : MonoBehaviour
         {
             isFading = true; isFaded = false;
         }
-
+        
         if (isFading)
         {
             Color currentColor = objectToFade.GetComponent<Renderer>().material.color;
