@@ -908,15 +908,13 @@ MonoBehaviour:
   evasionChance: 0
   lvl: 1
   CharStates: []
+  masteryLevel: {fileID: 0}
   Items: []
   weapon: {fileID: 0}
   uniqueBasicSpells: []
-  _particles: {fileID: 0}
-  fightIndex: 0
-  listIndex: 0
+  creatureType: 0
   damageText: {fileID: 0}
   exp: 0
-  prefab: {fileID: 0}
   isRun: 0
 --- !u!1 &833781684
 GameObject:
@@ -1529,7 +1527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1652643873
 Transform:
   m_ObjectHideFlags: 0
@@ -1654,7 +1652,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834974910}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f52bff33b0ef97f4cb64f7b39d9318fe, type: 3}
   m_Name: 
@@ -1771,7 +1769,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989276588}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc53def377f79cc4e816cb9270421581, type: 3}
   m_Name: 

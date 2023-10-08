@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 76591019021324352}
   - component: {fileID: 76591019021324354}
-  - component: {fileID: 7135513816110595210}
+  - component: {fileID: 4073683538455108686}
   - component: {fileID: 7976020830761123022}
   - component: {fileID: 7742452860400687148}
   - component: {fileID: 4851252110718167138}
@@ -65,8 +65,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!68 &7135513816110595210
-EdgeCollider2D:
+--- !u!61 &4073683538455108686
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -79,35 +79,18 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.578125, y: 1.421875}
+    newSize: {x: 0.24, y: 0.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.578125, y: 1.421875}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.57935095, y: -0.06990391}
-  - {x: -0.7364528, y: -0.037456036}
-  - {x: -0.85269475, y: 0.1433456}
-  - {x: -0.6347635, y: 0.6871349}
-  - {x: -0.40276694, y: 0.5552528}
-  - {x: -0.12827015, y: 0.75396717}
-  - {x: 0.085525274, y: 0.59024763}
-  - {x: 0.1998105, y: 0.37979507}
-  - {x: 0.28732014, y: 0.1656518}
-  - {x: 0.62469196, y: 0.023495436}
-  - {x: 0.66773987, y: -0.30939728}
-  - {x: 0.85714626, y: -0.61006397}
-  - {x: 0.40534472, y: -0.5209688}
-  - {x: 0.3776312, y: -0.7337607}
-  - {x: 0.09355521, y: -0.74217296}
-  - {x: -0.036031485, y: -0.7167975}
-  - {x: -0.0410316, y: -0.43455368}
-  - {x: -0.15605378, y: -0.3959753}
-  - {x: -0.22149014, y: -0.7275178}
-  - {x: -0.39702916, y: -0.76182896}
-  - {x: -0.6418445, y: -0.7321813}
-  - {x: -0.6486738, y: -0.5174587}
-  - {x: -0.5795853, y: -0.06982154}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!114 &7976020830761123022
 MonoBehaviour:
   m_ObjectHideFlags: 0

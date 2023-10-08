@@ -13,12 +13,14 @@ public class UIManager : MonoBehaviour
 
     public void ShowWinEndGamePanel()
     {
+        HideHUD();
         endGamePanel.SetActive(true);
         gameResult.GetComponent<TextMeshProUGUI>().text = "Вы победили!";
     }
 
     public void ShowLoseEndGamePanel()
     {
+        HideHUD();
         endGamePanel.SetActive(true);
         gameResult.GetComponent<TextMeshProUGUI>().text = "Вы проиграли ;c";
     }
@@ -62,13 +64,11 @@ public class UIManager : MonoBehaviour
     public void ShowHUD()
     {
         hudCanvas.SetActive(true);
-        spellBar.SetActive(true);
     }
 
     public void HideHUD()
     {
         hudCanvas.SetActive(false);
-        spellBar.SetActive(false);
     }
 
     public void SetSelectCirclePosition(Vector3 position)

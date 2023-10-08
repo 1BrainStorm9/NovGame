@@ -16,12 +16,13 @@ public class SpawnFireStation : MonoBehaviour
     {
         circleForSpawn.SetActive(enableCircle);
     }
+
     private void Update()
     {
 
         var dayController = FindObjectOfType<CycleDayNight>();
         var enumTime = dayController.returnType(dayController.getTime());
-        if (enumTime == EnumTime.isEvening || enumTime == EnumTime.isSunset)
+        if (enumTime == EnumTime.isNight || enumTime == EnumTime.isSunset)
         {
             if (Input.GetKeyUp(targetKey))
             {

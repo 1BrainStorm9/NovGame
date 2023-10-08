@@ -31,7 +31,7 @@ public class RandomEventsSpawner : MonoBehaviour
         }
 
         var timeType = cycleDayNight.returnType(timeInScene);
-        isNight = timeType == EnumTime.isSunset || timeType == EnumTime.isEvening;
+        isNight = timeType == EnumTime.isSunset || timeType == EnumTime.isNight;
 
         if(timeInScene == 0 )
         {

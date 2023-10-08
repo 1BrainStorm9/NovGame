@@ -9,7 +9,7 @@ public class CycleDayNight : MonoBehaviour
     [SerializeField] private Light sunLight;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     private float timer;
-    public int time;
+    private int time;
 
     private float timerToLerp;
     private float timeToLerp;
@@ -27,30 +27,41 @@ public class CycleDayNight : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isSunRiseOrSunSet) timerToLerp += Time.fixedDeltaTime;
+        LerpTimerHandler();
+        TimerHanler();
+        ChangeLightIntensity();
+    }
+
+    private void LerpTimerHandler()
+    {
+        if (isSunRiseOrSunSet) timerToLerp += Time.fixedDeltaTime;
+
         if (timerToLerp > (dayLengthInSeconds / 24) * 3)
         {
             timerToLerp = 0;
         }
+    }
 
+    private void TimerHanler()
+    {
         timer += Time.fixedDeltaTime;
         if (timer > dayLengthInSeconds / 24)
         {
-            onAttacked.Invoke();
+            onAttacked?.Invoke();
             timer = 0;
             time++;
+            ChangeTimeText();
         }
         if (time == 24)
         {
             NewDayCome?.Invoke();
             time = 0;
-
         }
+    }
 
-
+    private void ChangeTimeText()
+    {
         textMeshPro.text = "Time: " + time.ToString() + ".00";
-
-        ChangeLightIntensity();
     }
 
 
@@ -63,6 +74,10 @@ public class CycleDayNight : MonoBehaviour
                 isSunRiseOrSunSet = false;
                 sunLight.intensity = 1;
                 break;
+            case EnumTime.isNight:
+                isSunRiseOrSunSet = false;
+                sunLight.intensity = 0.1f;
+                break;
             case EnumTime.isSunrise:
                 isSunRiseOrSunSet = true;
                 sunLight.intensity = Mathf.Lerp(0.1f, 1f, timeToLerp);
@@ -71,42 +86,41 @@ public class CycleDayNight : MonoBehaviour
                 isSunRiseOrSunSet = true;
                 sunLight.intensity = Mathf.Lerp(1f, 0.1f, timeToLerp);
                 break;
-            case EnumTime.isEvening:
-                isSunRiseOrSunSet = false;
-                sunLight.intensity = 0.1f;
-                break;
         }
     }
 
 
 
-    public EnumTime returnType(int time)
+public EnumTime returnType(int time)
+{
+    EnumTime result;
+
+    switch (time)
     {
+        case int t when t >= 7 && t < 20:
+            result = EnumTime.isDay;
+            break;
+        case int t when t >= 23 || t < 4:
+            result = EnumTime.isNight;
+            break;
+        case int t when t >= 4 && t < 7:
+            result = EnumTime.isSunrise;
+            break;
+        case int t when t >= 20 && t < 23:
+            result = EnumTime.isSunset;
+            break;
+        default:
+            result = EnumTime.isDay;
+            break;
+    }
 
-        if (time >= 2 && time < 5)
-        {
-            return EnumTime.isSunrise;
-        }
-        if (time < 20 && time >= 5)
-        {
-            return EnumTime.isDay;
-        }
-        if (time < 23 && time >= 20)
-        {
-            return EnumTime.isSunset;
-        }
-        if (time >= 23 || time < 2)
-        {
-            return EnumTime.isEvening;
-        }
-
-        return EnumTime.isDay; ;
+    return result;
     }
 }
 
 
 public enum EnumTime
 {
-    isSunrise, isDay, isSunset, isEvening,
+    isSunrise, isDay, isSunset, isNight,
 }
 

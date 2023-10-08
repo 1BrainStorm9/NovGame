@@ -52,7 +52,11 @@ public class GameController : MonoBehaviour
 
     private void SetTarget(Creature target)
     {
-        targerObject = target;
+        if (GetActiveCreature.GetComponent<CastSpellController>().isSpellSelected) 
+        {
+            targerObject = target;
+            UseCreatureSpell();
+        }
     }
 
 
