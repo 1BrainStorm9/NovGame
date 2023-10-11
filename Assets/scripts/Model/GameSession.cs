@@ -10,9 +10,12 @@ public class GameSession : MonoBehaviour
     [SerializeField] private PlayerData _data;
     [SerializeField] private InventoryData _inventory;
     [SerializeField] private List<Hero> _heroes;
+    [SerializeField] public int saveTime;
     public PlayerData Data => _data;
     public InventoryData InvData => _inventory;
     public List<Hero> Heroes => _heroes;
+
+    
 
     private void Awake()
     {

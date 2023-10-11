@@ -16,6 +16,12 @@ public class CycleDayNight : MonoBehaviour
     private bool isSunRiseOrSunSet;
     public static Action NewDayCome;
     public static Action onAttacked;
+    private GameSession gameSession;
+
+    private void Awake()
+    {
+        gameSession = FindObjectOfType<GameSession>();
+    }
 
     public int getTime() { return time; }
 
@@ -81,6 +87,7 @@ public class CycleDayNight : MonoBehaviour
             case EnumTime.isSunrise:
                 isSunRiseOrSunSet = true;
                 sunLight.intensity = Mathf.Lerp(0.1f, 1f, timeToLerp);
+                sunLight.intensity = Mathf.Lerp(0.1f, 1f, timeToLerp);
                 break;
             case EnumTime.isSunset:
                 isSunRiseOrSunSet = true;
@@ -89,32 +96,35 @@ public class CycleDayNight : MonoBehaviour
         }
     }
 
-
-
-public EnumTime returnType(int time)
-{
-    EnumTime result;
-
-    switch (time)
+    public void SetTime(int newTime)
     {
-        case int t when t >= 7 && t < 20:
-            result = EnumTime.isDay;
-            break;
-        case int t when t >= 23 || t < 4:
-            result = EnumTime.isNight;
-            break;
-        case int t when t >= 4 && t < 7:
-            result = EnumTime.isSunrise;
-            break;
-        case int t when t >= 20 && t < 23:
-            result = EnumTime.isSunset;
-            break;
-        default:
-            result = EnumTime.isDay;
-            break;
+        time = newTime;
     }
+      
+    public EnumTime returnType(int time)
+    {
+        EnumTime result;
 
-    return result;
+        switch (time)
+        {
+            case int t when t >= 7 && t < 20:
+                result = EnumTime.isDay;
+                break;
+            case int t when t >= 23 || t < 4:
+                result = EnumTime.isNight;
+                break;
+            case int t when t >= 4 && t < 7:
+                result = EnumTime.isSunrise;
+                break;
+            case int t when t >= 20 && t < 23:
+                result = EnumTime.isSunset;
+                break;
+            default:
+                result = EnumTime.isDay;
+                break;
+        }
+
+        return result;
     }
 }
 

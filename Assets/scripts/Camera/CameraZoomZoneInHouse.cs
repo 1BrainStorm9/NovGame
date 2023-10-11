@@ -13,13 +13,14 @@ public class CameraZoomZoneInHouse : MonoBehaviour
     private bool isFaded = false;
     private bool inTriggerZone = false;
 
+    private CycleDayNight cycleDayNight;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (CompareTag("ZoomZoneInHouse"))
         {
             inTriggerZone = true;
         }
-        Debug.Log("enter");
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -33,14 +34,15 @@ public class CameraZoomZoneInHouse : MonoBehaviour
                 isFaded = false;
             }
         }
-        Debug.Log("exit");
     }
 
     private void Update()
     {
         if (inTriggerZone)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            cycleDayNight = FindObjectOfType<CycleDayNight>();
+            EnumTime currentTime = cycleDayNight.returnType(cycleDayNight.getTime());
+            if (Input.GetKeyDown(KeyCode.E) && currentTime == EnumTime.isDay)
             {
                 isFaded = !isFaded;
                 isFading = true;
