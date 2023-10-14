@@ -166,9 +166,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ce888ebcfec07f741bbe36fcbe529a6e, type: 2}
   _heroes:
   - {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
-  _dayLengthInSeconds: 20
-  _dayStartTime: 19
-  _timeInPreviousScene: 15
+  _dataTime:
+    time: 0
+    intensity: 0
 --- !u!4 &11822364
 Transform:
   m_ObjectHideFlags: 0
@@ -273,6 +273,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 56586504483261276, guid: 4de59852d41d2aa46becab4578f6ba57, type: 3}
   m_PrefabInstance: {fileID: 56586504623485564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &320444698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 320444700}
+  - component: {fileID: 320444699}
+  m_Layer: 0
+  m_Name: LoadController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &320444699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320444698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b4a4f7e118dd44e939eec3ed4511a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &320444700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320444698}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.4787674, y: -18.465807, z: -4.9707804}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 956016527}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &357255801
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +643,7 @@ GameObject:
   - component: {fileID: 534210521}
   - component: {fileID: 534210520}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: -----Canvas-----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1021,7 +1065,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u0440\u0435\u043C\u044F:"
+  m_text: '
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1270,6 +1316,7 @@ Transform:
   - {fileID: 1834974912}
   - {fileID: 1989276590}
   - {fileID: 895678610}
+  - {fileID: 320444700}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1660,12 +1707,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f52bff33b0ef97f4cb64f7b39d9318fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayLengthInSeconds: 20
-  dayStartTime: 19
+  dayLengthInSeconds: 300
   sunLight: {fileID: 862599755}
   textMeshPro: {fileID: 835133431}
-  timer: 0
-  time: 0
 --- !u!4 &1834974912
 Transform:
   m_ObjectHideFlags: 0

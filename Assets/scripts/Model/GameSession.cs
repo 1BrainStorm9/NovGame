@@ -10,15 +10,16 @@ public class GameSession : MonoBehaviour
     [SerializeField] private PlayerData _data;
     [SerializeField] private InventoryData _inventory;
     [SerializeField] private List<Hero> _heroes;
-    [SerializeField] public int saveTime;
+    [SerializeField] private TimeOfDayData _dataTime;
     public PlayerData Data => _data;
     public InventoryData InvData => _inventory;
     public List<Hero> Heroes => _heroes;
+    public TimeOfDayData DataTime => _dataTime;
 
-    
+
 
     private void Awake()
-    {
+    {   
         LoadHud();
 
         if (isSessionExit())
@@ -29,6 +30,12 @@ public class GameSession : MonoBehaviour
         {
             DontDestroyOnLoad(this);
         }
+    }
+
+    public void GetTimeData()
+    {
+        var cycleDayNight = FindObjectOfType<CycleDayNight>();
+        _dataTime.intensity =  cycleDayNight.GetLight().intensity;
     }
 
     private void LoadHud()

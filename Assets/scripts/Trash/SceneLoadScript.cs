@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,11 +10,7 @@ public class SceneLoadScript : MonoBehaviour
     {
         cycleDayNight = FindObjectOfType<CycleDayNight>();
         gameSession = FindObjectOfType<GameSession>();
-        cycleDayNight.SetTime(gameSession.saveTime);
+        FindObjectOfType<Light>().intensity = gameSession.DataTime.intensity;
     }
 
-    void Update()
-    {
-        
-    }
 }

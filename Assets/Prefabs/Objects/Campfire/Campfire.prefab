@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7249782723953623546}
   - component: {fileID: 7249782723953623545}
   m_Layer: 0
-  m_Name: FireStation
+  m_Name: Campfire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

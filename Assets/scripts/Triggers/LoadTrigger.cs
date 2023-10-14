@@ -12,25 +12,22 @@ public class LoadTrigger : MonoBehaviour
     [SerializeField] private string sceneName;
     private GameSession gameSession;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Awake()
     {
         gameSession = FindObjectOfType<GameSession>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.tag == "Player")
         {
-            CycleDayNight cycleDayNight = FindAnyObjectByType<CycleDayNight>();             //тык
-            if (cycleDayNight != null)                                                      //тык
-            {                                                                               
-                EnumTime currentTime = cycleDayNight.returnType(cycleDayNight.getTime());   //тык
-
-                if (currentTime == EnumTime.isDay )     //тык
-                {
-                    gameSession.saveTime = cycleDayNight.getTime();
-                    UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
-                }
+            CycleDayNight cycleDayNight = FindAnyObjectByType<CycleDayNight>();
+            if (cycleDayNight != null && cycleDayNight.returnType(cycleDayNight.getTime()) == EnumTime.isDay)                                                     
+            {
+                gameSession.GetTimeData();
+                UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
             }
-
-
-
+ 
             /*var hero = collision.GetComponent<Creature>();
             var tempPoisonState = hero.GetComponent<TemporalDamageState>();
             if (tempPoisonState == null)
