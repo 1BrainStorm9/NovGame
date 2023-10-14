@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Broad Sword
   _description: 
-  _price: 1
   _protection: 0
   _health: 0
   _evsion: 0
+  _price: 1
+  _weight: 5
   _uiIcon: {fileID: 21300000, guid: 404ff4128788a0941838ba57e6ec635a, type: 3}
   _itemType: 2
   _prefab: {fileID: 6190183613213739288, guid: 5347cfe6df3dee1499e1a28b0be26d81, type: 3}

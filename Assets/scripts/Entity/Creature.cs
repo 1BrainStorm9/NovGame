@@ -4,8 +4,7 @@ using System.Linq;
 using PixelCrew.Components.GoBased;
 using System;
 using TMPro;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
+
 
 [Serializable]
 public abstract class Creature : MonoBehaviour
@@ -19,11 +18,12 @@ public abstract class Creature : MonoBehaviour
     public float criticalChance;
     public float protect;
     public float evasionChance;
-    public int lvl = 1;
+    public int lvl;
 
     [Header("------States------")]
     [Space]
     public List<StateInfo> CharStates;
+    public WeaponMastery masteryLevel;
 
     [Header("------Items------")]
     [Space]
@@ -36,28 +36,37 @@ public abstract class Creature : MonoBehaviour
 
     [Header("------System info------")]
     [Space]
-    [SerializeField]
+    [SerializeField] private CreatureType creatureType;
     protected SpawnListComponent _particles;
-    public int fightIndex, listIndex;
 
     public TextMeshProUGUI damageText;
-    //public bool SpellsInHUD = false;
-
 
     protected Animator Animator;
     private static readonly int AttackKey = Animator.StringToHash("attack");
     private static readonly int Hit = Animator.StringToHash("hit");
     private static readonly int Die = Animator.StringToHash("is-dead");
     private static readonly int Evasion = Animator.StringToHash("evasion");
-
-    private GameSession gameSession; 
-
+    private GameSession gameSession;
 
     protected void Awake()
     {
         Animator = GetComponent<Animator>();
+        _particles = GetComponent<SpawnListComponent>();
+        masteryLevel = GetComponent<WeaponMastery>();
     }
 
+    private void OnEnable()
+    {
+        CycleDayNight.NewDayCome += ActivateStates;
+    }
+
+    private void OnDisable()
+    {
+        CycleDayNight.NewDayCome -= ActivateStates;
+    }
+
+
+    
     public void AddWeaponSpellsToHeroSpells()
     {
         if (weapon != null)
@@ -75,11 +84,30 @@ public abstract class Creature : MonoBehaviour
         castSpellController.Spells.AddRange(uniqueBasicSpells);
     }
 
+
+    public void AddWeaponDamage()
+    {
+        if (weapon == null) return;
+
+        var weaponLvl = masteryLevel.GetWeaponLevel(weapon.weaponType);
+
+        this.damage += weapon.damage + weaponLvl;
+    }
+    public void DeleteWeaponDamage()
+    {
+        if (weapon == null) return;
+
+        var weaponLvl = masteryLevel.GetWeaponLevel(weapon.weaponType);
+
+        this.damage -= weapon.damage + weaponLvl;
+    }
+
     public void ActivateStates()
     {
         foreach (var states in CharStates.ToList())
         {
             states.StateProcced(this);
+
         }
 
     }
@@ -183,3 +211,4 @@ public abstract class Creature : MonoBehaviour
 
 }
 
+enum CreatureType {melee,range, meleeWithHorse, rangeWithHorse}

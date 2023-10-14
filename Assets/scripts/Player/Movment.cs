@@ -45,6 +45,7 @@ public class Movment : MonoBehaviour
     private void Flip()         //просто помогает изменить анимацию бега в нужную сторону
 	{
         looksRight = !looksRight;
-        transform.Rotate(0f, 180f, 0f);
-	}
+        transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-1, 1, 1));
+
+    }
 }

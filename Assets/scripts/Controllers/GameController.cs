@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
-
 
 public class GameController : MonoBehaviour
 {
@@ -26,7 +25,6 @@ public class GameController : MonoBehaviour
     [Space]
     public bool isBossFight = false;
     private bool isTurnEnd = false;
-    private bool isGameEnd = false;
 
     [Header("------Actions------")]
     [Space]
@@ -35,18 +33,30 @@ public class GameController : MonoBehaviour
     public static Action<Enemy> OnKilledEnemy;
 
 
+
     public Creature GetActiveCreature { get { return fightList[0]; } }
 
     private void OnEnable()
     {
         EnemyManager.OnEnemyAdded += AddEnemyToList;
         HeroManager.OnHeroAdded += AddHeroToList;
+        ChoiseTarget.OnSelectTarget += SetTarget;
     }
 
     private void OnDisable()
     {
         EnemyManager.OnEnemyAdded -= AddEnemyToList;
         HeroManager.OnHeroAdded -= AddHeroToList;
+        ChoiseTarget.OnSelectTarget -= SetTarget;
+    }
+
+    private void SetTarget(Creature target)
+    {
+        if (GetActiveCreature.GetComponent<CastSpellController>().isSpellSelected) 
+        {
+            targerObject = target;
+            UseCreatureSpell();
+        }
     }
 
 
@@ -56,18 +66,6 @@ public class GameController : MonoBehaviour
         heroManager = GetComponent<HeroManager>();
         enemyManager = GetComponent<EnemyManager>();
 
-    }
-
-    private void AddHeroToList(Hero hero)
-    {
-        playerList.Add(hero);
-        fightList.Add(hero);
-    }
-
-    private void AddEnemyToList(Enemy enemy)
-    {
-        enemyList.Add(enemy);
-        fightList.Add(enemy);
     }
 
 
@@ -84,20 +82,11 @@ public class GameController : MonoBehaviour
     private void Update()
     {
 
-        if (isGameEnd)
-        {
-            return;
-        }
-
         if (IsPlayerTurn())
         {
             if(selectObject == null)
             {
                 SelectActiveObject();
-            }
-            if (!isTurnEnd && Input.GetMouseButtonDown(0))
-            {
-              SelectTarget();
             }
         }
         else
@@ -114,21 +103,20 @@ public class GameController : MonoBehaviour
     private void EnemyTurnProccesing()
     {
         targerObject = selectObject.GetComponent<Enemy>().ChooseSpellAndGetTarget();
-
-        if (targerObject.TryGetComponent<Hero>(out _))
-        {
-            manager.ShowTargetCircle();
-            manager.SetTargetCirclePosition(targerObject.transform.position);
-        }
-        else
-        {
-            manager.ShowTeamTargetCircle();
-            manager.SetTeamTargetCirclePosition(targerObject.transform.position);
-        }
-
         Invoke("EnemyTurnEnd", 1.5f);
     }
 
+    private void AddHeroToList(Hero hero)
+    {
+        playerList.Add(hero);
+        fightList.Add(hero);
+    }
+
+    private void AddEnemyToList(Enemy enemy)
+    {
+        enemyList.Add(enemy);
+        fightList.Add(enemy);
+    }
     private void EnemyTurnEnd()
     {    
         selectObject.GetComponent<Enemy>().EnemyTurn();
@@ -141,7 +129,6 @@ public class GameController : MonoBehaviour
     {
         if (targerObject.health <= 0)
         {
-            manager.HideTargetCircle();
             OnKilledHero?.Invoke(targerObject.GetComponent<Hero>());
             playerList.Remove(targerObject.GetComponent<Hero>());
             fightList.Remove(targerObject.GetComponent<Hero>());
@@ -163,9 +150,7 @@ public class GameController : MonoBehaviour
     {
         if (targerObject.health <= 0)
         {
-            selectObject.GetComponent<Hero>().AddExp(200);
-            selectObject.GetComponent<Hero>().LevelUp();
-            manager.HideTargetCircle();
+            selectObject.GetComponent<Hero>().AddExp(targerObject.GetComponent<Enemy>().RewardExp * targerObject.GetComponent<Enemy>().lvl);
             OnKilledEnemy?.Invoke(targerObject?.GetComponent<Enemy>());
             enemyList.Remove(targerObject.GetComponent<Enemy>());
             fightList.Remove(targerObject.GetComponent<Enemy>());
@@ -178,8 +163,6 @@ public class GameController : MonoBehaviour
         selectObject = GetActiveCreature;
         if (selectObject != null)
         {
-            manager.ShowSelectCircle();
-            manager.SetSelectCirclePosition(selectObject.transform.position);
             NewTurnProccesing();
         }
 
@@ -269,16 +252,15 @@ public class GameController : MonoBehaviour
     {
         if (playerList.Count == 0)
         {
-            isGameEnd = true;
+            Invoke("Pause", 1f);
             manager.ShowLoseEndGamePanel();
         }
         else if (enemyList.Count == 0)
         {
             var cameraController = FindObjectOfType<CameraController>();
-
             if (cameraController.getIsBossFight)
             {
-                isGameEnd = true;
+                Invoke("Pause", 1f);
                 manager.ShowWinEndGamePanel();
                 return;
             }
@@ -293,15 +275,9 @@ public class GameController : MonoBehaviour
         manager.HideSelectCircle();
     }
 
-    [ContextMenu("EndLvl")]
-    public void DestroyAllCreaturesAndLoadNewScene()
+    private void Pause()
     {
-        foreach (var creatures in fightList)
-        {
-            creatures.Destroy();
-        }
-        UnityEngine.SceneManagement.SceneManager.LoadScene("World");
+        Time.timeScale = 0f;
     }
-
 }
 

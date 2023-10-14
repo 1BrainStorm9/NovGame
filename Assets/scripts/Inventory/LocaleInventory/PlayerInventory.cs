@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -128,6 +129,7 @@ public class PlayerInventory : MonoBehaviour
             weapon.transform.SetParent(heroes[index].transform);
             heroes[index].weapon = weapon.GetComponent<Weapon>();
             heroes[index].AddWeaponSpellsToHeroSpells();
+            heroes[index].AddWeaponDamage();
             FindObjectOfType<UIManager>().ReloadSpellHUD();
         }
     }
@@ -140,10 +142,11 @@ public class PlayerInventory : MonoBehaviour
 
             var slotIsEmpty = _activeSlot.GetComponent<ItemSlotInfo>().isEmptySlot;
             var oldItem = heroes[index].ReturnItemWhithThisType(item.itemType);
-
+            var generalInventory = FindObjectOfType<GeneralInventory>();
 
             if (!slotIsEmpty)
             {
+                
                 SwapItems(oldItem, item);
             }
             else
@@ -152,6 +155,9 @@ public class PlayerInventory : MonoBehaviour
             }
 
             _activeSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.UIIcon;
+            
+            generalInventory.RemoveItem(item);
+
             RefreshHeroInfoPanel();
         }
     }
@@ -172,15 +178,16 @@ public class PlayerInventory : MonoBehaviour
     {
         var generalInventory = FindObjectOfType<GeneralInventory>();
 
-        generalInventory.Delete(newItem);
-        generalInventory.Add(oldItem);
-
         if (newItem.itemType == ItemType.Weapon)
         {
+            heroes[index].DeleteWeaponDamage();
             heroes[index].weapon = null;
             DestroyWeapon();
             WeaponInstantinate(newItem);
         }
+
+        generalInventory.Delete(newItem);
+        generalInventory.Add(oldItem);
 
         heroes[index].Items.Remove(oldItem);
         heroes[index].Items.Add(newItem);
@@ -211,6 +218,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void DropWeapon(AssetItem item)
     {
+        heroes[index].DeleteWeaponDamage();
         heroes[index].Items.Remove(item);
         DestroyWeapon();
         heroes[index].RefreshSpellsToBasic();

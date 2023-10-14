@@ -6,27 +6,24 @@ public abstract class StateInfo : MonoBehaviour
 {
     public int TurnsCount;
 
-    public virtual void StateProcced(Creature entity)
-    {
-
-    }
+    public virtual void StateProcced(Creature entity) { }
 
 
     public virtual void RemoveState()
     {
         Destroy(this);
     }
+
+    public virtual void DecrementTime(int count)
+    {
+        TurnsCount = TurnsCount - count;
+    }
 }
 
-public class DebuffState : StateInfo
-{
+public class DebuffState : StateInfo { }
 
-}
 
-public class BuffState : StateInfo
-{
-
-}
+public class BuffState : StateInfo { }
 
 public class AttackBuffState : DebuffState
 {

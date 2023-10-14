@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Boots
   _description: s
-  _price: 10
   _protection: 1
   _health: 3
   _evsion: 10
+  _price: 10
+  _weight: 5
   _uiIcon: {fileID: 21300000, guid: 18040ac0949671f4f9e61c8c3a64f2cb, type: 3}
   _itemType: 5
+  _prefab: {fileID: 0}

@@ -50,6 +50,7 @@ MonoBehaviour:
   spells:
   - {fileID: 3707761420357160761}
   - {fileID: 3707761420357160766}
+  damage: 5
 --- !u!114 &3707761420357160766
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,9 @@
+using UnityEngine;
 
 public class GeneralInventory : Inventory
 {
     public int Coins;
+    public AssetItem assetItem;
 
     private void Start()
     {
@@ -15,4 +17,9 @@ public class GeneralInventory : Inventory
         Items.AddRange(session.InvData.items);
     }
 
+    [ContextMenu("Add")]
+    public void AddItem()
+    {
+        base.Add(assetItem);
+    }
 }

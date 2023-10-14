@@ -10,6 +10,7 @@ public class AssetItem : ScriptableObject, IItem
     public string Description => _description;
 
     public int Price => _price;
+    public int Weight => _weight;
 
     public int Protection => _protection;
 
@@ -29,6 +30,7 @@ public class AssetItem : ScriptableObject, IItem
     [SerializeField] private int _health;
     [SerializeField] private int _evsion;
     [SerializeField] private int _price;
+    [SerializeField] private int _weight; // тык
     [SerializeField] private Sprite _uiIcon;
     [SerializeField] private ItemType _itemType;
     [SerializeField] private GameObject _prefab;

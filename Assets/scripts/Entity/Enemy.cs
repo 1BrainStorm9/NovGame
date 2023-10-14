@@ -1,10 +1,12 @@
 using PixelCrew.UI.Widgets;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Enemy : Creature
 {
     private Creature target;
+    public int RewardExp;
 
     public void EnemyTurn() 
     { 
@@ -46,6 +48,7 @@ public class Enemy : Creature
 
     private void ChooseTarget(CastSpellController castSpellController, GameController gc)
     {
+
         if (castSpellController.Spells[castSpellController.SpellID].A_Attribute.CastForEnemy)
         {
             ChoosePlayerTarget(gc.playerList);
@@ -56,18 +59,18 @@ public class Enemy : Creature
         }
     }
 
-    private Creature ChoosePlayerTarget(List<Hero> targets)
+    private void ChoosePlayerTarget(List<Hero> targets)
     {
+        if (targets.Count == 0 || targets == null) return;
         int randomIndex = Random.Range(0, targets.Count);
         target = targets[randomIndex];
-        return target;
     }
 
-    private Creature ChooseEnemyTarget(List<Enemy> targets)
+    private void ChooseEnemyTarget(List<Enemy> targets)
     {
+        if (targets.Count == 0 || targets == null) return;
         int randomIndex = Random.Range(0, targets.Count);
         target = targets[randomIndex];
-        return target;
     }
 
     
