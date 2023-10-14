@@ -1,19 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraZoomZoneInHouse : MonoBehaviour
 {
     [SerializeField] private GameObject objectToFade;
     [SerializeField] private float fadeSpeed;
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private float zoomSpeed;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private float minOrthoSize;
+    [SerializeField] private float maxOrthoSize;
 
+    private float cooldownTime = 2f;
     private bool isFading = false;
     private bool isFaded = false;
     private bool inTriggerZone = false;
+    private float lastUsedTime = 0.0f;
 
     private CycleDayNight cycleDayNight;
+    private Movment Movment; 
+    private Animator animator;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -28,11 +35,9 @@ public class CameraZoomZoneInHouse : MonoBehaviour
         if (CompareTag("ZoomZoneInHouse"))
         {
             inTriggerZone = false;
-
-            if (isFading)
-            {
-                isFaded = false;
-            }
+            isFading = true;
+            isFaded = false;
+            UpdateCameraOrthoSize();
         }
     }
 
@@ -42,19 +47,22 @@ public class CameraZoomZoneInHouse : MonoBehaviour
         {
             cycleDayNight = FindObjectOfType<CycleDayNight>();
             EnumTime currentTime = cycleDayNight.returnType(cycleDayNight.getTime());
-            if (Input.GetKeyDown(KeyCode.E) && currentTime == EnumTime.isDay)
+            if (Input.GetKeyDown(KeyCode.E) && Time.time - lastUsedTime >= cooldownTime /*&& currentTime == EnumTime.isDay*/)
             {
+                lastUsedTime = Time.time;
                 isFaded = !isFaded;
                 isFading = true;
+                UpdateCameraOrthoSize();
             }
         }
-        else
-        {
-            isFading = true; isFaded = false;
-        }
-        
+
         if (isFading)
         {
+            Movment = FindObjectOfType<Movment>();
+            Movment.enabled = false;
+            animator = FindObjectOfType<Animator>();
+            animator.Play("HeroIdle");
+
             Color currentColor = objectToFade.GetComponent<Renderer>().material.color;
             float targetAlpha = isFaded ? 0.0f : 1.0f;
             float newAlpha = Mathf.Lerp(currentColor.a, targetAlpha, fadeSpeed * Time.deltaTime);
@@ -63,10 +71,34 @@ public class CameraZoomZoneInHouse : MonoBehaviour
             if (Mathf.Abs(newAlpha - targetAlpha) < 0.01f)
             {
                 isFading = false;
+                Movment.enabled = true;
+                animator.Play("HeroIdle");
             }
-
-            float targetOrthographicSize = isFaded ? 3.0f : 7.0f;
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetOrthographicSize, zoomSpeed * Time.deltaTime);
         }
+    }
+
+    private void UpdateCameraOrthoSize()
+    {
+        if (inTriggerZone)
+        {
+            float targetOrthoSize = isFaded ? minOrthoSize : maxOrthoSize;
+            StartCoroutine(ChangeOrthoSize(targetOrthoSize));
+        }
+    }
+
+    private IEnumerator ChangeOrthoSize(float targetSize)
+    {
+        float startSize = virtualCamera.m_Lens.OrthographicSize;
+        float timeElapsed = 0f;
+
+        while (timeElapsed < zoomSpeed)
+        {
+            timeElapsed += Time.deltaTime;
+            float t = timeElapsed / zoomSpeed;
+            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(startSize, targetSize, t);
+            yield return null;
+        }
+
+        virtualCamera.m_Lens.OrthographicSize = targetSize;
     }
 }
