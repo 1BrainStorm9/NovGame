@@ -25,9 +25,9 @@ public class LoadTrigger : MonoBehaviour
             if (cycleDayNight != null && cycleDayNight.returnType(cycleDayNight.getTime()) == EnumTime.isDay)                                                     
             {
                 gameSession.GetTimeData();
-                UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
             }
- 
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+
             /*var hero = collision.GetComponent<Creature>();
             var tempPoisonState = hero.GetComponent<TemporalDamageState>();
             if (tempPoisonState == null)

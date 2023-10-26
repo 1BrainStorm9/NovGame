@@ -12,13 +12,12 @@ public class CameraZoomZoneInHouse : MonoBehaviour
     [SerializeField] private float minOrthoSize;
     [SerializeField] private float maxOrthoSize;
 
-    private float cooldownTime = 2f;
+    [SerializeField] private float cooldownTime;
     private bool isFading = false;
     private bool isFaded = false;
     private bool inTriggerZone = false;
-    private float lastUsedTime = 0.0f;
-
-    private CycleDayNight cycleDayNight;
+    private float lastUsedTime;
+    
     private Movment Movment; 
     private Animator animator;
 
@@ -45,8 +44,6 @@ public class CameraZoomZoneInHouse : MonoBehaviour
     {
         if (inTriggerZone)
         {
-            cycleDayNight = FindObjectOfType<CycleDayNight>();
-            EnumTime currentTime = cycleDayNight.returnType(cycleDayNight.getTime());
             if (Input.GetKeyDown(KeyCode.E) && Time.time - lastUsedTime >= cooldownTime /*&& currentTime == EnumTime.isDay*/)
             {
                 lastUsedTime = Time.time;
@@ -70,6 +67,7 @@ public class CameraZoomZoneInHouse : MonoBehaviour
             objectToFade.GetComponent<Renderer>().material.color = currentColor;
             if (Mathf.Abs(newAlpha - targetAlpha) < 0.01f)
             {
+                UpdateCameraOrthoSize();
                 isFading = false;
                 Movment.enabled = true;
                 animator.Play("HeroIdle");
@@ -79,11 +77,8 @@ public class CameraZoomZoneInHouse : MonoBehaviour
 
     private void UpdateCameraOrthoSize()
     {
-        if (inTriggerZone)
-        {
-            float targetOrthoSize = isFaded ? minOrthoSize : maxOrthoSize;
-            StartCoroutine(ChangeOrthoSize(targetOrthoSize));
-        }
+        float targetOrthoSize = isFaded ? minOrthoSize : maxOrthoSize;
+        StartCoroutine(ChangeOrthoSize(targetOrthoSize));
     }
 
     private IEnumerator ChangeOrthoSize(float targetSize)
