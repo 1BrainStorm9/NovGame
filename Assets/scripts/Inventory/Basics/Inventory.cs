@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -14,8 +15,8 @@ public abstract class Inventory : MonoBehaviour
     [SerializeField] protected Transform _container;
     [SerializeField] protected Transform _draggingParent;
     [SerializeField] protected List<Cell> _cells;
-    [SerializeField] protected int Weight;
-    [SerializeField] protected int MaxWeight;
+    
+    
     [SerializeField] private GeneralInventory _secondaryInventory;
     [SerializeField] private GeneralInventory _generalInventory;
 
@@ -24,7 +25,8 @@ public abstract class Inventory : MonoBehaviour
         get { return _generalInventory; }
     }
 
-
+    public static int Weight = 7;
+    public static int MaxWeight = 15;
 
 
     private Cell activeCell;
@@ -50,13 +52,6 @@ public abstract class Inventory : MonoBehaviour
         return MaxWeight;
     }
 
-    public void RemoveItem(AssetItem item)
-    {
-        if (Items.Contains(item))
-        {
-            Weight -= item.Weight;
-        }
-    }
 
     private bool CanAddItem(AssetItem assetItem)
     {
@@ -69,7 +64,7 @@ public abstract class Inventory : MonoBehaviour
         if (CanAddItem(item))
         {
             Items.Add(item);
-            Weight += item.Weight;
+            Weight += 1;
             AddItemInUi(item);
         }
         else
@@ -78,12 +73,14 @@ public abstract class Inventory : MonoBehaviour
         }
     }
 
+
     public void Delete(AssetItem item)
     {
 
         _cells.Remove(activeCell);
         Destroy(activeCell.gameObject);
         Items.Remove(item);
+        Weight -= 1;
     }
 
 

@@ -45,8 +45,10 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
             var plrInv = FindObjectOfType<PlayerInventory>();
             plrInv.item = _item;
             plrInv.EquipItem();
+            
         }
     }
+
 
     public override void Render(AssetItem item)
     {

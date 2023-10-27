@@ -21,5 +21,11 @@ public class GeneralInventory : Inventory
     public void AddItem()
     {
         base.Add(assetItem);
+        base.Add(assetItem);
+        base.Add(assetItem);
+        base.Add(assetItem);
+        base.Add(assetItem);
+        base.Add(assetItem);
+        base.Add(assetItem);
     }
 }

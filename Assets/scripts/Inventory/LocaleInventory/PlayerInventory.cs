@@ -142,7 +142,6 @@ public class PlayerInventory : MonoBehaviour
 
             var slotIsEmpty = _activeSlot.GetComponent<ItemSlotInfo>().isEmptySlot;
             var oldItem = heroes[index].ReturnItemWhithThisType(item.itemType);
-            var generalInventory = FindObjectOfType<GeneralInventory>();
 
             if (!slotIsEmpty)
             {
@@ -155,9 +154,6 @@ public class PlayerInventory : MonoBehaviour
             }
 
             _activeSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.UIIcon;
-            
-            generalInventory.RemoveItem(item);
-
             RefreshHeroInfoPanel();
         }
     }
@@ -200,21 +196,31 @@ public class PlayerInventory : MonoBehaviour
     public void WithdrawItem(AssetItem item)
     {
         var generalInventory = FindObjectOfType<GeneralInventory>();
-        generalInventory.Add(item);
 
-        if(item.itemType == ItemType.Weapon)
+        if (Inventory.Weight < Inventory.MaxWeight)
         {
-            DropWeapon(item);
+            generalInventory.Add(item);
+
+            if (item.itemType == ItemType.Weapon)
+            {
+                DropWeapon(item);
+            }
+            else
+            {
+                heroes[index].Items.Remove(item);
+            }
+
+            SetActiveSloaAsItemType(item);
+            _activeSlot.transform.GetChild(0).GetComponent<Image>().sprite = _activeSlot.GetComponent<ItemSlotInfo>().defaultImage;
+            _activeSlot.GetComponent<ItemSlotInfo>().isEmptySlot = true;
         }
         else
         {
-            heroes[index].Items.Remove(item);
+            Debug.Log("inventory full");
         }
-
-        SetActiveSloaAsItemType(item);
-        _activeSlot.transform.GetChild(0).GetComponent<Image>().sprite = _activeSlot.GetComponent<ItemSlotInfo>().defaultImage;
-        _activeSlot.GetComponent<ItemSlotInfo>().isEmptySlot = true;
     }
+
+
 
     private void DropWeapon(AssetItem item)
     {
@@ -224,6 +230,8 @@ public class PlayerInventory : MonoBehaviour
         heroes[index].RefreshSpellsToBasic();
         FindObjectOfType<UIManager>().ReloadSpellHUD();
     }
+
+
 
     private void DestroyWeapon()
     {
