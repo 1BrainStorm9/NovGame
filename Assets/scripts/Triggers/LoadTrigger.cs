@@ -5,6 +5,7 @@ using UnityEditor.SceneManagement;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static GameSession;
 using static UnityEngine.GraphicsBuffer;
 
 public class LoadTrigger : MonoBehaviour
@@ -24,6 +25,8 @@ public class LoadTrigger : MonoBehaviour
             CycleDayNight cycleDayNight = FindAnyObjectByType<CycleDayNight>();
             if (cycleDayNight != null && cycleDayNight.returnType(cycleDayNight.getTime()) == EnumTime.isDay)                                                     
             {
+                gameSession.CompleteQuest("VisitNewLocation"); // complete quest
+
                 gameSession.GetTimeData();
             }
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
@@ -41,6 +44,21 @@ public class LoadTrigger : MonoBehaviour
             {
                 tempPoisonState.TurnsCount += 1;
             }*/
+        }
+    }
+
+    public bool IsQuestCompleted(string questName)
+    {
+        Quest quest = gameSession.quests.Find(q => q.questName == questName);
+        return quest != null && quest.isCompleted;
+    }
+
+    public void MarkCompleted(string questName)
+    {
+        Quest quest = gameSession.quests.Find(q => q.questName == questName);
+        if (quest != null)
+        {
+            quest.isCompleted = true;
         }
     }
 }

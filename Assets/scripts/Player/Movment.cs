@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameSession;
 
 public class Movment : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class Movment : MonoBehaviour
     private Animator animator;
     private bool looksRight = true;
 
+    private GameSession gameSession;
+
     void Start()        //с запуском игры берет данные о работе анимаций и игрока в целом 
     {
         rigidbody2d = this.GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        gameSession = FindObjectOfType<GameSession>();
     }
 
     void Update()       //позволяет задать скорость персонажу
@@ -38,6 +42,7 @@ public class Movment : MonoBehaviour
         if (movement.x != 0 || movement.y != 0)
         {
             animator.Play("HeroRun");
+            gameSession.CompleteQuest("Move"); // complete quest
         }
         else animator.Play("HeroIdle");
 	}
@@ -48,4 +53,9 @@ public class Movment : MonoBehaviour
         transform.localScale = Vector3.Scale(transform.localScale, new Vector3(-1, 1, 1));
 
     }
+
+    
+
+
+
 }

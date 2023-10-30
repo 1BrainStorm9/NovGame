@@ -25,16 +25,16 @@ public class InventoryOpenManager : MonoBehaviour
     }
     private void Start()
     {
-        if (isPeace)
-        {
-            gameState = GameState.Peace;
-            _hudCanvas.SetActive(false);
-        }
-        else
-        {
-            gameState = GameState.Fight;
-            _hudCanvas.SetActive(true);
-        }
+        /*if (isPeace)
+            {
+                gameState = GameState.Peace;
+                _hudCanvas.SetActive(false);
+            }
+            else
+            {
+                gameState = GameState.Fight;
+                _hudCanvas.SetActive(true);
+            }*/
     }
 
     private void Update()
@@ -46,9 +46,9 @@ public class InventoryOpenManager : MonoBehaviour
             
             _isVisible = !_isVisible;
             
-            
 
-            if(gameState == GameState.Fight)
+
+            if (gameState == GameState.Fight)
             {
                 _gereneralInventoryPanel.SetActive(_isVisible);
                 _localeInventoryPanel.SetActive(_isVisible);
