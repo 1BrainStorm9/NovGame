@@ -6,10 +6,15 @@ public class UIManager : MonoBehaviour
     public GameObject selectCircle;
     public GameObject targetCircle;
     public GameObject teamTargetCircle;
-    public GameObject spellBar;
+    public SpellHUDController spellBar;
     public GameObject hudCanvas;
     public GameObject endGamePanel;
     public GameObject gameResult;
+
+    private void Start()
+    {
+        spellBar = FindObjectOfType<SpellHUDController>();
+    }
 
     public void ShowWinEndGamePanel()
     {

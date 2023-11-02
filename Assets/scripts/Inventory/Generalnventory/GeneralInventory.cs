@@ -14,7 +14,10 @@ public class GeneralInventory : Inventory
     private void LoadItemsFromGameSession()
     {
         var session = FindObjectOfType<GameSession>();
-        Items.AddRange(session.InvData.items);
+        if(session != null) 
+        {
+            Items.AddRange(session.InvData.items);
+        }
     }
 
     [ContextMenu("Add")]

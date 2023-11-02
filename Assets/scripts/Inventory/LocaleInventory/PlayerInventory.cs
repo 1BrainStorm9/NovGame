@@ -30,6 +30,9 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         gameController = FindObjectOfType<GameController>();
+
+        if (gameController == null) return;
+
         displayingHeroInfo = FindObjectOfType<DisplayingHeroInfo>();;
         SetAllHeroes();
         Refresh();

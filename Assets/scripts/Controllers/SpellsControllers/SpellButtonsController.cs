@@ -7,7 +7,7 @@ public class SpellButtonsController : MonoBehaviour
     public Creature selectObject;
     private GameController gameController;
 
-    private void Awake()
+    private void Start()
     {
         gameController = FindObjectOfType<GameController>();
     }
