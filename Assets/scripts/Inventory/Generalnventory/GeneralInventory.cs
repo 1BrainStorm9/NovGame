@@ -1,14 +1,49 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GeneralInventory : Inventory
 {
     public int Coins;
     public AssetItem assetItem;
+    [SerializeField] private int index;
+    [SerializeField] private Transform InvUp;
+    [SerializeField] private Transform InvDown;
 
     private void Start()
     {
+       
         LoadItemsFromGameSession();
-        FullRender(Items);
+        FullRender(ItemsUp, _containerUp);
+        FullRender(ItemsDown, _containerDown);
+    }
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        InventoryEnter.OnEnter += changeIndexInv;
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        InventoryEnter.OnEnter -= changeIndexInv;
+    }
+
+    private void changeIndexInv(int index)
+    {
+        this.index = index;
+    }
+
+    public Transform GetContainerWithIndex()
+    {
+        switch (index)
+        {
+            case 0:
+                return InvUp;
+            case 1: 
+                return InvDown;
+            default: return InvUp;
+        }
     }
 
     private void LoadItemsFromGameSession()
@@ -16,19 +51,19 @@ public class GeneralInventory : Inventory
         var session = FindObjectOfType<GameSession>();
         if(session != null) 
         {
-            Items.AddRange(session.InvData.items);
+            ItemsUp.AddRange(session.InvData.items);
         }
     }
 
     [ContextMenu("Add")]
     public void AddItem()
     {
-        base.Add(assetItem);
-        base.Add(assetItem);
-        base.Add(assetItem);
-        base.Add(assetItem);
-        base.Add(assetItem);
-        base.Add(assetItem);
-        base.Add(assetItem);
+        base.Add(assetItem, ItemsUp, _containerUp);
+        base.Add(assetItem, ItemsUp, _containerUp);
+        base.Add(assetItem, ItemsUp, _containerUp);
+        base.Add(assetItem, ItemsDown, _containerDown);
+        base.Add(assetItem, ItemsDown, _containerDown);
+        base.Add(assetItem, ItemsDown, _containerDown);
     }
+
 }

@@ -186,7 +186,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         generalInventory.Delete(newItem);
-        generalInventory.Add(oldItem);
+        //generalInventory.Add(oldItem);
 
         heroes[index].Items.Remove(oldItem);
         heroes[index].Items.Add(newItem);
@@ -202,7 +202,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (Inventory.Weight < Inventory.MaxWeight)
         {
-            generalInventory.Add(item);
+            //generalInventory.Add(item);
 
             if (item.itemType == ItemType.Weapon)
             {

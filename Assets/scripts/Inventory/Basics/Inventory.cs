@@ -9,21 +9,13 @@ using static UnityEditor.Progress;
 
 public abstract class Inventory : MonoBehaviour
 {
-    [SerializeField] protected List<AssetItem> Items;
-    //[SerializeField] protected Cell _CellTemplate;
+    [SerializeField] public List<AssetItem> ItemsUp;
+    [SerializeField] public List<AssetItem> ItemsDown;
     [SerializeField] protected InventoryCell _inventoryCellTemplate;
-    [SerializeField] protected Transform _container;
+    [SerializeField] protected Transform _containerUp;
+    [SerializeField] protected Transform _containerDown;
     [SerializeField] protected Transform _draggingParent;
     [SerializeField] protected List<Cell> _cells;
-    
-    
-    [SerializeField] private GeneralInventory _secondaryInventory;
-    [SerializeField] private GeneralInventory _generalInventory;
-
-    public GeneralInventory GeneralInventoryProperty
-    {
-        get { return _generalInventory; }
-    }
 
     public static int Weight = 7;
     public static int MaxWeight = 15;
@@ -31,14 +23,17 @@ public abstract class Inventory : MonoBehaviour
 
     private Cell activeCell;
 
-    public void OnEnable()
+    public virtual void OnEnable()
     {
         InventoryCell.OnClick += SetActiveCell;
+        InventoryCell.OnEnterCell += SetActiveCell;
     }
 
-    private void OnDisable()
+    public virtual void OnDisable()
     {
         InventoryCell.OnClick -= SetActiveCell;
+        InventoryCell.OnEnterCell -= SetActiveCell;
+
     }
 
     public int CurrentWeight
@@ -59,13 +54,13 @@ public abstract class Inventory : MonoBehaviour
         return newWeight <= MaxWeight;
     }
 
-    public void Add(AssetItem item)
+    public void Add(AssetItem item, List<AssetItem> items,Transform container)
     {
         if (CanAddItem(item))
         {
-            Items.Add(item);
+            items.Add(item);
             Weight += 1;
-            AddItemInUi(item);
+            AddItemInUi(item, container);
         }
         else
         {
@@ -76,20 +71,18 @@ public abstract class Inventory : MonoBehaviour
 
     public void Delete(AssetItem item)
     {
-
         _cells.Remove(activeCell);
         Destroy(activeCell.gameObject);
-        Items.Remove(item);
+        ItemsUp.Remove(item);
         Weight -= 1;
     }
 
 
     [ContextMenu("Render")]
-    protected void FullRender(List<AssetItem> items)
+    protected void FullRender(List<AssetItem> items,Transform container)
     {
         
-
-        foreach (Transform child in _container)
+        foreach (Transform child in container)
         {
             Destroy(child.gameObject);
         }
@@ -97,7 +90,7 @@ public abstract class Inventory : MonoBehaviour
         items.ForEach(item =>
         {
             
-            AddItemInUi(item);
+            AddItemInUi(item,container);
         });
     }
 
@@ -106,10 +99,12 @@ public abstract class Inventory : MonoBehaviour
         activeCell = cell;
     }
 
-    private void AddItemInUi(AssetItem item)
+   
+
+    private void AddItemInUi(AssetItem item, Transform container)
     {
         if (item == null) return;
-        var cell = Instantiate(_inventoryCellTemplate, _container);
+        var cell = Instantiate(_inventoryCellTemplate, container);
         _cells.Add(cell);
         cell.Init(_draggingParent);
         cell.Render(item);

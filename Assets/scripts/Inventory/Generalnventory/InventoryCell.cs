@@ -7,6 +7,7 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
 {
     public delegate void InventoryCellDelegate(InventoryCell cell);
     public static event InventoryCellDelegate OnClick;
+    public static Action<InventoryCell> OnEnterCell;
 
     private Transform _draggingParent;
     private Transform _originalParent;
@@ -66,6 +67,7 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
     public void OnBeginDrag(PointerEventData eventData)
     {
         transform.parent = _draggingParent;
+        OnEnterCell?.Invoke(this);
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -75,17 +77,28 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
     public void OnEndDrag(PointerEventData eventData)
     {
         int closestIndex = 0;
+        var inv = FindObjectOfType<GeneralInventory>();
+        var container = inv.GetContainerWithIndex();
 
-        for(int i = 0; i < _originalParent.transform.childCount; i++)
+        for (int i = 0; i < container.transform.childCount; i++)
         {
-            if(Vector3.Distance(transform.position, _originalParent.GetChild(i).position) < Vector3.Distance(transform.position, _originalParent.GetChild(closestIndex).position))
+            if(Vector3.Distance(transform.position, container.GetChild(i).position) < Vector3.Distance(transform.position, container.GetChild(closestIndex).position))
             {
                 closestIndex = i;
-                
             }
         }
 
-        transform.parent = _originalParent;
+        if(_originalParent != container)
+        {
+            inv.Delete(_item);
+            inv.Add(_item, inv.ItemsUp, container);
+        }
+        else
+        {
+            transform.parent = container;
+        }
+
+
         transform.SetSiblingIndex(closestIndex);
     }
 
