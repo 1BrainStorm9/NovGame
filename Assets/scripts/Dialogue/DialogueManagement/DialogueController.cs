@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using Ink.Runtime;
 
 [RequireComponent(typeof(DialogueWindow), typeof(DialogueTag))]
 
@@ -62,7 +63,7 @@ public class DialogueController : MonoBehaviour
 	{
         if (CurrentStory.canContinue == false)
 		{
-            StopCoroutine(EnterDialogueMode());
+            StartCoroutine(ExitDialogueMode());
             return;
 		}
 
@@ -89,6 +90,6 @@ public class DialogueController : MonoBehaviour
 
         CurrentStory.ChooseChoiceIndex(choiceIndex);
 
-        CurrentStory();
+        ContinueStory();
 	}
 }

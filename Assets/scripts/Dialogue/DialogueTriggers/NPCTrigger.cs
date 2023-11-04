@@ -32,9 +32,7 @@ public class NPCTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
 	{
-        GameObject obj = collider.gameObject;
-
-        if(obj.GetComponent<Player>() != null)
+        if(collider.tag == "Player")
 		{
             _isPlayerEnter = true;
 		}
@@ -42,9 +40,7 @@ public class NPCTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
 	{
-        GameObject obj = collider.gameObject;
-
-        if (obj.GetComponent<Player>() != null)
+        if (collider.tag == "Player")
         {
             _isPlayerEnter = false;
         }

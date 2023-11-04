@@ -1,7 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
+using Ink.Runtime;
 
 [RequireComponent(typeof(DialogueChoise))]
 
@@ -29,7 +30,7 @@ public class DialogueWindow : MonoBehaviour
 		}
 	}
 
-    private void CheckCooldown(float value)
+    private float CheckCooldown(float value)
 	{
         if(value < 0)
 		{
@@ -127,7 +128,7 @@ public class DialogueWindow : MonoBehaviour
 
             if(isAddingRishText == false)
 			{
-                yield return new WairForSeconds(_cooldownNewLetter);
+                yield return new WaitForSeconds(_cooldownNewLetter);
 			}
         }
 
