@@ -11,7 +11,12 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
 
     private Transform _draggingParent;
     private Transform _originalParent;
+    private CanvasGroup canvasGroup;
+    private RectTransform rectTransform;
+    public bool dragOnSurfaces = true;
 
+    private GameObject m_DraggingIcon;
+    private RectTransform m_DraggingPlane;
 
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -63,19 +68,44 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
     {
         _draggingParent = draggingParent;
         _originalParent = transform.parent;
+        canvasGroup = GetComponentInParent<CanvasGroup>();
+        rectTransform = GetComponentInParent<RectTransform>();
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        transform.parent = _draggingParent;
+        transform.SetParent(_draggingParent, false);
         OnEnterCell?.Invoke(this);
+        var canvas = GetComponentInParent<Canvas>();
+        if (dragOnSurfaces)
+            m_DraggingPlane = transform as RectTransform;
+        else
+            m_DraggingPlane = canvas.transform as RectTransform;
     }
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
+        var rt = this.GetComponent<RectTransform>();
+        rt.anchoredPosition = eventData.position;
+
+    }
+
+    private void SetDraggedPosition(PointerEventData data)
+    {
+        if (dragOnSurfaces && data.pointerEnter != null && data.pointerEnter.transform as RectTransform != null)
+            m_DraggingPlane = data.pointerEnter.transform as RectTransform;
+
+        var rt = this.GetComponent<RectTransform>();
+        Vector2 globalMousePos;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(m_DraggingPlane, data.position, data.pressEventCamera, out globalMousePos))
+        {
+            rt.position = globalMousePos;
+            rt.rotation = m_DraggingPlane.rotation;
+        }
+
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+
         int closestIndex = 0;
         var inv = FindObjectOfType<GeneralInventory>();
         var container = inv.GetContainerWithIndex();
@@ -95,10 +125,8 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
         }
         else
         {
-            transform.parent = container;
+         transform.parent = container;
         }
-
-
         transform.SetSiblingIndex(closestIndex);
     }
 
