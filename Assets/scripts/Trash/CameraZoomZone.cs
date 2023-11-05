@@ -11,6 +11,7 @@ public class CameraZoomZone : MonoBehaviour
     [SerializeField] private float zoomSpeed;
     private Camera mainCamera;
     private GameSession gameSession;
+    public QuestManager questManager;
     private float initialSize;
     private float targetSize;
 
@@ -19,7 +20,7 @@ public class CameraZoomZone : MonoBehaviour
         mainCamera = Camera.main;
         initialSize = mainCamera.orthographicSize;
         targetSize = initialSize;
-        gameSession = FindObjectOfType<GameSession>();
+        questManager = FindObjectOfType<QuestManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -28,28 +29,9 @@ public class CameraZoomZone : MonoBehaviour
         {
             targetSize = zoomSize;
         }
-        switch(gameSession.questsCounter)
-        {
-            case 0:
-                Quest quest = new Quest();
-                gameSession.quests = new List<Quest>
-                {
-                    new Quest { questName = "Move", isCompleted = false }
-                };
-                break;
-            case 1:
-                gameSession.quests = new List<Quest>
-                {
-                    new Quest { questName = "VisitNewLocation", isCompleted = false }
-                };
-                break;
-            case 2:
-                gameSession.quests = new List<Quest>
-                {
-                    new Quest { questName = "WTH MAZAFAKA", isCompleted = false }
-                };
-                break;
-        }
+        questManager.ActivateQuest("Move");
+        questManager.ActivateQuest("VisitNewLocation");
+
     }
 
     private void OnTriggerExit2D(Collider2D other)

@@ -2,6 +2,7 @@ using Assets.scripts.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,27 +12,32 @@ public class GameSession : MonoBehaviour
     [SerializeField] private InventoryData _inventory;
     [SerializeField] private List<Hero> _heroes;
     [SerializeField] private TimeOfDayData _dataTime;
+    [SerializeField] private QuestManager questManager;
 
-    
-    [Serializable] public class Quest
-    {
-        public string questName;
-        public bool isCompleted;
-    }
 
-    [SerializeField] public int questsCounter = 0;
-    [SerializeField] public List<Quest> quests;
+    [SerializeField] public List<AssetQuest> quests;
+    [SerializeField] public List<AssetQuest> questsIsActive;
+    [SerializeField] public List<AssetQuest> questsComplete;
 
     public PlayerData Data => _data;
     public InventoryData InvData => _inventory;
     public List<Hero> Heroes => _heroes;
     public TimeOfDayData DataTime => _dataTime;
 
+
     private void Awake()
     {
+        questManager = FindAnyObjectByType<QuestManager>();
+        foreach (var quest in quests)
+        {
+            questManager.ActivateQuest(quest.Name);
+            if (questsIsActive.Contains(quest))
+            {
+                questManager.CompleteQuest(quest.Name);
+            }
+        }
 
         LoadHud();
-
         if (isSessionExit())
         {
             DestroyImmediate(gameObject);
@@ -41,51 +47,15 @@ public class GameSession : MonoBehaviour
             DontDestroyOnLoad(this);
         }
 
-
-
     }
 
-    public void CompleteQuest(string questName)
-    {
-        foreach (Quest quest in quests)
-        {
-            if (quest.questName == questName && !quest.isCompleted)
-            {
-                quest.isCompleted = true;
-                IncrementQuestCounter();
-            }
-        }
-    }
-
-    public bool IsQuestCompleted(string questName)
-    {
-        Quest quest = quests.Find(q => q.questName == questName);
-        return quest != null && quest.isCompleted;
-    }
-
-    public void MarkCompleted(string questName)
-    {
-        Quest quest = quests.Find(q => q.questName == questName);
-        if (quest != null)
-        {
-            quest.isCompleted = true;
-        }
-    }
-    public int GetQuestCounter()
-    {
-        return questsCounter;
-    }
-
-    public void IncrementQuestCounter()
-    {
-        questsCounter++;
-    }
 
     public void GetTimeData()
     {
         var cycleDayNight = FindObjectOfType<CycleDayNight>();
         _dataTime.intensity =  cycleDayNight.GetLight().intensity;
     }
+
 
     private void LoadHud()
     {
@@ -104,6 +74,5 @@ public class GameSession : MonoBehaviour
         }
         return false;
     }
-
 
 }
