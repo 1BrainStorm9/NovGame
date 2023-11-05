@@ -13,18 +13,23 @@ public class Movment : MonoBehaviour
     private bool looksRight = true;
 
     private GameSession gameSession;
+    private QuestManager questManager;
 
     void Start()        //с запуском игры берет данные о работе анимаций и игрока в целом 
     {
         rigidbody2d = this.GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         gameSession = FindObjectOfType<GameSession>();
+        questManager = FindObjectOfType<QuestManager>();
     }
 
     void Update()       //позволяет задать скорость персонажу
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKey(KeyCode.Space)) { questManager.CompleteQuest("Move"); }
+       
     }
 
     private void FixedUpdate()      //работа с подключением анимаций и правильного их отображения
@@ -42,7 +47,6 @@ public class Movment : MonoBehaviour
         if (movement.x != 0 || movement.y != 0)
         {
             animator.Play("HeroRun");
-            gameSession.CompleteQuest("Move"); // complete quest
         }
         else animator.Play("HeroIdle");
 	}

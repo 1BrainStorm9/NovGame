@@ -12,10 +12,12 @@ public class LoadTrigger : MonoBehaviour
 {
     [SerializeField] private string sceneName;
     private GameSession gameSession;
+    private QuestManager questManager;
 
     private void Awake()
     {
         gameSession = FindObjectOfType<GameSession>();
+        questManager = FindObjectOfType<QuestManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,10 +27,11 @@ public class LoadTrigger : MonoBehaviour
             CycleDayNight cycleDayNight = FindAnyObjectByType<CycleDayNight>();
             if (cycleDayNight != null && cycleDayNight.returnType(cycleDayNight.getTime()) == EnumTime.isDay)                                                     
             {
-                gameSession.CompleteQuest("VisitNewLocation"); // complete quest
-
                 gameSession.GetTimeData();
             }
+
+            questManager.CompleteQuest("VisitNewLocation");
+            questManager.CompleteQuest("ExitLocation");
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
 
             /*var hero = collision.GetComponent<Creature>();
@@ -44,21 +47,6 @@ public class LoadTrigger : MonoBehaviour
             {
                 tempPoisonState.TurnsCount += 1;
             }*/
-        }
-    }
-
-    public bool IsQuestCompleted(string questName)
-    {
-        Quest quest = gameSession.quests.Find(q => q.questName == questName);
-        return quest != null && quest.isCompleted;
-    }
-
-    public void MarkCompleted(string questName)
-    {
-        Quest quest = gameSession.quests.Find(q => q.questName == questName);
-        if (quest != null)
-        {
-            quest.isCompleted = true;
         }
     }
 }
