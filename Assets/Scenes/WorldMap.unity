@@ -1795,6 +1795,7 @@ MonoBehaviour:
   criticalChance: 0
   protect: 0
   evasionChance: 0
+  creatureName: 
   lvl: 1
   CharStates: []
   masteryLevel: {fileID: 0}
@@ -4164,7 +4165,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041321937}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3fe1caf3e031ea418ff5061318bbfec, type: 3}
   m_Name: 

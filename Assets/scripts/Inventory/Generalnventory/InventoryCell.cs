@@ -21,7 +21,7 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ShowItemStats();
+        
     }
 
 
@@ -34,7 +34,7 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        HideItemStats();
+       
     }
 
     private void HideItemStats()
@@ -81,6 +81,7 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
         else
             m_DraggingPlane = canvas.transform as RectTransform;
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         var rt = this.GetComponent<RectTransform>();
@@ -88,20 +89,6 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
 
     }
 
-    private void SetDraggedPosition(PointerEventData data)
-    {
-        if (dragOnSurfaces && data.pointerEnter != null && data.pointerEnter.transform as RectTransform != null)
-            m_DraggingPlane = data.pointerEnter.transform as RectTransform;
-
-        var rt = this.GetComponent<RectTransform>();
-        Vector2 globalMousePos;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(m_DraggingPlane, data.position, data.pressEventCamera, out globalMousePos))
-        {
-            rt.position = globalMousePos;
-            rt.rotation = m_DraggingPlane.rotation;
-        }
-
-    }
 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -121,7 +108,8 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
         if(_originalParent != container)
         {
             inv.Delete(_item);
-            inv.Add(_item, inv.ItemsUp, container);
+                        
+            inv.Add(_item, inv.GetInvWithIndex(), container);
         }
         else
         {
@@ -129,5 +117,4 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
         }
         transform.SetSiblingIndex(closestIndex);
     }
-
 }

@@ -1,3 +1,5 @@
+using Ink.Parsed;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -43,6 +45,18 @@ public class GeneralInventory : Inventory
             case 1: 
                 return InvDown;
             default: return InvUp;
+        }
+    }
+
+    public List<AssetItem> GetInvWithIndex()
+    {
+        switch (index)
+        {
+            case 0:
+                return ItemsUp;
+            case 1:
+                return ItemsDown;
+            default: return ItemsUp;
         }
     }
 
