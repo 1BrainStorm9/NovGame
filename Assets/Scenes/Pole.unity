@@ -1431,6 +1431,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102527920}
   m_CullTransparentMesh: 1
+--- !u!1 &140803556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 140803558}
+  - component: {fileID: 140803557}
+  m_Layer: 0
+  m_Name: SceneType
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &140803557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140803556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975c81c6b78dcea47a0873df772e0c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneType: 0
+--- !u!4 &140803558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140803556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -39.859215, y: 221.51581, z: 46075.977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &166321630
 GameObject:
   m_ObjectHideFlags: 0
@@ -3169,15 +3214,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe9ff096cacd0b4ca99f634917b9875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items: []
+  ItemsUp: []
+  ItemsDown: []
   _inventoryCellTemplate: {fileID: 8606808509840312639, guid: 7dadbd22ef9eddc40b19fd328024d529, type: 3}
-  _container: {fileID: 1140519607}
+  _containerUp: {fileID: 0}
+  _containerDown: {fileID: 0}
   _draggingParent: {fileID: 2084254135}
   _cells: []
-  _secondaryInventory: {fileID: 0}
-  _generalInventory: {fileID: 0}
   Coins: 0
   assetItem: {fileID: 11400000, guid: 7cf673b4a89da1e4d8ffce9904fd74c2, type: 2}
+  index: 0
+  InvUp: {fileID: 0}
+  InvDown: {fileID: 0}
 --- !u!114 &422299386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7121,6 +7169,8 @@ MonoBehaviour:
   _dataTime:
     time: 0
     intensity: 0
+  questsCounter: 0
+  quests: []
 --- !u!4 &901211652
 Transform:
   m_ObjectHideFlags: 0
@@ -7795,17 +7845,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05cbdc95ffb1ce048a395c630044ac47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items:
-  - {fileID: 11400000, guid: 7cf673b4a89da1e4d8ffce9904fd74c2, type: 2}
-  - {fileID: 11400000, guid: c540e4a493ae902489df7e1a397e7d5a, type: 2}
-  - {fileID: 11400000, guid: eee52b44918237d48a3225d5014856e4, type: 2}
-  - {fileID: 11400000, guid: 15d056a7e5328ba44863faaf7262ae29, type: 2}
+  ItemsUp: []
+  ItemsDown: []
   _inventoryCellTemplate: {fileID: 0}
-  _container: {fileID: 933543487}
+  _containerUp: {fileID: 0}
+  _containerDown: {fileID: 0}
   _draggingParent: {fileID: 0}
   _cells: []
-  _secondaryInventory: {fileID: 0}
-  _generalInventory: {fileID: 0}
 --- !u!4 &1009102297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 76591019021324352, guid: e063a96ffdb14ba48ac655f5bdc31aeb, type: 3}
@@ -12357,15 +12403,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe9ff096cacd0b4ca99f634917b9875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items: []
+  ItemsUp: []
+  ItemsDown: []
   _inventoryCellTemplate: {fileID: 8606808509840312639, guid: 7dadbd22ef9eddc40b19fd328024d529, type: 3}
-  _container: {fileID: 912518473}
+  _containerUp: {fileID: 0}
+  _containerDown: {fileID: 0}
   _draggingParent: {fileID: 2084254135}
   _cells: []
-  _secondaryInventory: {fileID: 0}
-  _generalInventory: {fileID: 0}
   Coins: 0
   assetItem: {fileID: 11400000, guid: 7cf673b4a89da1e4d8ffce9904fd74c2, type: 2}
+  index: 0
+  InvUp: {fileID: 0}
+  InvDown: {fileID: 0}
 --- !u!1 &1976267145
 GameObject:
   m_ObjectHideFlags: 0
@@ -13165,15 +13214,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe9ff096cacd0b4ca99f634917b9875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items: []
+  ItemsUp: []
+  ItemsDown: []
   _inventoryCellTemplate: {fileID: 8606808509840312639, guid: 7dadbd22ef9eddc40b19fd328024d529, type: 3}
-  _container: {fileID: 912518473}
+  _containerUp: {fileID: 0}
+  _containerDown: {fileID: 0}
   _draggingParent: {fileID: 0}
   _cells: []
-  _secondaryInventory: {fileID: 0}
-  _generalInventory: {fileID: 0}
   Coins: 300
   assetItem: {fileID: 11400000, guid: e4f682f0461dbe544a667ac7bbb41582, type: 2}
+  index: 0
+  InvUp: {fileID: 0}
+  InvDown: {fileID: 0}
 --- !u!1 &2118032828
 GameObject:
   m_ObjectHideFlags: 0
