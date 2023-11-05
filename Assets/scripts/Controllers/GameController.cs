@@ -173,12 +173,7 @@ public class GameController : MonoBehaviour
         if (IsPlayerTurn())
         {
             selectObject.AddWeaponSpellsToHeroSpells();
-            manager.ShowHUD();
             manager.ReloadSpellHUD();
-        }
-        else
-        {
-            manager.HideHUD();
         }
         selectObject.ActivateStates();
     }

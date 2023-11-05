@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 2b56fda11466bea4ab7e959a8199fe21
   - enabled: 1
     path: Assets/Scenes/Pole.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 166da1e321f209a41bdda64f823b1f40
   - enabled: 1
     path: Assets/Scenes/Hud.unity
     guid: 75b4c1f69b162d943b39cd95ed22a449
