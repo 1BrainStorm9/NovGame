@@ -18,6 +18,7 @@ public abstract class Creature : MonoBehaviour
     public float criticalChance;
     public float protect;
     public float evasionChance;
+    public string creatureName;
     public int lvl;
 
     [Header("------States------")]
@@ -46,7 +47,6 @@ public abstract class Creature : MonoBehaviour
     private static readonly int Hit = Animator.StringToHash("hit");
     private static readonly int Die = Animator.StringToHash("is-dead");
     private static readonly int Evasion = Animator.StringToHash("evasion");
-    private GameSession gameSession;
 
     protected void Awake()
     {
@@ -65,7 +65,21 @@ public abstract class Creature : MonoBehaviour
         CycleDayNight.NewDayCome -= ActivateStates;
     }
 
-
+    public Dictionary<String, object> GetEntityInfo()
+    {
+        var stats = new Dictionary<String, object>()
+        {
+            {"Damage", damage},
+            {"Health", health},
+            {"HealthMax", maxHealth},
+            {"Evasion", evasionChance},
+            {"Protect", protect},
+            {"CritChance", criticalChance},
+            {"CritMult", criticalDamage},
+            {"CharStates", CharStates},
+        };
+        return stats;
+    }
     
     public void AddWeaponSpellsToHeroSpells()
     {

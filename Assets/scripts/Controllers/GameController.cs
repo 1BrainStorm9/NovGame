@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     [Space]
     public bool isBossFight = false;
     private bool isTurnEnd = false;
+    private SpawnTargetMarker spawnTargetMarker;
 
     [Header("------Actions------")]
     [Space]
@@ -55,8 +56,14 @@ public class GameController : MonoBehaviour
         if (GetActiveCreature.GetComponent<CastSpellController>().isSpellSelected) 
         {
             targerObject = target;
-            UseCreatureSpell();
         }
+        else
+        {
+            targerObject = target;
+            var hud = FindObjectOfType<HudManager>();
+            if (hud != null) hud.UpdateEnemyStats();
+        }
+        
     }
 
 
@@ -65,6 +72,7 @@ public class GameController : MonoBehaviour
         manager = GetComponent<UIManager>();
         heroManager = GetComponent<HeroManager>();
         enemyManager = GetComponent<EnemyManager>();
+        spawnTargetMarker = FindObjectOfType<SpawnTargetMarker>();
 
     }
 
@@ -84,6 +92,7 @@ public class GameController : MonoBehaviour
 
         if (IsPlayerTurn())
         {
+
             if(selectObject == null)
             {
                 SelectActiveObject();
@@ -141,6 +150,7 @@ public class GameController : MonoBehaviour
         {
             selectObject.GetComponent<CastSpellController>().UseSpell(targerObject);
             RemoveEnemyWhenNoHp();
+            RemovePlayerWhenNoHp();
             isTurnEnd = true;
             EndTurn();
         }
@@ -174,51 +184,14 @@ public class GameController : MonoBehaviour
         {
             selectObject.AddWeaponSpellsToHeroSpells();
             manager.ReloadSpellHUD();
+            FindObjectOfType<HudManager>().UpdateHeroStats();
         }
         selectObject.ActivateStates();
     }
 
-    private void SelectTarget()
+    public bool IsPlayerTurn()
     {
-        FindObjectOfType<ColliderCreationController>().DeleteCollider();
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        var csc = selectObject.GetComponent<CastSpellController>();
-       
-
-        if (csc.isSpellSelected && csc.CanCastForEnemy() && hit.collider?.tag == "Enemy")
-        {
-            SelectTargetProccesing(hit, csc.CanCastForEnemy());
-        }
-        else if(csc.isSpellSelected && !csc.CanCastForEnemy() && hit.collider?.tag == "Player")
-        {
-            SelectTargetProccesing(hit, csc.CanCastForEnemy());
-        }
-
-
-    }
-
-    private void SelectTargetProccesing(RaycastHit2D hit, bool castForEnemy)
-    {
-        targerObject = hit.collider.GetComponent<Creature>();
-        if (targerObject != null)
-        {
-            if (castForEnemy)
-            {
-                manager.ShowTargetCircle();
-                manager.HideTeamTargetCircle();
-                manager.SetTargetCirclePosition(hit.collider.transform.position);
-            }
-            else 
-            {
-                manager.ShowTeamTargetCircle();
-                manager.HideTargetCircle();
-                manager.SetTeamTargetCirclePosition(hit.collider.transform.position);
-            }
-        }
-    }
-
-    private bool IsPlayerTurn()
-    {
+        if (fightList[0] == null) { return false; }
         return GetActiveCreature.GetComponent<Hero>() != null;
     }
 
@@ -230,6 +203,7 @@ public class GameController : MonoBehaviour
 
     private void EndMoveSettings()
     {
+        spawnTargetMarker.DeleteMarker();
         fightList.Add(GetActiveCreature);
         fightList.RemoveAt(0);
 
@@ -237,10 +211,6 @@ public class GameController : MonoBehaviour
         targerObject = null;
 
         isTurnEnd = false;
-
-        manager.HideSelectCircle();
-        manager.HideTargetCircle();
-        manager.HideTeamTargetCircle();
     }
 
     private void EndGameProcessing()

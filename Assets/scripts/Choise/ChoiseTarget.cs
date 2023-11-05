@@ -5,10 +5,17 @@ using static UnityEngine.GraphicsBuffer;
 public class ChoiseTarget : MonoBehaviour
 {
     public static Action<Creature> OnSelectTarget;
+    private GameController gameController;
+
+    private void Start()
+    {
+        gameController = FindObjectOfType<GameController>();
+    }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        var canChoise = gameController.IsPlayerTurn();
+        if (canChoise && Input.GetMouseButtonDown(0))
         {
             FindObjectOfType<ColliderCreationController>().DeleteCollider();
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);

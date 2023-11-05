@@ -24,8 +24,7 @@ public class SpellButtonsController : MonoBehaviour
         {
             castSpellController.SpellID = index;
             castSpellController.isSpellSelected = true;
-            gameController.manager.HideTargetCircle();
-            gameController.manager.HideTeamTargetCircle();
+            gameController.UseCreatureSpell();
         }
     }
 }
