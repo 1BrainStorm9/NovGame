@@ -58,7 +58,7 @@ public class CycleDayNight : MonoBehaviour
 
     private void ChangeTimeText()
     {
-        textMeshPro.text = "Time: " + time.ToString() + ".00";
+       //textMeshPro.text = "Time: " + time.ToString() + ".00";
     }
 
 

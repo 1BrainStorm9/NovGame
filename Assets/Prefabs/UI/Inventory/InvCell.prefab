@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 2986360684318946980}
   - component: {fileID: 161292123483991954}
   - component: {fileID: 5294145669013432882}
+  - component: {fileID: 5163087782061817908}
   m_Layer: 0
   m_Name: InvCell
   m_TagString: Untagged
@@ -229,6 +230,18 @@ MonoBehaviour:
   _nameField: {fileID: 6973765799090156241}
   _iconField: {fileID: 2374950846551784066}
   Id: 0
+--- !u!225 &5163087782061817908
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4455865480217254259}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6652473152929532273
 GameObject:
   m_ObjectHideFlags: 0
