@@ -4321,7 +4321,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: eee52b44918237d48a3225d5014856e4, type: 2}
     - {fileID: 11400000, guid: 15d056a7e5328ba44863faaf7262ae29, type: 2}
     - {fileID: 11400000, guid: 67488247fa2c01e4395f00a8ae1fd046, type: 2}
-    - {fileID: 11400000, guid: ce888ebcfec07f741bbe36fcbe529a6e, type: 2}
   _heroes:
   - {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
   - {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}

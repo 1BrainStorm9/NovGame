@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static CameraController;
+using static UnityEditor.Progress;
 
 public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
@@ -48,11 +51,81 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             OnClick(this);
-            var plrInv = FindObjectOfType<PlayerInventory>();
-            plrInv.item = _item;
-            plrInv.EquipItem();
-            
+            AddItemToHero();
+
         }
+    }
+
+    private void AddItemToHero()
+    {
+        var hero = FindObjectOfType<GameController>().GetActiveCreature;
+
+        if (hero == null || _item == null)
+        {
+            return;
+        }
+
+        var item = FindItem(hero);
+
+        if (item != null)
+        {
+            hero.Items.Remove(item);
+            hero.Items.Add(_item);
+            if (item.itemType == ItemType.Weapon)
+            {
+                DeleteWeapon(hero);
+                AddWeapon(hero);
+            }
+            var inv = FindObjectOfType<GeneralInventory>();
+            var container = inv.GetContainerWithIndex();
+            inv.Add(item, inv.GetInvWithIndex(), container);
+            inv.Delete(_item);
+            var hud = FindObjectOfType<HudManager>();
+            hud.UpdateHeroStats();
+            return;
+        }
+        else
+        {
+            hero.Items.Add(_item);
+            if (_item.itemType == ItemType.Weapon)
+            {
+                AddWeapon(hero);
+            }
+            var inv = FindObjectOfType<GeneralInventory>();
+            inv.Delete(_item);
+            FindObjectOfType<HudManager>().UpdateHeroStats();
+            return;
+        }
+
+    }
+
+    private void AddWeapon(Creature hero)
+    {
+        var weapon = Instantiate(_item.prefab);
+        weapon.transform.SetParent(hero.transform);
+        hero.weapon = weapon.GetComponent<Weapon>();
+        hero.AddWeaponSpellsToHeroSpells();
+        hero.AddWeaponDamage();
+        FindObjectOfType<SpellHUDController>().ReloadHUD();
+    }
+
+    private static void DeleteWeapon(Creature hero)
+    {
+        hero.DeleteWeaponDamage();
+        hero.weapon = null;
+        Destroy(hero.GetComponentInChildren<Weapon>().gameObject);
+    }
+
+    private AssetItem FindItem(Creature hero)
+    {
+        foreach (var item in hero.Items)
+        {
+            if(item.itemType == _item.itemType)
+            {
+                return item;
+            }
+        }
+        return null;
     }
 
 
@@ -96,7 +169,7 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
         int closestIndex = 0;
         var inv = FindObjectOfType<GeneralInventory>();
         var container = inv.GetContainerWithIndex();
-
+        
         for (int i = 0; i < container.transform.childCount; i++)
         {
             if(Vector3.Distance(transform.position, container.GetChild(i).position) < Vector3.Distance(transform.position, container.GetChild(closestIndex).position))

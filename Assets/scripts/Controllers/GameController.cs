@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public bool isBossFight = false;
     private bool isTurnEnd = false;
     private SpawnTargetMarker spawnTargetMarker;
+    private HudManager hudManager;
 
     [Header("------Actions------")]
     [Space]
@@ -69,6 +70,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        hudManager = FindObjectOfType<HudManager>();
+        hudManager.ShowRightSide(true);
         manager = GetComponent<UIManager>();
         heroManager = GetComponent<HeroManager>();
         enemyManager = GetComponent<EnemyManager>();
@@ -92,8 +95,7 @@ public class GameController : MonoBehaviour
 
         if (IsPlayerTurn())
         {
-
-            if(selectObject == null)
+            if (selectObject == null)
             {
                 SelectActiveObject();
             }
@@ -102,6 +104,7 @@ public class GameController : MonoBehaviour
         {
             if (!isTurnEnd)
             {
+                hudManager.ShowRightSide(true);
                 isTurnEnd = true;
                 SelectActiveObject();
                 EnemyTurnProccesing();

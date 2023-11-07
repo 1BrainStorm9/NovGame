@@ -21,6 +21,7 @@ public abstract class Inventory : MonoBehaviour
     public static int MaxWeight = 15;
 
 
+
     private Cell activeCell;
 
     public virtual void OnEnable()

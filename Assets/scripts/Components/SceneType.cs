@@ -6,6 +6,11 @@ public class SceneType : MonoBehaviour
 {
     [SerializeField] private SceneEnum sceneType;
 
+    private void Awake()
+    {
+        Time.timeScale = 1f;
+    }
+
     public SceneEnum GetSceneType()
     {
         return sceneType;

@@ -14,6 +14,7 @@ public class HudManager : MonoBehaviour
     [SerializeField] GameObject enemyTargetHealth;
     [SerializeField] GameObject inventoryHud;
     [SerializeField] GameObject spellHud;
+    [SerializeField] GameObject enemySide;
     private SceneEnum sceneType;
     private bool isOpen;
     private GameController gameController;
@@ -71,6 +72,7 @@ public class HudManager : MonoBehaviour
         heroName.GetComponent<TextMeshProUGUI>().text = creature.creatureName;
         health.GetComponent<TextMeshProUGUI>().text = info["Health"] + "/" + info["HealthMax"];
         heroStats.GetComponent<TextMeshProUGUI>().text = info["Damage"] + "\n" + info["Protect"] + "\n" + info["Evasion"] + "\n" + info["CritChance"] + "\n" + info["CritMult"];
+
     }
 
     public void UpdateEnemyStats()
@@ -78,13 +80,22 @@ public class HudManager : MonoBehaviour
         if (gameController == null) return;
 
         var creature = gameController.targerObject;
-        if(creature == null) return;
+        if(creature == null)
+        {
+            enemySide.SetActive(true);
+            return;
+        }
         var info = creature.GetEntityInfo();
         enemyTargetHealth.GetComponent<TextMeshProUGUI>().text = info["Health"] + "/" + info["HealthMax"];
         enemyTargetStats.GetComponent<TextMeshProUGUI>().text = info["Damage"] + "\n" + info["Protect"] + "\n" + info["Evasion"] + "\n" + info["CritChance"];
         enemyTargetName.GetComponent<TextMeshProUGUI>().text = creature.creatureName;
     }
 
+
+    public void ShowRightSide(bool isHaveTarget)
+    {
+        enemySide.SetActive(isHaveTarget);
+    }
 }
 
 
