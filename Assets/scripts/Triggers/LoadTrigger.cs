@@ -11,6 +11,7 @@ using static UnityEngine.GraphicsBuffer;
 public class LoadTrigger : MonoBehaviour
 {
     [SerializeField] private string sceneName;
+
     private GameSession gameSession;
     private QuestManager questManager;
 
@@ -19,6 +20,7 @@ public class LoadTrigger : MonoBehaviour
         gameSession = FindObjectOfType<GameSession>();
         questManager = FindObjectOfType<QuestManager>();
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -29,10 +31,9 @@ public class LoadTrigger : MonoBehaviour
             {
                 gameSession.GetTimeData();
             }
-
-            questManager.CompleteQuest("VisitNewLocation");
-            questManager.CompleteQuest("ExitLocation");
+            gameSession.previousSceneName = SceneManager.GetActiveScene().name;
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+
 
             /*var hero = collision.GetComponent<Creature>();
             var tempPoisonState = hero.GetComponent<TemporalDamageState>();

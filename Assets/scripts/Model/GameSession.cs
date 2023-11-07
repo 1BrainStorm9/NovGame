@@ -1,8 +1,6 @@
 using Assets.scripts.Model;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,16 +12,17 @@ public class GameSession : MonoBehaviour
     [SerializeField] private TimeOfDayData _dataTime;
     [SerializeField] private QuestManager questManager;
 
-
     [SerializeField] public List<AssetQuest> quests;
     [SerializeField] public List<AssetQuest> questsIsActive;
     [SerializeField] public List<AssetQuest> questsComplete;
+
+    public string previousSceneName;
+    public Vector3 savedPlayerPosition;
 
     public PlayerData Data => _data;
     public InventoryData InvData => _inventory;
     public List<Hero> Heroes => _heroes;
     public TimeOfDayData DataTime => _dataTime;
-
 
     private void Awake()
     {
@@ -46,16 +45,13 @@ public class GameSession : MonoBehaviour
         {
             DontDestroyOnLoad(this);
         }
-
     }
-
 
     public void GetTimeData()
     {
         var cycleDayNight = FindObjectOfType<CycleDayNight>();
-        _dataTime.intensity =  cycleDayNight.GetLight().intensity;
+        _dataTime.intensity = cycleDayNight.GetLight().intensity;
     }
-
 
     private void LoadHud()
     {
@@ -67,12 +63,11 @@ public class GameSession : MonoBehaviour
         var sessions = FindObjectsOfType<GameSession>();
         foreach (var gameSession in sessions)
         {
-            if(gameSession != this)
+            if (gameSession != this)
             {
                 return true;
             }
         }
         return false;
     }
-
 }
