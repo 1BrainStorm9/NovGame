@@ -11,7 +11,7 @@ public class GameSession : MonoBehaviour
     [SerializeField] public List<PrefabData> _heroesPrefabs;
     [SerializeField] private TimeOfDayData _dataTime;
     [SerializeField] private QuestManager questManager;
-
+    [SerializeField] public Vector2 position;
     [SerializeField] public List<AssetQuest> quests;
     [SerializeField] public List<AssetQuest> questsIsActive;
     [SerializeField] public List<AssetQuest> questsComplete;

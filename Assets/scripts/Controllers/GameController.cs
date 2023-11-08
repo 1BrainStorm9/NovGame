@@ -77,6 +77,7 @@ public class GameController : MonoBehaviour
         heroManager = GetComponent<HeroManager>();
         enemyManager = GetComponent<EnemyManager>();
         spawnTargetMarker = FindObjectOfType<SpawnTargetMarker>();
+        Invoke("SaveHeroValues",1f);
 
     }
 
@@ -230,6 +231,7 @@ public class GameController : MonoBehaviour
             if (cameraController.getIsBossFight)
             {
                 Invoke("Pause", 1f);
+                SaveHeroValues();
                 manager.ShowWinEndGamePanel();
                 return;
             }
@@ -245,21 +247,20 @@ public class GameController : MonoBehaviour
     }
 
     [ContextMenu("End")]
-    private void EndGame()
+    private void SaveHeroValues()
     {
         var gs = FindAnyObjectByType<GameSession>();
         List<PrefabData> list = new List<PrefabData>();
 
         foreach (var hero in playerList)
         {
+            hero.DeleteWeaponDamage();
             PrefabData prefabData = new PrefabData(hero.GetId(), hero.exp, hero.health, hero.maxHealth, hero.damage, hero.criticalDamage, hero.criticalChance, hero.protect, hero.evasionChance, hero.creatureName, hero.lvl, hero.Items, hero.weapon, hero.CharStates, hero.masteryLevel);
-            //prefabData.masteryLevel.SetWeaponMastery(hero.masteryLevel.GetLevels());
+            hero.AddWeaponDamage();
             list.Add(prefabData);
         }
 
         gs.SavePrefabData(list);
-        Invoke("Pause", 1f);
-        manager.ShowWinEndGamePanel();
     }
 
     private void Pause()
