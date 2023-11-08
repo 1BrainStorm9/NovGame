@@ -15,6 +15,9 @@ public class HudManager : MonoBehaviour
     [SerializeField] GameObject inventoryHud;
     [SerializeField] GameObject spellHud;
     [SerializeField] GameObject enemySide;
+    [SerializeField] GameObject textIn;
+    [SerializeField] GameObject invDown;
+
     private SceneEnum sceneType;
     private bool isOpen;
     private GameController gameController;
@@ -41,12 +44,16 @@ public class HudManager : MonoBehaviour
             case SceneEnum.fightScene:
                 spellHud.SetActive(true);
                 inventoryHud.SetActive(false);
+                ShowText(true);
+                invDown.SetActive(false);
                 isOpen = false;
                 break;
                                            
             case SceneEnum.peaceScene:
                 spellHud.SetActive(false);
                 inventoryHud.SetActive(false);
+                ShowText(false);
+                invDown.SetActive(true);
                 isOpen = false;
                 break;
             
@@ -95,6 +102,11 @@ public class HudManager : MonoBehaviour
     public void ShowRightSide(bool isHaveTarget)
     {
         enemySide.SetActive(isHaveTarget);
+    }
+
+    public void ShowText(bool isFight)
+    {
+        textIn.SetActive(isFight);
     }
 }
 

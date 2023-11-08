@@ -187,7 +187,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &14300697
 GameObject:
@@ -4470,7 +4470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d4bc2521f01e34383380c24a377d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 200
+  moveSpeed: 100
 --- !u!212 &771623288
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4512,7 +4512,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 444435384, guid: b906132534879f245aa0393783cb3cdc, type: 3}
+  m_Sprite: {fileID: 1276343351, guid: 847af81c8d8272b49994cc15c7c8c120, type: 3}
   m_Color: {r: 0.7533375, g: 0.9339623, b: 0.7797821, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4594,18 +4594,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06815692, y: -0.165524}
+  m_Offset: {x: -0.05687818, y: -0.41365713}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.75, y: 1.03125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5521114, y: 0.668952}
+  m_Size: {x: 0.31525725, y: 0.17268574}
   m_EdgeRadius: 0
 --- !u!114 &771623293
 MonoBehaviour:
@@ -7181,7 +7181,7 @@ Transform:
   - {fileID: 137815351}
   - {fileID: 539083591}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1334173460
 GameObject:
@@ -10934,7 +10934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 56586504483261281, guid: 4de59852d41d2aa46becab4578f6ba57, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 56586504483261283, guid: 4de59852d41d2aa46becab4578f6ba57, type: 3}
       propertyPath: m_Enabled

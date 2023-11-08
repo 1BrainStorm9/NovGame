@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class GameController : MonoBehaviour
 {
@@ -243,9 +244,69 @@ public class GameController : MonoBehaviour
         manager.HideSelectCircle();
     }
 
+    [ContextMenu("End")]
+    private void EndGame()
+    {
+        var gs = FindAnyObjectByType<GameSession>();
+        List<PrefabData> list = new List<PrefabData>();
+
+        foreach (var hero in playerList)
+        {
+            PrefabData prefabData = new PrefabData(hero.GetId(), hero.exp, hero.health, hero.maxHealth, hero.damage, hero.criticalDamage, hero.criticalChance, hero.protect, hero.evasionChance, hero.creatureName, hero.lvl, hero.Items, hero.weapon, hero.CharStates, hero.masteryLevel);
+            //prefabData.masteryLevel.SetWeaponMastery(hero.masteryLevel.GetLevels());
+            list.Add(prefabData);
+        }
+
+        gs.SavePrefabData(list);
+        Invoke("Pause", 1f);
+        manager.ShowWinEndGamePanel();
+    }
+
     private void Pause()
     {
         Time.timeScale = 0f;
     }
 }
 
+
+[System.Serializable]
+public class PrefabData
+{
+    public int HeroId;
+    public int exp;
+    public float health;
+    public float maxHealth;
+    public float damage;
+    public float criticalDamage;
+    public float criticalChance;
+    public float protect;
+    public float evasionChance;
+    public string creatureName;
+    public int lvl;
+    public List<AssetItem> Items;
+    public Weapon weapon;
+    public List<StateInfo> CharStates;
+    public WeaponMastery masteryLevel;
+
+    
+
+    public PrefabData(int heroId, int exp, float health, float maxHealth, float damage, float criticalDamage, float criticalChance, float protect, float evasionChance, string creatureName, int lvl, List<AssetItem> items, Weapon weapon, List<StateInfo> charStates, WeaponMastery masteryLevel)
+    {
+        
+        HeroId = heroId;
+        this.exp = exp;
+        this.health = health;
+        this.maxHealth = maxHealth;
+        this.damage = damage;
+        this.criticalDamage = criticalDamage;
+        this.criticalChance = criticalChance;
+        this.protect = protect;
+        this.evasionChance = evasionChance;
+        this.creatureName = creatureName;
+        this.lvl = lvl;
+        Items = items;
+        this.weapon = weapon;
+        CharStates = charStates;
+        this.masteryLevel  = masteryLevel;
+}
+}

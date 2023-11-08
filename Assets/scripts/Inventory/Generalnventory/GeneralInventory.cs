@@ -11,6 +11,7 @@ public class GeneralInventory : Inventory
     [SerializeField] private Transform InvUp;
     [SerializeField] private Transform InvDown;
 
+
     private void Start()
     {
        

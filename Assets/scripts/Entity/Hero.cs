@@ -6,9 +6,13 @@ public class Hero : Creature
     [Header("------Characteristics------")]
     public int exp;
     public bool isRun;
+    [SerializeField] private int id;
+
 
     private static readonly int IsRunning = Animator.StringToHash("is-running");
 
+
+    public int GetId() { return id; }
 
     private void FixedUpdate()
     {

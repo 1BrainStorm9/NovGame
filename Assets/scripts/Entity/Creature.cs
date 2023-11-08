@@ -102,6 +102,7 @@ public abstract class Creature : MonoBehaviour
     public void AddWeaponDamage()
     {
         if (weapon == null) return;
+        masteryLevel = GetComponent<WeaponMastery>();
 
         var weaponLvl = masteryLevel.GetWeaponLevel(weapon.weaponType);
 

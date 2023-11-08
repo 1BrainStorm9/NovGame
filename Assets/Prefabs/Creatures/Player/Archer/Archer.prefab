@@ -140,6 +140,7 @@ MonoBehaviour:
   criticalChance: 10
   protect: 0
   evasionChance: 10
+  creatureName: 
   lvl: 1
   CharStates: []
   masteryLevel: {fileID: 0}
@@ -152,6 +153,7 @@ MonoBehaviour:
   damageText: {fileID: 1151495279816197503}
   exp: 0
   isRun: 0
+  id: 1
 --- !u!114 &3173220393787002405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +166,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fe2695df1fc6546b86013bda183e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sword:
+    type: 0
+    lvl: 1
+  axe:
+    type: 1
+    lvl: 1
+  dagger:
+    type: 2
+    lvl: 1
+  spear:
+    type: 3
+    lvl: 1
+  swordWithShield:
+    type: 4
+    lvl: 1
+  bow:
+    type: 5
+    lvl: 1
 --- !u!114 &7742452860400687148
 MonoBehaviour:
   m_ObjectHideFlags: 0

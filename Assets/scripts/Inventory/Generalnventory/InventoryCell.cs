@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.EventSystems;
 using static CameraController;
 using static UnityEditor.Progress;
 
-public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IEndDragHandler, IBeginDragHandler
+public class InventoryCell : Cell, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
     public delegate void InventoryCellDelegate(InventoryCell cell);
     public static event InventoryCellDelegate OnClick;
@@ -17,34 +18,13 @@ public class InventoryCell : Cell, IPointerEnterHandler, IPointerExitHandler, ID
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     public bool dragOnSurfaces = true;
+    [SerializeField] private GameObject _panel;
+    private GameObject cell;
 
     private GameObject m_DraggingIcon;
     private RectTransform m_DraggingPlane;
 
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        
-    }
-
-
-
-    private void ShowItemStats()
-    {
-        var infstats = FindObjectOfType<DisplayingItemInfo>();
-        infstats.CreateInfoPanel(_item);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-       
-    }
-
-    private void HideItemStats()
-    {
-        var infstats = FindObjectOfType<DisplayingItemInfo>();
-        infstats.ClearInfoPanel();
-    }
 
     public override void OnPointerClick(PointerEventData eventData)
     {

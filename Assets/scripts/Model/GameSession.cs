@@ -8,7 +8,7 @@ public class GameSession : MonoBehaviour
 {
     [SerializeField] private PlayerData _data;
     [SerializeField] private InventoryData _inventory;
-    [SerializeField] private List<Hero> _heroes;
+    [SerializeField] public List<PrefabData> _heroesPrefabs;
     [SerializeField] private TimeOfDayData _dataTime;
     [SerializeField] private QuestManager questManager;
 
@@ -21,7 +21,7 @@ public class GameSession : MonoBehaviour
 
     public PlayerData Data => _data;
     public InventoryData InvData => _inventory;
-    public List<Hero> Heroes => _heroes;
+    public List<PrefabData> HeroesPrefabs => _heroesPrefabs;
     public TimeOfDayData DataTime => _dataTime;
 
     private void Awake()
@@ -69,5 +69,12 @@ public class GameSession : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void SavePrefabData(List<PrefabData> prefabData)
+    {
+        _heroesPrefabs.Clear();
+        _heroesPrefabs.AddRange(prefabData);
+        PlayerPrefs.SetString("PrefabData", JsonUtility.ToJson(_heroesPrefabs));
     }
 }
