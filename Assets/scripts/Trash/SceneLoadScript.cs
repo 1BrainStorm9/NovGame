@@ -17,11 +17,4 @@ public class SceneLoadScript : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            questManager.ActivateQuest("ExitLocation");
-        }
-    }
 }
