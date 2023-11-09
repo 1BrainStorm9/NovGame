@@ -12,17 +12,15 @@ public abstract class Inventory : MonoBehaviour
     [SerializeField] public List<AssetItem> ItemsUp;
     [SerializeField] public List<AssetItem> ItemsDown;
     [SerializeField] protected InventoryCell _inventoryCellTemplate;
-    [SerializeField] protected Transform _containerUp;
-    [SerializeField] protected Transform _containerDown;
     [SerializeField] protected Transform _draggingParent;
     [SerializeField] protected List<Cell> _cells;
-
+    public List<AssetItem> allItems;
     public static int Weight = 7;
     public static int MaxWeight = 15;
 
 
 
-    private Cell activeCell;
+    protected Cell activeCell;
 
     public virtual void OnEnable()
     {
@@ -37,6 +35,7 @@ public abstract class Inventory : MonoBehaviour
 
     }
 
+
     public int CurrentWeight
     {
         get { return Weight; }
@@ -49,13 +48,13 @@ public abstract class Inventory : MonoBehaviour
     }
 
 
-    private bool CanAddItem(AssetItem assetItem)
+    protected  bool CanAddItem(AssetItem assetItem)
     {
         int newWeight = Weight + assetItem.Weight;
         return newWeight <= MaxWeight;
     }
 
-    public void Add(AssetItem item, List<AssetItem> items,Transform container)
+    public virtual void Add(AssetItem item, List<AssetItem> items,Transform container)
     {
         if (CanAddItem(item))
         {
@@ -70,17 +69,32 @@ public abstract class Inventory : MonoBehaviour
     }
 
 
-    public void Delete(AssetItem item)
+    public virtual void Delete(AssetItem item)
     {
         _cells.Remove(activeCell);
         Destroy(activeCell.gameObject);
-        ItemsUp.Remove(item);
+        RemoveItems(item);
         Weight -= 1;
     }
 
+    public void RemoveItems(AssetItem item)
+    {
+        var first = ItemsDown.Find(x => x == item);
+        if (first != null)
+        {
+            allItems.Remove(first);
+            ItemsDown.Remove(first);
+        }
+        else
+        {
+            var seconde = ItemsUp.Find(x => x == item);
+            allItems.Remove(seconde);
+            ItemsUp.Remove(seconde);
+        }
+    }
 
     [ContextMenu("Render")]
-    protected void FullRender(List<AssetItem> items,Transform container)
+    public virtual void FullRender(List<AssetItem> items,Transform container)
     {
         
         foreach (Transform child in container)
@@ -95,14 +109,14 @@ public abstract class Inventory : MonoBehaviour
         });
     }
 
-    private void SetActiveCell(Cell cell)
+    protected virtual void SetActiveCell(Cell cell)
     {
         activeCell = cell;
     }
 
    
 
-    private void AddItemInUi(AssetItem item, Transform container)
+    protected virtual void AddItemInUi(AssetItem item, Transform container)
     {
         if (item == null) return;
         var cell = Instantiate(_inventoryCellTemplate, container);

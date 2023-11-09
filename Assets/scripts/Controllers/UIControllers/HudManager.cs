@@ -17,6 +17,7 @@ public class HudManager : MonoBehaviour
     [SerializeField] GameObject enemySide;
     [SerializeField] GameObject textIn;
     [SerializeField] GameObject invDown;
+    [SerializeField] GameObject shop;
 
     private SceneEnum sceneType;
     private bool isOpen;
@@ -47,6 +48,7 @@ public class HudManager : MonoBehaviour
                 ShowText(true);
                 invDown.SetActive(false);
                 isOpen = false;
+                shop.SetActive(false);
                 break;
                                            
             case SceneEnum.peaceScene:
@@ -55,6 +57,7 @@ public class HudManager : MonoBehaviour
                 ShowText(false);
                 invDown.SetActive(true);
                 isOpen = false;
+                shop.SetActive(false);
                 break;
             
         }

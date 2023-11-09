@@ -8,17 +8,20 @@ public class GeneralInventory : Inventory
     public int Coins;
     public AssetItem assetItem;
     [SerializeField] private int index;
-    [SerializeField] private Transform InvUp;
-    [SerializeField] private Transform InvDown;
+    [SerializeField] public Transform InvUp;
+    [SerializeField] public Transform InvDown;
 
 
-    private void Start()
+    private void Awake()
     {
        
         LoadItemsFromGameSession();
-        FullRender(ItemsUp, _containerUp);
-        FullRender(ItemsDown, _containerDown);
+        allItems.AddRange(ItemsDown);
+        allItems.AddRange(ItemsUp);
+        FullRender(ItemsUp, InvUp);
+        FullRender(ItemsDown, InvDown);
     }
+
 
     public override void OnEnable()
     {
@@ -68,17 +71,6 @@ public class GeneralInventory : Inventory
         {
             ItemsUp.AddRange(session.InvData.items);
         }
-    }
-
-    [ContextMenu("Add")]
-    public void AddItem()
-    {
-        base.Add(assetItem, ItemsUp, _containerUp);
-        base.Add(assetItem, ItemsUp, _containerUp);
-        base.Add(assetItem, ItemsUp, _containerUp);
-        base.Add(assetItem, ItemsDown, _containerDown);
-        base.Add(assetItem, ItemsDown, _containerDown);
-        base.Add(assetItem, ItemsDown, _containerDown);
     }
 
 }

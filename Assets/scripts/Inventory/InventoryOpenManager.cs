@@ -13,6 +13,7 @@ public class InventoryOpenManager : MonoBehaviour
     [SerializeField] private GameObject _localeInventoryPanel;
     [SerializeField] private GameObject _cartInventory;
     [SerializeField] private GameObject _hudCanvas;
+    [SerializeField] private GameObject _shopCanvas;
     [SerializeField] private bool _isVisible = false;
     [SerializeField] private bool isPeace;
 

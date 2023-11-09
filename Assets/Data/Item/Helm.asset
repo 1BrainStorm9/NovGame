@@ -19,6 +19,6 @@ MonoBehaviour:
   _evsion: 0
   _price: 500
   _weight: 1
-  _uiIcon: {fileID: 21300000, guid: 37d70cc32ffdf4e4f8ca81da8f2b86b3, type: 3}
+  _uiIcon: {fileID: 21300000, guid: fbbb3e0bc83ec2046b4e4a6c516924b8, type: 3}
   _itemType: 0
   _prefab: {fileID: 0}

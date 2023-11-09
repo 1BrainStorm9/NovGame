@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static CameraController;
-using static UnityEditor.Progress;
+
 
 public class InventoryCell : Cell, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
@@ -20,9 +16,6 @@ public class InventoryCell : Cell, IDragHandler, IEndDragHandler, IBeginDragHand
     public bool dragOnSurfaces = true;
     [SerializeField] private GameObject _panel;
     private GameObject cell;
-
-    private GameObject m_DraggingIcon;
-    private RectTransform m_DraggingPlane;
 
 
 
@@ -132,10 +125,6 @@ public class InventoryCell : Cell, IDragHandler, IEndDragHandler, IBeginDragHand
         transform.SetParent(_draggingParent, false);
         OnEnterCell?.Invoke(this);
         var canvas = GetComponentInParent<Canvas>();
-        if (dragOnSurfaces)
-            m_DraggingPlane = transform as RectTransform;
-        else
-            m_DraggingPlane = canvas.transform as RectTransform;
     }
 
     public void OnDrag(PointerEventData eventData)
