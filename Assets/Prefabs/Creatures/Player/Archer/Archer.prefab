@@ -144,7 +144,8 @@ MonoBehaviour:
   lvl: 1
   CharStates: []
   masteryLevel: {fileID: 0}
-  Items: []
+  Items:
+  - {fileID: 11400000, guid: 108bf1a160702314e9cc511192ce4e9b, type: 2}
   weapon: {fileID: 0}
   uniqueBasicSpells:
   - {fileID: 4851252110718167138}
