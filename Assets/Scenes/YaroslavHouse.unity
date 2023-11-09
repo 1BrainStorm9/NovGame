@@ -157,6 +157,81 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &211637936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 211637937}
+  - component: {fileID: 211637938}
+  m_Layer: 0
+  m_Name: StopBlockMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &211637937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211637936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.23, y: -4.52, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 682557988}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &211637938
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211637936}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.6502914, y: 1.6815293}
+      - {x: 0.26562977, y: 1.6960163}
+      - {x: 0.17384392, y: -8.234466}
+      - {x: 0.32113838, y: -8.233199}
+      - {x: 0.31647646, y: -7.894839}
+      - {x: 0.5035076, y: 1.2929077}
+      - {x: 0.7232399, y: 1.3739784}
+      - {x: 1.9555225, y: 1.4346318}
+      - {x: 37.05122, y: 1.3881283}
+      - {x: 44.582596, y: 1.366133}
+      - {x: 44.99499, y: 1.2323639}
+      - {x: 44.996162, y: -7.869711}
+      - {x: 0.3493595, y: -7.8871064}
+      - {x: 0.34748268, y: -8.219008}
+      - {x: 45.415386, y: -8.162975}
+      - {x: 45.41539, y: -7.8758254}
+      - {x: 45.399876, y: 1.6249272}
+      - {x: 45.028366, y: 1.6424042}
 --- !u!1 &224559827
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +677,38 @@ Transform:
   m_Father: {fileID: 1353475582}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &682557987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 682557988}
+  m_Layer: 0
+  m_Name: -----Polygon-----
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &682557988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682557987}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.9547262, y: 4.753092, z: 2.818852}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 211637937}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &693977762
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -996,16 +1103,17 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 15d056a7e5328ba44863faaf7262ae29, type: 2}
     - {fileID: 11400000, guid: 67488247fa2c01e4395f00a8ae1fd046, type: 2}
     - {fileID: 11400000, guid: ce888ebcfec07f741bbe36fcbe529a6e, type: 2}
-  _heroes:
-  - {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
+  _heroesPrefabs: []
   _dataTime:
     time: 0
     intensity: 1
   questManager: {fileID: 0}
+  position: {x: 0, y: 0}
   quests: []
   questsIsActive: []
   questsComplete: []
   previousSceneName: 
+  savedPlayerPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1414092217
 Transform:
   m_ObjectHideFlags: 0
@@ -1118,6 +1226,7 @@ MonoBehaviour:
   damageText: {fileID: 0}
   exp: 0
   isRun: 0
+  id: 0
 --- !u!114 &1448306482
 MonoBehaviour:
   m_ObjectHideFlags: 0
