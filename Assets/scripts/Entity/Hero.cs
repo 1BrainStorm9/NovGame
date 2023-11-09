@@ -7,12 +7,13 @@ public class Hero : Creature
     public int exp;
     public bool isRun;
     [SerializeField] private int id;
-
+    private SceneType type;
 
     private static readonly int IsRunning = Animator.StringToHash("is-running");
     protected override void Awake()
     {
         base.Awake();
+        type = FindObjectOfType<SceneType>();
     }
 
     protected void Start()
@@ -28,7 +29,7 @@ public class Hero : Creature
 
     private void FixedUpdate()
     {
-        Animator.SetBool(IsRunning, isRun);
+        if (type.GetSceneType() != SceneEnum.peaceScene) { Animator.SetBool(IsRunning, isRun); }
     }
 
 

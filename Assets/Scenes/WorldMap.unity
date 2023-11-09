@@ -4990,6 +4990,7 @@ GameObject:
   - component: {fileID: 771623292}
   - component: {fileID: 771623287}
   - component: {fileID: 771623293}
+  - component: {fileID: 771623294}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5004,7 +5005,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771623286}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65d4bc2521f01e34383380c24a377d57, type: 3}
   m_Name: 
@@ -5051,7 +5052,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1276343351, guid: 847af81c8d8272b49994cc15c7c8c120, type: 3}
+  m_Sprite: {fileID: 673272260, guid: 0c03d328f4327a34eb39fba1d8e2b274, type: 3}
   m_Color: {r: 0.7533375, g: 0.9339623, b: 0.7797821, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5109,7 +5110,7 @@ Animator:
   m_GameObject: {fileID: 771623286}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 02bce13687f34c94188642e38c944964, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0918ead40a755d54a965e5185d043d43, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5133,18 +5134,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05687818, y: -0.41365713}
+  m_Offset: {x: 0.013287, y: 0.01991427}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.75, y: 1.03125}
+    oldSize: {x: 0.33, y: 0.88}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.31525725, y: 0.17268574}
+  m_Size: {x: 0.24470972, y: 0.85520065}
   m_EdgeRadius: 0
 --- !u!114 &771623293
 MonoBehaviour:
@@ -5177,6 +5178,20 @@ MonoBehaviour:
   exp: 0
   isRun: 0
   id: 0
+--- !u!114 &771623294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771623286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbec076049a46c4391c16e51529e357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterObject: {fileID: 771623286}
+  rotationSpeed: 1
 --- !u!1 &794345656
 GameObject:
   m_ObjectHideFlags: 0
