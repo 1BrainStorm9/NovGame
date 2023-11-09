@@ -17,7 +17,8 @@ namespace Assets.scripts.Entity
             _session = FindObjectOfType<GameSession>();
             var type = FindObjectOfType<SceneType>();
             if (type != null) sceneType = type.GetSceneType();
-            
+            PrefabData prefabData = JsonUtility.FromJson<PrefabData>(PlayerPrefs.GetString("PrefabData"));
+
             LoadHeros(_session);
 
 

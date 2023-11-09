@@ -4370,9 +4370,8 @@ MonoBehaviour:
     criticalChance: 10
     protect: 3
     evasionChance: 10
-    creatureName: "\u041F\u0438\u0434\u043E\u0440"
+    creatureName: "\u0421\u043E\u0432\u0435\u0442\u043D\u0438\u043A"
     lvl: 1
-    uniqueBasicSpells: []
     Items:
     - {fileID: 11400000, guid: e4f682f0461dbe544a667ac7bbb41582, type: 2}
     - {fileID: 11400000, guid: 7cf673b4a89da1e4d8ffce9904fd74c2, type: 2}
@@ -4391,7 +4390,6 @@ MonoBehaviour:
     evasionChance: 0
     creatureName: 
     lvl: 0
-    uniqueBasicSpells: []
     Items: []
     weapon: {fileID: 0}
     CharStates: []
@@ -4400,6 +4398,7 @@ MonoBehaviour:
     time: 0
     intensity: 0
   questManager: {fileID: 0}
+  position: {x: 0, y: 0}
   quests: []
   questsIsActive: []
   questsComplete: []

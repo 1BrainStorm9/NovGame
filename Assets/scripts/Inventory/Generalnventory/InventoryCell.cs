@@ -30,8 +30,11 @@ public class InventoryCell : Cell, IDragHandler, IEndDragHandler, IBeginDragHand
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            OnClick(this);
-            AddItemToHero();
+            if ((FindObjectOfType<SceneType>().GetSceneType() == SceneEnum.peaceScene || FindObjectOfType<GameController>().IsPlayerTurn()))
+            {
+                OnClick(this);
+                AddItemToHero(); 
+            }
 
         }
     }

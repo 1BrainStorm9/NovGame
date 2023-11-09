@@ -163,12 +163,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: eee52b44918237d48a3225d5014856e4, type: 2}
     - {fileID: 11400000, guid: 15d056a7e5328ba44863faaf7262ae29, type: 2}
     - {fileID: 11400000, guid: 67488247fa2c01e4395f00a8ae1fd046, type: 2}
-  _heroes:
-  - {fileID: 76591019021324353, guid: c208661d77d688641a39498f9078f5d2, type: 3}
+  _heroesPrefabs: []
   _dataTime:
     time: 0
     intensity: 0
   questManager: {fileID: 1485536524}
+  position: {x: 0, y: 0}
   quests: []
   questsIsActive: []
   questsComplete: []
@@ -4637,6 +4637,7 @@ MonoBehaviour:
   damageText: {fileID: 0}
   exp: 0
   isRun: 0
+  id: 0
 --- !u!1 &794345656
 GameObject:
   m_ObjectHideFlags: 0
@@ -10934,7 +10935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 56586504483261281, guid: 4de59852d41d2aa46becab4578f6ba57, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 56586504483261283, guid: 4de59852d41d2aa46becab4578f6ba57, type: 3}
       propertyPath: m_Enabled

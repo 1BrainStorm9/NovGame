@@ -263,6 +263,12 @@ public class GameController : MonoBehaviour
         gs.SavePrefabData(list);
     }
 
+    [ContextMenu("Save")]
+    private void Save()
+    {
+        PlayerPrefs.Save();
+    }
+
     private void Pause()
     {
         Time.timeScale = 0f;
