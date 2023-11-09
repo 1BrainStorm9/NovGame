@@ -32,7 +32,7 @@ public class LoadTrigger : MonoBehaviour
                 gameSession.GetTimeData();
             }
             gameSession.previousSceneName = SceneManager.GetActiveScene().name;
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(sceneName);
 
 
             /*var hero = collision.GetComponent<Creature>();

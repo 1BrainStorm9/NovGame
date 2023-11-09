@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Unity.VisualScripting;
 
 public class CameraZoomZoneInHouse : MonoBehaviour
 {
@@ -11,15 +12,21 @@ public class CameraZoomZoneInHouse : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private float minOrthoSize;
     [SerializeField] private float maxOrthoSize;
+    
 
     [SerializeField] private float cooldownTime;
     private bool isFading = false;
     private bool isFaded = false;
     private bool inTriggerZone = false;
     private float lastUsedTime;
-    
+
+    [SerializeField]  private GameObject ogr;
     private Movment Movment; 
     private Animator animator;
+
+    private void Start()
+    {
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -37,6 +44,8 @@ public class CameraZoomZoneInHouse : MonoBehaviour
             isFading = true;
             isFaded = false;
             UpdateCameraOrthoSize();
+
+            ogr.SetActive(true);
         }
     }
 
@@ -50,6 +59,9 @@ public class CameraZoomZoneInHouse : MonoBehaviour
                 isFaded = !isFaded;
                 isFading = true;
                 UpdateCameraOrthoSize();
+
+                ogr.SetActive(false);
+
             }
         }
 
