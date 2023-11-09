@@ -1,3 +1,4 @@
+using Assets.scripts.Entity;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -37,7 +38,11 @@ public class GameController : MonoBehaviour
 
 
 
-    public Creature GetActiveCreature { get { return fightList[0]; } }
+    public Creature GetActiveCreature { get { 
+            return fightList[0]; 
+        }
+    }
+
 
     private void OnEnable()
     {
@@ -71,13 +76,16 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        hudManager = FindObjectOfType<HudManager>();
-        hudManager.ShowRightSide(true);
-        manager = GetComponent<UIManager>();
         heroManager = GetComponent<HeroManager>();
+        manager = GetComponent<UIManager>();
+        //var avas = FindObjectOfType<DataAfterLoadController>();
+        //avas.LoadHeros(FindObjectOfType<GameSession>());
+        if(heroManager.heroes == null) { heroManager.AddHeroes(); }       
         enemyManager = GetComponent<EnemyManager>();
         spawnTargetMarker = FindObjectOfType<SpawnTargetMarker>();
-        Invoke("SaveHeroValues",1f);
+        hudManager = FindObjectOfType<HudManager>();
+        hudManager.ShowRightSide(true);
+        Invoke("SaveHeroValues", 1f);
 
     }
 
@@ -243,7 +251,6 @@ public class GameController : MonoBehaviour
     private void HeroMoveAnimation()
     {
         OnKilledAllEnemies?.Invoke();
-        manager.HideSelectCircle();
     }
 
     [ContextMenu("End")]

@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class HeroManager : MonoBehaviour
 {
@@ -27,6 +25,11 @@ public class HeroManager : MonoBehaviour
     }
 
     private void Start()
+    {
+        AddHeroes();
+    }
+
+    public void AddHeroes()
     {
         foreach (var player in GameObject.FindGameObjectsWithTag("Player").ToList())
         {

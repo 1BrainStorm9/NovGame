@@ -39,10 +39,6 @@ public class UIManager : MonoBehaviour
         selectCircle.SetActive(true);
     }
 
-    public void HideSelectCircle()
-    {
-        selectCircle.SetActive(false);
-    }
 
     public void ShowTargetCircle()
     {

@@ -10,15 +10,29 @@ public class Hero : Creature
 
 
     private static readonly int IsRunning = Animator.StringToHash("is-running");
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
-
-    public int GetId() { return id; }
+    protected void Start()
+    {
+        AssetItem item = Items.Find(x => x.itemType == ItemType.Weapon);
+        if (item == null) { return; }
+        var weapon = Instantiate(item.prefab);
+        weapon.transform.SetParent(this.transform);
+        this.weapon = weapon.GetComponent<Weapon>();
+        this.AddWeaponSpellsToHeroSpells();
+        this.AddWeaponDamage();
+    }
 
     private void FixedUpdate()
     {
         Animator.SetBool(IsRunning, isRun);
     }
 
+
+    public int GetId() { return id; }
 
 
     public void LevelUp()

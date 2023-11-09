@@ -12,18 +12,17 @@ namespace Assets.scripts.Entity
         [SerializeField] private List<GameObject> startPositions;
         private SceneEnum sceneType;
 
-        private void Start()
+        private void Awake()
         {
             _session = FindObjectOfType<GameSession>();
             var type = FindObjectOfType<SceneType>();
             if (type != null) sceneType = type.GetSceneType();
-            PrefabData prefabData = JsonUtility.FromJson<PrefabData>(PlayerPrefs.GetString("PrefabData"));
 
             LoadHeros(_session);
 
 
         }
-        private void LoadHeros(GameSession gameSession)
+        public void LoadHeros(GameSession gameSession)
         {
             switch (sceneType)
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using PixelCrew.Components.GoBased;
 using System;
 using TMPro;
+using static UnityEditor.Progress;
 
 
 [Serializable]
@@ -48,11 +49,13 @@ public abstract class Creature : MonoBehaviour
     private static readonly int Die = Animator.StringToHash("is-dead");
     private static readonly int Evasion = Animator.StringToHash("evasion");
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         Animator = GetComponent<Animator>();
         _particles = GetComponent<SpawnListComponent>();
         masteryLevel = GetComponent<WeaponMastery>();
+
+
     }
 
     private void OnEnable()
