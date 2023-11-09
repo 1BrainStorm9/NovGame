@@ -4033,7 +4033,6 @@ Transform:
   - {fileID: 1507662377}
   - {fileID: 8335009721513031246}
   - {fileID: 2065587263}
-  - {fileID: 589693789}
   - {fileID: 1288356043}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -4220,54 +4219,6 @@ PolygonCollider2D:
       - {x: 27.89508, y: 30.094757}
       - {x: -7.4660034, y: 30.19931}
       - {x: -7.1748896, y: 50.7655}
---- !u!1 &589693788
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 589693789}
-  - component: {fileID: 589693790}
-  m_Layer: 0
-  m_Name: SpawnOutHouse
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &589693789
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589693788}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -140.6, y: -289.4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 571968505}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &589693790
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589693788}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 8.96
 --- !u!1 &614179589
 GameObject:
   m_ObjectHideFlags: 0
@@ -9193,7 +9144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1638602718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9293,7 +9244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638602717}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -549.1803, y: 280.90567, z: -64.38613}
+  m_LocalPosition: {x: 115, y: -31, z: -64.38613}
   m_LocalScale: {x: 7.048771, y: 7.048771, z: 7.048771}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10921,7 +10872,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 979943241050521764, guid: fe079182bd5a3b14eb1a01f7982b9dff, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 979943241050521764, guid: fe079182bd5a3b14eb1a01f7982b9dff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12169,7 +12120,7 @@ PrefabInstance:
     - target: {fileID: 979943241050521771, guid: fe079182bd5a3b14eb1a01f7982b9dff, type: 3}
       propertyPath: spawnPoint
       value: 
-      objectReference: {fileID: 589693789}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe079182bd5a3b14eb1a01f7982b9dff, type: 3}
 --- !u!4 &979943241985000851 stripped
