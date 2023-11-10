@@ -40,34 +40,7 @@ public class InventoryOpenManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            string sceneName = SceneManager.GetActiveScene().name;
-
-            
-            _isVisible = !_isVisible;
-            
-
-
-            if (gameState == GameState.Fight)
-            {
-                _gereneralInventoryPanel.SetActive(_isVisible);
-                _localeInventoryPanel.SetActive(_isVisible);
-            }
-            else
-            {
-                _gereneralInventoryPanel.SetActive(_isVisible);
-                _localeInventoryPanel.SetActive(_isVisible);
-                _cartInventory.SetActive(_isVisible);
-            }
-
-            if (_isVisible)
-            {
-                var plrinv = FindObjectOfType<PlayerInventory>();
-                plrinv.RefreshHeroInfoPanel();
-            }
-
-        }
+        
 
     }
 }

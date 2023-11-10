@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UnderCremlin.unity
     guid: b99e26799f09d3e42a5133748a994bb3
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 30f83e861f7eb194ba6e7d94c109b0e3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 319ea08ac9209e24a9f90ded3c58e07d, type: 2}
