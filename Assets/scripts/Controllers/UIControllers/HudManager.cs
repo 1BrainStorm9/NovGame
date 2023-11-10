@@ -57,7 +57,7 @@ public class HudManager : MonoBehaviour
                 ShowText(false);
                 invDown.SetActive(true);
                 isOpen = false;
-                //shop.SetActive(false);
+                shop.SetActive(false);
                 break;
             
         }
