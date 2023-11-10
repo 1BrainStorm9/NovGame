@@ -10,6 +10,7 @@ public class DialogueChoise : MonoBehaviour
 {
     [SerializeField] private GameObject[] _choices;
     private TextMeshProUGUI[] _choicesText;
+    private QuestManager _questManager;
 
     public void Init()
 	{
@@ -20,6 +21,7 @@ public class DialogueChoise : MonoBehaviour
 		{
             _choicesText[index++] = choice.GetComponentInChildren<TextMeshProUGUI>();
 		}
+
 	}
 
     public bool DisplayChoices(Story story)
@@ -40,9 +42,9 @@ public class DialogueChoise : MonoBehaviour
             _choices[index].SetActive(true);
             _choicesText[index++].text = choise.text;
 		}
-
         return currentChoices.Length > 0;
-	}
+
+    }
 
     public void HideChoices()
 	{
@@ -50,5 +52,7 @@ public class DialogueChoise : MonoBehaviour
 		{
             button.SetActive(false);
 		}
+
+
 	}
 }
